@@ -37,7 +37,7 @@ class MenuItemManager extends AdminHudSubMenu
 	private string m_CurrentCatagory;
 	private int    m_searchBoxCount = 0;
 	private bool   m_loaded;
-	private int    prevRow;
+	private int    prevRow = -2;
 	
 	void MenuItemManager()
 	{
@@ -233,7 +233,7 @@ class MenuItemManager extends AdminHudSubMenu
 					m_CurrentPresetData.AddItem(typeName,false);
 					ReloadPresetData();
 				}else{
-					RequestSpawn(true,typeName);
+					RequestSpawn(true, typeName);
 				}
 			}
 			return true;
@@ -265,13 +265,27 @@ class MenuItemManager extends AdminHudSubMenu
 		}
 
 		//Handles mags, ammo etc (clamps it between 0..1)
-		if (ib && ib.HasQuantity())
+		if (ib)
 		{
-			if (ib.IsMagazine())
+			if (ib.HasQuantity())
 			{
-				quantity = Math.Clamp((quantity - 0.0) / (ib.ConfigGetInt("count") - 0.0), 0, 1);
-			}else{
-				quantity = Math.Clamp((quantity - ib.GetQuantityMin()) / (ib.GetQuantityMax() - ib.GetQuantityMin()), 0, 1);
+				if (ib.IsMagazine())
+				{
+					quantity = Math.Clamp((quantity - 0.0) / (ib.ConfigGetInt("count") - 0.0), 0, 1);
+				}else{
+					quantity = Math.Clamp((quantity - ib.GetQuantityMin()) / (ib.GetQuantityMax() - ib.GetQuantityMin()), 0, 1);
+				}
+			}
+			
+			//Energy component based items
+			if (ib.HasComponent(COMP_TYPE_ENERGY_MANAGER))//more direct access for speed
+			{
+				ComponentEnergyManager comp = ib.GetCompEM();
+				if (comp && (comp.GetEnergyMaxPristine() || comp.GetEnergyAtSpawn()))
+				{
+					if (txtQuant == "max" || txtQuant == string.Empty)
+						quantity = comp.GetEnergyAtSpawn(); //uses default config.cpp entry value "energyAtSpawn"
+				}
 			}
 		}
 

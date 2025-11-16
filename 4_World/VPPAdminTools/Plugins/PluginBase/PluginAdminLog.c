@@ -106,12 +106,15 @@ modded class PluginAdminLog
 					{
 						m_ItemInHands = source.GetDisplayName();				
 						m_Source = PlayerBase.Cast(source.GetHierarchyRootPlayer());
-						m_PlayerPrefix2 = VPPGetPlayerPrefix( m_Source.GetPosition() ,  m_Source );
-						m_Distance = vector.Distance( player.GetPosition(), m_Source.GetPosition() );
+						if (m_Source)
+						{
+							m_PlayerPrefix2 = VPPGetPlayerPrefix( m_Source.GetPosition() ,  m_Source );
+							m_Distance = vector.Distance( player.GetPosition(), m_Source.GetPosition() );
 						
-						rpt.sourceName = m_Source.VPlayerGetName();
-						rpt.sourceId   = m_Source.VPlayerGetSteamId();
-
+							rpt.sourceName = m_Source.VPlayerGetName();
+							rpt.sourceId   = m_Source.VPlayerGetSteamId();
+						}
+						
 						rpt.details = PlayerPrefix + " hit by " + m_PlayerPrefix2 + HitMessage + " with ("+ m_ItemInHands +") from (" + m_Distance + ") meters ";
 					}
 					else 
