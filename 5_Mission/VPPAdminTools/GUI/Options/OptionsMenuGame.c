@@ -1,6 +1,5 @@
 modded class OptionsMenuGame 
 {
-	protected Widget 						m_CustomSetting;
 	protected Widget 						m_VPPATSection;
 
 	protected Widget 						m_widgetCamSpeed;
@@ -69,50 +68,65 @@ modded class OptionsMenuGame
 		g_Game.SetVPPATProfileVal(EVPPATProfileOptions.CAM_MOUSE_SENSE, m_CamMouseSense.GetValue());
 		g_Game.SetVPPATProfileVal(EVPPATProfileOptions.CAM_SMOOTHNESS, m_CamSmoothness.GetValue());
 		g_Game.SetVPPATProfileVal(EVPPATProfileOptions.CAM_FOV, m_CamFOV.GetValue());
-		if (m_CamSpeed)
-			m_CamSpeed.SetHasChanged(false);
 	}
 
 	override bool IsChanged()
   	{
-  		if (m_CamSpeed && m_CamSpeed.HasChanged())
+  		float currentVal;
+  		float savedVal;
+
+  		if (m_CamSpeed)
   		{
-  			return true;
+  			currentVal = m_CamSpeed.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_SPEED);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
 
   		if (m_CamBoost)
   		{
-  			if (m_CamBoost.GetValue() != g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_BOOST)){
-  				return true;
-  			}
+  			currentVal = m_CamBoost.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_BOOST);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
   		
   		if (m_CamMoveDrag)
   		{
-  			if (m_CamMoveDrag.GetValue() != g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_MOVE_DRAG)){
-  				return true;
-  			}
+  			currentVal = m_CamMoveDrag.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_MOVE_DRAG);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
   		
   		if (m_CamMouseSense)
   		{
-  			if (m_CamMouseSense.GetValue() != g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_MOUSE_SENSE)){
-  				return true;
-  			}
+  			currentVal = m_CamMouseSense.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_MOUSE_SENSE);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
   		
   		if (m_CamSmoothness)
   		{
-  			if (m_CamSmoothness.GetValue() != g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_SMOOTHNESS)){
-  				return true;
-  			}
+  			currentVal = m_CamSmoothness.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_SMOOTHNESS);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
   		
   		if (m_CamFOV)
   		{
-  			if (m_CamFOV.GetValue() != g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_FOV)){
-  				return true;
-  			}
+  			currentVal = m_CamFOV.GetValue();
+			savedVal   = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_FOV);
+
+			if (Math.AbsFloat(currentVal - savedVal) > 0.0005)
+			    return true;
   		}
   		return super.IsChanged();
   	}
@@ -122,10 +136,7 @@ modded class OptionsMenuGame
 		super.Revert();
 
 		float oldVal = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_SPEED);
-		if (m_CamSpeed){
-			m_CamSpeed.SetValue(oldVal, false);
-			m_CamSpeed.SetHasChanged(false);
-		}
+		m_CamSpeed.SetValue(oldVal, false);
 
 		oldVal = g_Game.GetVPPATProfileVal(EVPPATProfileOptions.CAM_BOOST);
 		m_CamBoost.SetValue(oldVal, false);
