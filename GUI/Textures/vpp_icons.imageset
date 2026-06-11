@@ -248,9 +248,99 @@ ImageSetClass {
    Size 64 64
    Flags 0
   }
+ ImageSetDefClass package {
+   Name "package"
+   Pos 0 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass package_plus {
+   Name "package_plus"
+   Pos 64 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass star {
+   Name "star"
+   Pos 128 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass history {
+   Name "history"
+   Pos 192 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass trash_2 {
+   Name "trash_2"
+   Pos 256 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass save {
+   Name "save"
+   Pos 320 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass crown {
+   Name "crown"
+   Pos 384 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass play {
+   Name "play"
+   Pos 448 320
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass plus {
+   Name "plus"
+   Pos 0 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass minus {
+   Name "minus"
+   Pos 64 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass shirt {
+   Name "shirt"
+   Pos 128 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass car {
+   Name "car"
+   Pos 192 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass apple {
+   Name "apple"
+   Pos 256 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass house {
+   Name "house"
+   Pos 320 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass paw_print {
+   Name "paw_print"
+   Pos 384 384
+   Size 64 64
+   Flags 0
+  }
  ImageSetDefClass dot {
    Name "dot"
-   Pos 0 320
+   Pos 448 384
    Size 64 64
    Flags 0
   }

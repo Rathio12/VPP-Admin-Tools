@@ -25,7 +25,11 @@ class VPPCollapsibleSection
 		m_Expanded = startExpanded;
 
 		if (chevronName != "")
+		{
 			m_Chevron = ImageWidget.Cast(root.FindAnyWidget(chevronName));
+			m_Chevron.LoadImageFile(0, "set:vpp_icons image:chevron_up");
+			m_Chevron.LoadImageFile(1, "set:vpp_icons image:chevron_down");
+		}
 
 		if (m_Header)
 			WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(m_Header, this, "OnHeaderClick");

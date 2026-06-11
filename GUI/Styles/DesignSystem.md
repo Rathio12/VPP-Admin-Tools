@@ -59,27 +59,30 @@ Applied to vital icons/values by percentage of max:
 
 ## 2. Typography
 
-Font family: **InterDisplay** (ships with the mod, `VPPAdminTools/GUI/Fonts/`).
-Reference in layouts as `font "vppadmintools/gui/fonts/InterDisplay-<Weight><Size>"`
-(explicit size suffix, e.g. `InterDisplay-SemiBold16`) with `"exact text" 1` so text
-renders at native pixel size and stays crisp at any resolution. Only generated sizes
-exist (12/14/16/22/28/48) — never reference a size without a matching `.fnt`.
+Font: vanilla SDF font **`gui/fonts/sdf_MetronLight72`** for *every* text widget
+(the bible — established in `MenuPlayerManager.layout` and its child layouts).
+Always pair it with `"exact text" 1` and an explicit `"exact text size"`;
+bold roles add `"bold text" 1`. Never use the legacy InterDisplay fonts.
 
-| Role                   | Weight    | Size | Notes |
+```text
+font "gui/fonts/sdf_MetronLight72"
+"exact text" 1
+"exact text size" 14
+"bold text" 1        <- bold roles only
+```
+
+| Role                   | Exact size | Bold | Notes |
 |------------------------|-----------|------|-------|
-| Window title           | SemiBold  | 22   | UPPERCASE, `text-primary` |
-| Window subtitle        | Regular   | 14   | `text-secondary` |
-| Panel header           | Medium    | 16   | UPPERCASE, `text-primary` |
-| Section header         | SemiBold  | 14   | UPPERCASE, `accent-orange` |
-| Body / field label     | Regular   | 16   | `text-secondary` for labels |
-| Field value            | Medium    | 16   | `text-primary` |
-| Button label           | Regular   | 16   | `text-primary` |
-| Vital value            | SemiBold  | 16   | tinted by threshold |
-| Small print / counters | Regular   | 14   | `text-secondary` |
-| GUID value             | Medium    | 12   | exception: stays small to avoid clipping |
-
-Weights available: Thin, Light, Regular, Medium, SemiBold, Bold.
-Generated sizes: 12, 14, 16, 22, 28, 48.
+| Window title           | 22        | yes  | UPPERCASE, `text-primary` |
+| Window subtitle        | 14        | no   | `text-secondary` |
+| Panel header           | 18        | yes  | UPPERCASE, `text-primary` |
+| Section header / tab   | 14-16     | yes  | UPPERCASE, `accent-orange` (tabs: `text-primary` active / `text-secondary` inactive) |
+| Body / field label     | 14        | no   | `text-secondary` for labels |
+| Field value / row text | 14        | no   | `text-primary` |
+| Button label           | 14-16     | yes  | `text-primary`; 16 for primary actions (SPAWN ITEM) |
+| Emphasis value (names) | 16        | yes  | selected-item name, vital values (tinted) |
+| Small print / counters | 14        | no   | `text-secondary` |
+| GUID / classname small | 12        | no   | exception: stays small to avoid clipping |
 
 ---
 
@@ -130,6 +133,27 @@ Icon usage map (Player Manager):
 | Pin                      | `pin`                 |
 | Gavel (admin action)     | `gavel`               |
 
+Icon usage map (Item Manager):
+
+| Purpose                  | Sprite                |
+|--------------------------|-----------------------|
+| Item Manager / generic item | `package`          |
+| Add to preset            | `package_plus`        |
+| Favorite toggle          | `star` (orange = on)  |
+| Recents category         | `history`             |
+| Spawn / run              | `play` (positive-green) |
+| Quantity stepper         | `minus`, `plus`       |
+| Save preset changes      | `save`                |
+| New preset               | `plus`                |
+| Delete preset / row      | `trash_2` (danger-red)|
+| Preset parent badge      | `crown` (accent-orange) |
+| Type: weapon             | `sword`               |
+| Type: clothing           | `shirt`               |
+| Type: food/drink         | `apple`               |
+| Type: vehicle            | `car`                 |
+| Type: structure          | `house`               |
+| Type: AI/animal          | `paw_print`           |
+
 ---
 
 ## 4. Widget Styles (`vpp_widgets.styles`)
@@ -158,6 +182,11 @@ or layout must drive the color.
 | `VPPFill`        | PanelWidget      | flat white fill (tint with `color`)         | Script-colored vital bars (too small to round) |
 | `VPPFillRound`   | PanelWidget      | rounded white fill (tint with `color`)      | Header strips, cards, player rows |
 | `VPPScroll`      | ScrollWidget     | invisible chrome                            | Scroll areas (like vanilla `blank`) |
+| `VPPListbox`     | TextListboxWidget| Normal / Focus / Disabled                   | Item catalog: `vpp_input` 9-slice frame, `vpp_select` row highlight, slim `vpp_scroll_*` scrollbar, empty separators/headers |
+
+> **Listbox font exception**: `TextListboxWidget` ignores `"exact text"` scaling and renders the
+> style font at native size. `VPPListbox` therefore uses fixed-size `gui/fonts/MetronLight16`
+> instead of the SDF-72 bible font. Never put `font` / `"exact text"` props on a listbox in layouts.
 
 9-slice sprite geometry mirrors vanilla `menuButton*`: 2x2 px corners, 1 px edges,
 1x1 center (`vpp_btn_tl`, `vpp_btn_t`, ... `vpp_btn_br`). Patch families:
@@ -178,8 +207,12 @@ To change the look of every button/input/panel at once: edit the color constants
 | Title bar height     | 36 px      | exact size (`vexactsize 1`, `size 1 36`) |
 | Panel header height  | 28 px      | exact size |
 | Section header height| 24 px      | exact size |
-| Row height           | 26 px      | player list rows |
+| Row height           | 26 px      | player list / preset library / preset contents rows |
 | Button height        | 28 px      | action buttons |
+| Icon button          | 26 x 26 px | per-row actions (favorite, add-to-preset, spawn, delete, crown) with 16 px icon |
+| Option row height    | 30 px      | spawn option rows (label + control: stepper, dropdown, checkbox) |
+| Dropdown selector    | 24 px high | `VPPDropDownMenu` host panel; 26 px element rows, 160 px max list |
+| Primary action button| 34 px high | full-width SPAWN ITEM style buttons |
 | Panel gap            | 8 px       | between columns/panels |
 | Panel padding        | 8-10 px    | inner content inset |
 
@@ -197,3 +230,20 @@ To change the look of every button/input/panel at once: edit the color constants
   switch with `SetImage()`. Layouts carry only `image0` for the initial look
   (see `VPPCollapsibleSection` chevrons).
 - Avoid `color 1 0 0 1` debug markers on root frames; roots should be `0 0 0 0` or a token.
+- **Dropdowns**: one system everywhere — `VPPDropDownMenu` (5_Mission `GUI/UIHelpers/DropDownMenu.c`,
+  prefabs in `GUI/Layouts/VPPDropdown/`). Host it in a chrome-less `PanelWidget` placed *last*
+  among its siblings so the expanded list draws on top. No `XComboBoxWidget` in new UI.
+  **The host panel and every small ancestor (row frames) MUST set `clipchildren 0`** —
+  otherwise the 160px expanded list is clipped to the 24-30px host/row bounds and never shows.
+- **Tabs**: pairs of `VPPButton`s in the panel header; the script swaps two root frames and
+  tints labels `text-primary` (active) / `text-secondary` (inactive) — see `SetPanelTab`
+  in MenuPlayerManager/MenuItemManager.
+- **Quantity stepper**: `[-] [value] [+] [MAX]` — 26x26 `VPPButton`s around a `VPPInput`;
+  "MAX"/empty resolves to the item's maximum at spawn time.
+- **Preview card**: `ItemPreviewWidget` inside a `VPPCard` well with a corner `VPPCheckBox`
+  toggle; drag-rotate via `GetDragQueue()`.
+- **Explicit row actions** replace hidden mouse gestures (right-click/Ctrl gestures):
+  every list row carries its own 26x26 icon buttons (spawn / delete / make-parent / favorite).
+- **EditBox `"Use default text" 1`** turns the `text` value into a placeholder hint:
+  `GetText()` returns `""` until the user types. Only use it for hint text (search fields),
+  never on inputs that scripts read/write (e.g. the quantity stepper).

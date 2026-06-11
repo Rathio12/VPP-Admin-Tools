@@ -119,6 +119,7 @@ class VPPATUIConstants
 	const static string MenuItemManager 			 = "VPPAdminTools/GUI/Layouts/ItemManagerUI/MenuItemManager.layout";
 	const static string PopUpCreatePreset 			 = "VPPAdminTools/GUI/Layouts/ItemManagerUI/PopUpCreatePreset.layout";
 	const static string EntryPresetItem 			 = "VPPAdminTools/GUI/Layouts/ItemManagerUI/EntryPresetItem.layout";
+	const static string VPPPresetEntry 				 = "VPPAdminTools/GUI/Layouts/ItemManagerUI/VPPPresetEntry.layout";
 
 	//ESP Tools
 	const static string EspToolsMenu 				 = "VPPAdminTools/GUI/Layouts/EspToolsUI/EspToolsMenu.layout";

@@ -578,6 +578,12 @@ ImageSetClass {
    Size 4 4
    Flags 0
   }
+ ImageSetDefClass vpp_select {
+   Name "vpp_select"
+   Pos 42 26
+   Size 4 4
+   Flags 0
+  }
  ImageSetDefClass vpp_check_off {
    Name "vpp_check_off"
    Pos 0 40
@@ -600,6 +606,24 @@ ImageSetClass {
    Name "vpp_check_disabled"
    Pos 96 40
    Size 26 26
+   Flags 0
+  }
+ ImageSetDefClass vpp_scroll_top {
+   Name "vpp_scroll_top"
+   Pos 0 72
+   Size 8 4
+   Flags 0
+  }
+ ImageSetDefClass vpp_scroll_c {
+   Name "vpp_scroll_c"
+   Pos 0 76
+   Size 8 8
+   Flags 0
+  }
+ ImageSetDefClass vpp_scroll_b {
+   Name "vpp_scroll_b"
+   Pos 0 84
+   Size 8 4
    Flags 0
   }
  }

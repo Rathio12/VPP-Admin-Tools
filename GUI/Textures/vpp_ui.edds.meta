@@ -1,7 +1,7 @@
 MetaFileClass {
  Name "{B2514993B379420D}VPPAdminTools/GUI/Textures/vpp_ui.edds"
  Author "desktop-scqak3t"
- ChangeDate 830813387
+ ChangeDate -2006420276
  Configurations {
   TGAResourceClass PC {
    SourceFile "vpp_ui.tga"

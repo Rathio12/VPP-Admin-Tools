@@ -15,8 +15,8 @@ PanelWidgetClass PanelPlayer {
   ImageWidgetClass ImgOnlineDot {
    ignorepointer 1
    color 0.298 0.686 0.314 1
-   position 8 0
-   size 16 16
+   position 0 0
+   size 24 24
    valign center_ref
    hexactpos 1
    vexactpos 1
@@ -31,7 +31,7 @@ PanelWidgetClass PanelPlayer {
   CheckBoxWidgetClass CheckBox {
    ignorepointer 0
    position 24 0
-   size 0.88 0.9
+   size 0.987 0.9
    valign center_ref
    hexactpos 1
    vexactpos 1
@@ -39,9 +39,7 @@ PanelWidgetClass PanelPlayer {
    vexactsize 0
    style VPPCheckBox
    text "PlayerName"
-   font "gui/fonts/sdf_MetronLight72"
-   "exact text" 1
-   "exact text size" 14
+   font "gui/fonts/sdf_MetronLight24"
    "text outline size" 1
    "text outline color" 0 0 0 0.996
    "text shadow color" 0 0 0 0
