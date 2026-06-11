@@ -63,7 +63,7 @@ WindowWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 1
        position 0 0
-       size 0.9996 0.06329
+       size 1 0.063
        halign center_ref
        hexactpos 0
        vexactpos 0
@@ -73,8 +73,8 @@ WindowWidgetClass rootFrame {
        {
         TextWidgetClass title_text {
          ignorepointer 1
-         position 0.00093 0
-         size 0.9891 1
+         position 0.001 0
+         size 0.989 1
          valign center_ref
          hexactpos 0
          vexactpos 0
@@ -89,7 +89,7 @@ WindowWidgetClass rootFrame {
          "text valign" center
         }
         CheckBoxWidgetClass chkSelectAll {
-         position 0.0265 0.02
+         position 0.026 0.02
          size 0.5 1
          hexactpos 0
          vexactpos 0
@@ -190,6 +190,7 @@ WindowWidgetClass rootFrame {
        }
       }
       GridSpacerWidgetClass GridActions {
+       clipchildren 1
        ignorepointer 1
        position 0 0
        size 0.957 0.872
@@ -200,7 +201,6 @@ WindowWidgetClass rootFrame {
        hexactsize 0
        vexactsize 0
        Padding 5
-       "Size To Content H" 1
        "Size To Content V" 1
        content_valign center
        Columns 1
@@ -231,7 +231,7 @@ WindowWidgetClass rootFrame {
          font "vppadmintools/gui/fonts/InterDisplay-Regular"
         }
         ButtonWidgetClass BtnRemove {
-         color 0.9059 0.2235 0.2235 1
+         color 0.906 0.223 0.223 1
          size 0.154 0.15
          halign center_ref
          valign center_ref
@@ -281,6 +281,8 @@ WindowWidgetClass rootFrame {
          font "vppadmintools/gui/fonts/InterDisplay-Regular"
         }
         TextWidgetClass txtCursorPos {
+         clipchildren 1
+         inheritalpha 0
          ignorepointer 0
          size 1 0.15
          halign center_ref
@@ -289,8 +291,10 @@ WindowWidgetClass rootFrame {
          vexactpos 0
          hexactsize 0
          vexactsize 0
-         text "X: 0 Y: 0 Z: 0"
+         scaled 1
+         text "X: 0 Y: 0 Z: 0X: 0 Y: 0 Z: 0"
          font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+         "exact text" 0
          "size to text h" 1
          "size to text v" 1
          "text halign" center
