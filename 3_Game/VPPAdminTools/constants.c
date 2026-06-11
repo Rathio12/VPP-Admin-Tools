@@ -59,6 +59,11 @@ class VPPATUIConstants
 	const static string VPPAdminHud 				 = "VPPAdminTools/GUI/Layouts/AdminToolBar/VPPAdminHud.layout";
 	const static string VPPButton 					 = "VPPAdminTools/GUI/Layouts/AdminToolBar/VPPButton.layout";
 
+	//Design System prefabs
+	const static string DSSectionHeader 			 = "VPPAdminTools/GUI/Layouts/UIHelpers/DesignSystem/SectionHeader.layout";
+	const static string DSActionButton 				 = "VPPAdminTools/GUI/Layouts/UIHelpers/DesignSystem/ActionButton.layout";
+	const static string DSVitalCell 				 = "VPPAdminTools/GUI/Layouts/UIHelpers/DesignSystem/VitalCell.layout";
+
 	//UI Helpers
 	const static string VPPDialogBox 				 = "VPPAdminTools/GUI/Layouts/UIHelpers/VPPDialogBox.layout";
 	const static string CustomGridSpacer 			 = "VPPAdminTools/GUI/Layouts/UIHelpers/CustomGridSpacer.layout";

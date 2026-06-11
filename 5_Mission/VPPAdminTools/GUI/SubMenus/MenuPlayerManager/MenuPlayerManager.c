@@ -58,6 +58,13 @@ class MenuPlayerManager extends AdminHudSubMenu
 	private ButtonWidget m_ActionReturnPlayer;
 	//----------------
 	
+	//Collapsible action sections--
+	private ref VPPCollapsibleSection m_SectionMgmt;
+	private ref VPPCollapsibleSection m_SectionMove;
+	private ref VPPCollapsibleSection m_SectionState;
+	private ref VPPCollapsibleSection m_SectionTools;
+	//----------------
+	
 	void MenuPlayerManager()
 	{
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerStats", this, SingleplayerExecutionType.Client);
@@ -138,6 +145,13 @@ class MenuPlayerManager extends AdminHudSubMenu
 
 		m_ActionScalePlayer   = ButtonWidget.Cast(M_SUB_WIDGET.FindAnyWidget( "ActionScalePlayer"));
 		GetVPPUIManager().HookConfirmationDialog(m_ActionScalePlayer, M_SUB_WIDGET, this, "PlayerScaleDiag", DIAGTYPE.DIAG_OK_CANCEL_INPUT, "Set Scale", "Insert value to change to, between 0.01 and 100.0 (Some specific values will result in the player to be frozen and uncontrollable. To avoid, use rounded numbers)");
+		//--------------
+		
+		//Collapsible action sections
+		m_SectionMgmt  = new VPPCollapsibleSection(M_SUB_WIDGET, "SectionHeader_Mgmt",  "SectionContent_Mgmt",  "SectionChevron_Mgmt");
+		m_SectionMove  = new VPPCollapsibleSection(M_SUB_WIDGET, "SectionHeader_Move",  "SectionContent_Move",  "SectionChevron_Move");
+		m_SectionState = new VPPCollapsibleSection(M_SUB_WIDGET, "SectionHeader_State", "SectionContent_State", "SectionChevron_State");
+		m_SectionTools = new VPPCollapsibleSection(M_SUB_WIDGET, "SectionHeader_Tools", "SectionContent_Tools", "SectionChevron_Tools");
 		//--------------
 		
 		//init first "page"

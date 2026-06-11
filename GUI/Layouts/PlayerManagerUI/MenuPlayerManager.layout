@@ -1,8 +1,8 @@
 FrameWidgetClass rootFrame {
  clipchildren 1
- color 1 0 0 1
+ color 0 0 0 0
  position 0 0
- size 0.45 0.65
+ size 0.62 0.72
  hexactpos 1
  vexactpos 1
  hexactsize 0
@@ -13,540 +13,391 @@ FrameWidgetClass rootFrame {
    visible 1
    clipchildren 1
    inheritalpha 0
-   color 0 0 0 0.549
-   position 0.95 0
-   size 1 1
+   color 0.749 0.773 0.8 1
+   size 0.99 1
    hexactpos 1
    vexactpos 1
    hexactsize 0
    vexactsize 0
    scaled 1
    draggable 0
-   style editor_quad_dark
+   style VPPPanel
    "no focus" 0
    {
-    PanelWidgetClass PanelButtons {
+    PanelWidgetClass HeaderTitle {
      ignorepointer 1
-     color 1 1 1 0.7059
-     position 0.023 0.021
-     size 0.47 0.3877
-     halign right_ref
-     valign bottom_ref
+     color 0.031 0.035 0.039 0.85
+     position 0 0
+     size 1 0.05
+     halign center_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     style blank
+     scaled 0
+     draggable 0
+     style VPPFillRound
      {
-      PanelWidgetClass PnlBgActions {
-       clipchildren 0
+      ImageWidgetClass ImgWindowIcon {
        ignorepointer 1
-       color 0 0 0 0.549
-       position 0 0
-       size 1 0.985
-       halign center_ref
+       color 0.91 0.639 0.239 1
+       position 5 0
+       size 28 28
+       valign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:vpp_icons image:users"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+       filter 1
+      }
+      TextWidgetClass Title {
+       ignorepointer 1
+       position 38 1
+       size 0.4 22
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       style None
+       text "#VSTR_PLAYER_MANAGER_TITLE"
+       font "vppadmintools/gui/fonts/InterDisplay-SemiBold22"
+       "exact text" 1
+       "exact text size" 22
+       "size to text h" 1
+       "size to text v" 1
+      }
+      TextWidgetClass SubTitle {
+       ignorepointer 1
+       color 0.604 0.627 0.651 1
+       position 38 25
+       size 0.4 14
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       style None
+       text "Manage connected players and perform administrative actions."
+       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       "text color" 0.604 0.627 0.651 1
+       "exact text" 1
+       "exact text size" 14
+       "size to text h" 1
+       "size to text v" 1
+      }
+      ButtonWidgetClass BtnRefreshPlayerList {
+       ignorepointer 0
+       color 1 1 1 1
+       position 286 6
+       size 92 24
+       halign right_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style VPPButton
+       font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+       {
+        ImageWidgetClass ImgRefresh {
+         ignorepointer 1
+         color 1 1 1 1
+         position 8 0
+         size 13 13
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:refresh_cw"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+        }
+        TextWidgetClass txtbtnrefresh {
+         ignorepointer 1
+         position 28 0
+         size 1 1
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 0
+         style None
+         text "Refresh"
+         font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+         "exact text" 1
+         "exact text size" 16
+         "size to text h" 1
+         "size to text v" 1
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass SearchPanel {
+       ignorepointer 0
+       color 1 1 1 1
+       position 46 6
+       size 232 24
+       halign right_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style VPPInputPanel
+       {
+        ImageWidgetClass ImgSearch {
+         ignorepointer 1
+         color 0.361 0.38 0.4 1
+         position 6 0
+         size 13 13
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:search"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+        }
+        EditBoxWidgetClass SearchInputBox {
+         ignorepointer 0
+         position 26 0
+         size 0.86 1
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 0
+         style VPPInputBare
+         "no focus" 0
+         text "#VSTR_SEARCH"
+         "Use default text" 1
+         "exact text" 1
+         font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+        }
+       }
+      }
+      ButtonWidgetClass BtnClose {
+       clipchildren 1
+       color 1 1 1 1
+       position 0.003 0.003
+       size 0.03 0.926
+       halign right_ref
        hexactpos 0
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       style editor_quad_dark
+       style VPPButtonGhost
+       {
+        ImageWidgetClass ImageClose {
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         position 0 0
+         size 1 1
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scaled 0
+         image0 "set:vpp_icons image:x"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+         nocache 1
+        }
+       }
       }
-      PanelWidgetClass timePanel_title {
+     }
+    }
+    PanelWidgetClass PanelPlayers {
+     visible 1
+     ignorepointer 1
+     color 1 1 1 1
+     position 0.008 0.058
+     size 0.235 0.932
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style VPPPanel
+     {
+      PanelWidgetClass PanelPlayers_header {
+       visible 1
        ignorepointer 1
-       color 0 0 0 1
-       position 0 0
-       size 1 33
+       color 0.039 0.043 0.047 0.85
+       position 0 1
+       size 0.993 28
        halign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 0
        vexactsize 1
-       style editor_quad_dark
+       style VPPFillRound
        {
-        TextWidgetClass title_text {
+        ImageWidgetClass ImgPlayersHeader {
          ignorepointer 1
-         size 0.9905 0.85
-         halign center_ref
+         color 0.91 0.639 0.239 1
+         position 0 0
+         size 28 28
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:users"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+        }
+        TextWidgetClass general_text {
+         visible 1
+         ignorepointer 1
+         position 30 0
+         size 0.5 1
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         style Normal
-         text "#VSTR_LBL_ACTIONS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
+         style None
+         text "#VSTR_LBL_PLAYERS_LIST"
+         font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+         "exact text" 1
          "exact text size" 16
          "size to text h" 1
          "size to text v" 1
-         "text halign" center
+         "text valign" center
+        }
+        TextWidgetClass txtPlayerCount {
+         clipchildren 1
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         position 8 0
+         size 0.3 1
+         halign right_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 0
+         vexactsize 0
+         style None
+         text "0/0"
+         font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+         "text color" 0.604 0.627 0.651 1
+         "exact text" 1
+         "exact text size" 14
+         "size to text h" 1
+         "size to text v" 1
          "text valign" center
         }
        }
       }
-      GridSpacerWidgetClass ButtonsSpacer {
-       ignorepointer 1
-       position 0 0.05
-       size 0.86 0.9
-       halign center_ref
-       valign center_ref
+      ScrollWidgetClass PlayerList {
+       clipchildren 1
+       ignorepointer 0
+       keepsafezone 0
+       position 0.01 0.045
+       size 0.98 0.86
        hexactpos 0
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       Padding 20
-       Margin 10
-       "Size To Content H" 1
-       "Size To Content V" 1
-       content_valign center
-       Rows 8
+       style blank
+       "Scrollbar V" 1
        {
-        ButtonWidgetClass ActionHeal {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_HEAL_PLAYERS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionKill {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt0 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_KILL_PLAYERS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionFreezePlayer {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt11 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_FREEZE_PLAYER"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionTpToMe {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt1 {
-           ignorepointer 1
-           position 0 0
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_TP_TO_ME"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionTpMeTo {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt3 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_TP_ME_TO"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionReturnPlayer {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt13 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_RETURN_PLAYERS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionKickPlayer {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt4 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_KICK_PLAYERS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionBanPlayer {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt5 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_BAN_PLAYERS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionSpectate {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt6 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_SPECTATE_PLAYER"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionMakeVomit {
+        GridSpacerWidgetClass GridPlayerList {
          visible 1
-         position 0 0
-         size 0.4 0.19
+         ignorepointer 1
+         keepsafezone 1
+         size 1 1
          halign center_ref
-         valign center_ref
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt7 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_MAKE_VOMIT"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
+         Padding 1
+         Margin 0
+         "Size To Content H" 1
+         "Size To Content V" 1
+         content_halign center
+         content_valign center
+         Columns 1
+         Rows 100
         }
-        ButtonWidgetClass ActionGiveGodmode {
-         visible 1
-         position 0 0
-         size 0.4 0.19
-         halign center_ref
+       }
+      }
+      ButtonWidgetClass btnFnAddPlayersToGrp {
+       visible 0
+       color 1 1 1 1
+       position 0 38
+       size 0.92 26
+       halign center_ref
+       valign bottom_ref
+       hexactpos 0
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       scriptclass "ConfirmationEventHandler"
+       style VPPButton
+       text "Add to a user group"
+       font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+      }
+      PanelWidgetClass PanelPlayers_footer {
+       ignorepointer 0
+       color 0.039 0.043 0.047 0.85
+       position 0 1
+       size 0.995 28
+       halign center_ref
+       valign bottom_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 1
+       style VPPFillRound
+       {
+        CheckBoxWidgetClass ChkSelectAllPlayers {
+         ignorepointer 0
+         position 8 0
+         size 0.55 1
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt8 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_GODMODE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
+         style VPPCheckBox
+         text "Select All"
+         font "vppadmintools/gui/fonts/InterDisplay-Regular16"
         }
-        ButtonWidgetClass ActionUnlimitedAmmo {
-         size 0.4 0.19
-         halign center_ref
+        TextWidgetClass txtPlayerCountSelected {
+         visible 0
+         ignorepointer 1
+         color 0.239 0.49 0.839 1
+         position 8 0
+         size 0.3 1
+         halign right_ref
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt9 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_UNLIM_AMMO"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionSendMessage {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt2 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_SEND_MESSAGE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionInvisible {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt10 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#VSTR_LBL_SET_INVIS"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        ButtonWidgetClass ActionScalePlayer {
-         size 0.4 0.19
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ConfirmationEventHandler"
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass actiontxt12 {
-           ignorepointer 1
-           size 1 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "Set Scale"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
-           "exact text size" 16
-           "text halign" center
-           "text valign" center
-          }
-         }
+         style None
+         text "[0]"
+         font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
+         "text color" 0.239 0.49 0.839 1
+         "exact text" 1
+         "exact text size" 14
+         "size to text h" 1
+         "size to text v" 1
+         "text valign" center
         }
        }
       }
@@ -554,55 +405,59 @@ FrameWidgetClass rootFrame {
     }
     PanelWidgetClass PanelPlayerInfo {
      ignorepointer 1
-     position 0.02 0.0824
-     size 0.473 0.5
-     halign right_ref
+     color 1 1 1 1
+     position 0.251 0.058
+     size 0.43 0.55
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     style blank
+     style VPPPanel
      {
-      PanelWidgetClass PnlBgDetials {
-       visible 1
-       ignorepointer 1
-       color 0.3137 0.3137 0.3137 0.5686
-       position -0.0055 0.06
-       size 1 1
-       halign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       style editor_quad_dark
-      }
       PanelWidgetClass player_info_title {
        ignorepointer 1
-       color 0 0 0 1
-       position 0 0
-       size 1 33
+       color 0.039 0.043 0.047 0.85
+       position 0 1
+       size 0.995 28
        halign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 0
        vexactsize 1
-       style editor_quad_dark
+       style VPPFillRound
        {
+        ImageWidgetClass ImgDetailsHeader {
+         ignorepointer 1
+         color 0.91 0.639 0.239 1
+         position 0 0
+         size 28 28
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:user"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+        }
         TextWidgetClass title_text_players_info {
          ignorepointer 1
-         position 0 0
-         size 1 0.85
+         position 30 0
+         size 0.6 1
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         style Normal
+         style None
          text "#VSTR_LBL_PLAYERS_DETAILS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
+         font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+         "exact text" 1
          "exact text size" 16
-         "text halign" center
+         "size to text h" 1
+         "size to text v" 1
          "text valign" center
         }
        }
@@ -610,10 +465,8 @@ FrameWidgetClass rootFrame {
       ScrollWidgetClass PlayerInfoScroll {
        clipchildren 1
        ignorepointer 0
-       position 0 0.03
-       size 0.95 0.86
-       halign center_ref
-       valign bottom_ref
+       position 0.015 0.07
+       size 0.97 0.92
        hexactpos 0
        vexactpos 0
        hexactsize 0
@@ -646,125 +499,113 @@ FrameWidgetClass rootFrame {
       }
      }
     }
-    EditBoxWidgetClass SearchInputBox {
-     position 0.02562 0.035
-     size 0.95823 0.04
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style DefaultBorder
-     "no focus" 0
-     text "#VSTR_SEARCH"
-     "Use default text" 1
-     "exact text" 0
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-    }
     PanelWidgetClass PanelSliders {
      ignorepointer 1
-     color 1 1 1 0.7059
-     position 0.02302 0.02102
-     size 0.47 0.3877
-     valign bottom_ref
+     color 1 1 1 1
+     position 0.251 0.618
+     size 0.43 0.372
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     style blank
+     style VPPPanel
      {
-      PanelWidgetClass PnlSlidersbg {
-       ignorepointer 1
-       color 0 0 0 0.549
-       position 0 0.08
-       size 1 0.906
-       halign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       style editor_quad_dark
-      }
       PanelWidgetClass timePanel_title_slider {
        ignorepointer 1
-       color 0 0 0 1
-       position 0 0
-       size 1 33
+       color 0.039 0.043 0.047 0.85
+       position 0 1
+       size 0.995 28
        halign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 0
        vexactsize 1
-       style editor_quad_dark
+       style VPPFillRound
        {
+        ImageWidgetClass ImgSlidersHeader {
+         ignorepointer 1
+         color 0.91 0.639 0.239 1
+         position 0 0
+         size 28 28
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:heart_pulse"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
+        }
         TextWidgetClass title_text_sliders {
          ignorepointer 1
-         size 0.9882 0.85
-         halign center_ref
+         position 30 0
+         size 0.6 1
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         style Normal
+         style None
          text "#VSTR_LBL_MODIFIERS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
+         font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+         "exact text" 1
          "exact text size" 16
          "size to text h" 1
          "size to text v" 1
-         "text halign" center
          "text valign" center
         }
        }
       }
       GridSpacerWidgetClass SlidersSpacer {
        ignorepointer 1
-       position 0.03 0
-       size 1 1
-       valign center_ref
+       position 0.02 0.14
+       size 0.96 0.84
        hexactpos 0
        vexactpos 0
        hexactsize 0
        vexactsize 0
        style Colorable
-       Padding 10
-       Margin 1
+       Padding 6
+       Margin 2
        "Size To Content H" 1
        "Size To Content V" 1
        content_halign center
        content_valign center
-       Columns 2
+       Columns 3
        Rows 5
        {
         ImageWidgetClass IconHealth {
          ignorepointer 1
-         size 0.07 0.12
+         color 0.604 0.627 0.651 1
+         size 16 16
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:dayz_gui image:iconHealth0"
-         mode additive
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:heart_pulse"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
+         "stretch mode" stretch_w_h
          filter 1
         }
         SliderWidgetClass SliderHealth {
          inheritalpha 0
          ignorepointer 0
          keepsafezone 0
-         color 1 1 1 0.3922
+         color 1 1 1 1
          position 0.026 0.037
-         size 0.8 0.11
+         size 0.74 0.11
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
          scaled 1
          scriptclass "SliderEventHandler"
-         style Default
+         style VPPSlider
          vertical 0
          flipped 0
          "fill in" 1
@@ -779,13 +620,11 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Health:[50]"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+           text "Health:[100]"
+           font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
            "outline size" 1
-           "outline color" 0 0 0 0.7843
-           "italic text" 0
-           "bold text" 0
-           "exact text" 0
+           "outline color" 0 0 0 0.784
+           "exact text" 1
            "exact text size" 16
            "size to text h" 1
            "size to text v" 1
@@ -794,31 +633,62 @@ FrameWidgetClass rootFrame {
           }
          }
         }
-        ImageWidgetClass IconBlood {
-         ignorepointer 1
-         size 0.07 0.12
+        ButtonWidgetClass BtnApplyHealth {
+         disabled 0
+         color 1 1 1 1
+         size 24 22
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:dayz_gui image:iconBlood0"
-         mode additive
+         hexactsize 1
+         vexactsize 1
+         style VPPButton
+         {
+          ImageWidgetClass ImgApply {
+           ignorepointer 1
+           color 0.298 0.686 0.314 1
+           size 13 13
+           halign center_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           image0 "set:vpp_icons image:check"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+           filter 1
+          }
+         }
+        }
+        ImageWidgetClass IconBlood {
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         size 16 16
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:droplets"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
+         "stretch mode" stretch_w_h
          filter 1
         }
         SliderWidgetClass SliderBlood {
-         color 1 1 1 0.3922
+         color 1 1 1 1
          position 0.026 0.037
-         size 0.8 0.11
+         size 0.74 0.11
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
          scriptclass "SliderEventHandler"
-         style Default
+         style VPPSlider
          maximum 5000
          current 2500
          "fill in" 1
@@ -836,11 +706,10 @@ FrameWidgetClass rootFrame {
            vexactsize 0
            style None
            text "Blood:[2500]"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "outline size" 2
-           "outline color" 0 0 0 0.7843
-           "bold text" 1
-           "exact text" 0
+           font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+           "outline size" 1
+           "outline color" 0 0 0 0.784
+           "exact text" 1
            "exact text size" 16
            "size to text h" 1
            "size to text v" 1
@@ -849,31 +718,62 @@ FrameWidgetClass rootFrame {
           }
          }
         }
-        ImageWidgetClass IconShock {
-         ignorepointer 1
-         size 0.07 0.12
+        ButtonWidgetClass BtnApplyBlood {
+         disabled 0
+         color 1 1 1 1
+         size 24 22
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:dayz_inventory image:electricity"
-         mode additive
+         hexactsize 1
+         vexactsize 1
+         style VPPButton
+         {
+          ImageWidgetClass ImgApply0 {
+           ignorepointer 1
+           color 0.298 0.686 0.314 1
+           size 13 13
+           halign center_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           image0 "set:vpp_icons image:check"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+           filter 1
+          }
+         }
+        }
+        ImageWidgetClass IconShock {
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         size 16 16
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:zap"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
+         "stretch mode" stretch_w_h
          filter 1
         }
         SliderWidgetClass SliderShock {
-         color 1 1 1 0.3922
+         color 1 1 1 1
          position 0.026 0.037
-         size 0.8 0.11
+         size 0.74 0.11
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
          scriptclass "SliderEventHandler"
-         style Default
+         style VPPSlider
          "fill in" 1
          {
           TextWidgetClass SliderShockDisplay {
@@ -886,12 +786,11 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Shock:[50]"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "outline size" 2
-           "outline color" 0 0 0 0.7843
-           "bold text" 1
-           "exact text" 0
+           text "Shock:[100]"
+           font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+           "outline size" 1
+           "outline color" 0 0 0 0.784
+           "exact text" 1
            "exact text size" 16
            "size to text h" 1
            "size to text v" 1
@@ -900,31 +799,62 @@ FrameWidgetClass rootFrame {
           }
          }
         }
-        ImageWidgetClass IconWater {
-         ignorepointer 1
-         size 0.07 0.12
+        ButtonWidgetClass BtnApplyShock {
+         disabled 0
+         color 1 1 1 1
+         size 24 22
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:dayz_gui image:iconThirsty0"
-         mode additive
+         hexactsize 1
+         vexactsize 1
+         style VPPButton
+         {
+          ImageWidgetClass ImgApply1 {
+           ignorepointer 1
+           color 0.298 0.686 0.314 1
+           size 13 13
+           halign center_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           image0 "set:vpp_icons image:check"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+           filter 1
+          }
+         }
+        }
+        ImageWidgetClass IconWater {
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         size 16 16
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:glass_water"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
+         "stretch mode" stretch_w_h
          filter 1
         }
         SliderWidgetClass SliderWater {
-         color 1 1 1 0.3922
+         color 1 1 1 1
          position 0.026 0.037
-         size 0.8 0.11
+         size 0.74 0.11
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
          scriptclass "SliderEventHandler"
-         style Default
+         style VPPSlider
          maximum 5000
          current 2500
          "fill in" 1
@@ -932,7 +862,7 @@ FrameWidgetClass rootFrame {
           TextWidgetClass SliderWaterDisplay {
            ignorepointer 1
            position 0 0
-           size 0.0992 1
+           size 0.099 1
            halign center_ref
            valign center_ref
            hexactpos 0
@@ -941,12 +871,10 @@ FrameWidgetClass rootFrame {
            vexactsize 0
            style None
            text "Water:[2500]"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "outline size" 2
-           "outline color" 0 0 0 0.7843
-           "italic text" 0
-           "bold text" 0
-           "exact text" 0
+           font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+           "outline size" 1
+           "outline color" 0 0 0 0.784
+           "exact text" 1
            "exact text size" 16
            "size to text h" 1
            "size to text v" 1
@@ -955,31 +883,62 @@ FrameWidgetClass rootFrame {
           }
          }
         }
-        ImageWidgetClass IconEnergy {
-         ignorepointer 1
-         size 0.07 0.12
+        ButtonWidgetClass BtnApplyWater {
+         disabled 0
+         color 1 1 1 1
+         size 24 22
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:dayz_gui image:iconHungry0"
-         mode additive
+         hexactsize 1
+         vexactsize 1
+         style VPPButton
+         {
+          ImageWidgetClass ImgApply2 {
+           ignorepointer 1
+           color 0.298 0.686 0.314 1
+           size 13 13
+           halign center_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           image0 "set:vpp_icons image:check"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+           filter 1
+          }
+         }
+        }
+        ImageWidgetClass IconEnergy {
+         ignorepointer 1
+         color 0.604 0.627 0.651 1
+         size 16 16
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:flame"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
+         "stretch mode" stretch_w_h
          filter 1
         }
         SliderWidgetClass SliderEnergy {
-         color 1 1 1 0.3922
+         color 1 1 1 1
          position 0.026 0.037
-         size 0.8 0.11
+         size 0.74 0.11
          hexactpos 0
          vexactpos 0
          hexactsize 0
          vexactsize 0
          scriptclass "SliderEventHandler"
-         style Default
+         style VPPSlider
          maximum 5000
          step 10
          current 800
@@ -995,12 +954,11 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Energy:[10000]"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "outline size" 2
-           "outline color" 0 0 0 0.7843
-           "bold text" 1
-           "exact text" 0
+           text "Energy:[800]"
+           font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+           "outline size" 1
+           "outline color" 0 0 0 0.784
+           "exact text" 1
            "exact text size" 16
            "size to text h" 1
            "size to text v" 1
@@ -1009,170 +967,50 @@ FrameWidgetClass rootFrame {
           }
          }
         }
-       }
-      }
-      ButtonWidgetClass BtnApplyHealth {
-       disabled 0
-       color 1 0 0 1
-       position 0.01 0.17
-       size 0.07 0.1
-       halign right_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       {
-        ImageWidgetClass ImgApply {
-         ignorepointer 1
-         position 0 0
-         size 0.75 0.75
+        ButtonWidgetClass BtnApplyEnergy {
+         disabled 0
+         color 1 1 1 1
+         size 24 22
          halign center_ref
          valign center_ref
          hexactpos 0
          vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
-         "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" stretch_w_h
-         filter 1
-         "Transition width" 1
-        }
-       }
-      }
-      ButtonWidgetClass BtnApplyBlood {
-       disabled 0
-       color 1 0 0 1
-       position 0.01 0.32
-       size 0.07 0.1
-       halign right_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       {
-        ImageWidgetClass ImgApply0 {
-         ignorepointer 1
-         size 0.75 0.75
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
-         "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" stretch_w_h
-         filter 1
-         "Transition width" 1
-        }
-       }
-      }
-      ButtonWidgetClass BtnApplyShock {
-       color 1 0 0 1
-       position 0.01 0
-       size 0.07 0.1
-       halign right_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       {
-        ImageWidgetClass ImgApply1 {
-         ignorepointer 1
-         size 0.75 0.75
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
-         "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" stretch_w_h
-         filter 1
-         "Transition width" 1
-        }
-       }
-      }
-      ButtonWidgetClass BtnApplyWater {
-       color 1 0 0 1
-       position 0.01 0.31
-       size 0.07 0.1
-       halign right_ref
-       valign bottom_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       {
-        ImageWidgetClass ImgApply2 {
-         ignorepointer 1
-         size 0.75 0.75
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
-         "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" stretch_w_h
-         filter 1
-         "Transition width" 1
-        }
-       }
-      }
-      ButtonWidgetClass BtnApplyEnergy {
-       color 1 0 0 1
-       position 0.01 0.17
-       size 0.07 0.1
-       halign right_ref
-       valign bottom_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       {
-        ImageWidgetClass ImgApply3 {
-         ignorepointer 1
-         size 0.75 0.75
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
-         "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" stretch_w_h
-         filter 1
-         "Transition width" 1
+         hexactsize 1
+         vexactsize 1
+         style VPPButton
+         {
+          ImageWidgetClass ImgApply3 {
+           ignorepointer 1
+           color 0.298 0.686 0.314 1
+           size 13 13
+           halign center_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           image0 "set:vpp_icons image:check"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+           filter 1
+          }
+         }
         }
        }
       }
       ButtonWidgetClass BtnApplyTemperature {
        visible 0
-       color 1 0 0 1
-       position 0.01 0.06
-       size 0.07 0.1
+       color 1 1 1 1
+       position 0 0
+       size 0.01 0.01
        halign right_ref
        valign bottom_ref
        hexactpos 0
        vexactpos 0
        hexactsize 0
        vexactsize 0
+       style VPPButton
        {
         ImageWidgetClass ImgApply4 {
          ignorepointer 1
@@ -1183,231 +1021,1061 @@ FrameWidgetClass rootFrame {
          vexactpos 0
          hexactsize 0
          vexactsize 0
-         image0 "set:ccgui_enforce image:MarkDone"
-         mode additive
+         image0 "set:vpp_icons image:check"
+         mode blend
          "src alpha" 1
-         "clamp mode" clamp
          "stretch mode" stretch_w_h
          filter 1
-         "Transition width" 1
         }
        }
       }
      }
     }
-    WrapSpacerWidgetClass PanelPlayers {
-     visible 1
+    PanelWidgetClass PanelButtons {
      ignorepointer 1
-     position 0.024 0.0849
-     size 0.47 0
+     color 1 1 1 1
+     position 0.008 0.058
+     size 0.303 0.932
+     halign right_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     "no focus" 1
-     Padding 0
-     Margin 0
-     "Size To Content H" 1
-     "Size To Content V" 1
+     style VPPPanel
      {
-      PanelWidgetClass PanelPlayers_header {
-       visible 1
+      PanelWidgetClass timePanel_title {
        ignorepointer 1
-       color 0 0 0 1
-       size 1 33
+       color 0.039 0.043 0.047 0.85
+       position 0 1
+       size 0.995 28
        halign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 0
        vexactsize 1
-       style editor_quad_dark
+       style VPPFillRound
        {
-        TextWidgetClass general_text {
-         visible 1
-         disabled 0
-         clipchildren 1
-         inheritalpha 0
+        ImageWidgetClass ImgActionsHeader {
          ignorepointer 1
+         color 0.91 0.639 0.239 1
          position 0 0
-         size 1 0.85
-         halign center_ref
+         size 28 28
          valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scaled 1
-         style Normal
-         text "#VSTR_LBL_PLAYERS_LIST"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
-         "text halign" center
-         "text valign" center
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:vpp_icons image:gavel"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+         filter 1
         }
-        TextWidgetClass txtPlayerCount {
-         clipchildren 1
+        TextWidgetClass title_text {
          ignorepointer 1
-         keepsafezone 0
-         position 0.08 0
-         size 0.2 0.65
+         position 30 0
+         size 0.6 1
          valign center_ref
-         hexactpos 0
-         vexactpos 0
+         hexactpos 1
+         vexactpos 1
          hexactsize 0
          vexactsize 0
-         scaled 1
          style None
-         text "127/127 (+99)"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
-         "exact text size" 12
+         text "#VSTR_LBL_ACTIONS"
+         font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+         "exact text" 1
+         "exact text size" 16
          "size to text h" 1
          "size to text v" 1
-         "text halign" center
-         "text valign" center
-        }
-        CheckBoxWidgetClass ChkSelectAllPlayers {
-         position 0.01 0
-         size 0.06 1
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         font "gui/fonts/Metron-BoldItalic58"
-        }
-        ButtonWidgetClass BtnRefreshPlayerList {
-         position 0.02 0.15
-         size 0.1 0.7
-         halign right_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Editor
-         font "gui/fonts/MetronLight14"
-         {
-          TextWidgetClass txtbtnrefresh {
-           ignorepointer 1
-           position 0 0
-           size 1 1.33
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "↻"
-           font "vppadmintools/gui/fonts/InterDisplay-Bold"
-           "exact text" 0
-           "exact text size" 16
-           "size to text h" 1
-           "size to text v" 1
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-        TextWidgetClass txtPlayerCountSelected {
-         visible 0
-         ignorepointer 1
-         color 0 0.5882 1 1
-         position 0.3 0
-         size 0.2 1
-         halign right_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Bold
-         text "[999]"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "text color" 0 0.0078 1 1
-         "exact text" 0
-         "exact text size" 12
-         "size to text h" 1
-         "size to text v" 1
-         "text halign" center
          "text valign" center
         }
        }
       }
-      GridSpacerWidgetClass PanelPlayers_content {
-       ignorepointer 1
-       color 0 0 0 0.549
-       position 0 0
-       size 1 1
-       hexactpos 1
-       vexactpos 1
+      ScrollWidgetClass ActionsScroll {
+       clipchildren 1
+       ignorepointer 0
+       position 0.02 0.04
+       size 0.96 0.945
+       hexactpos 0
+       vexactpos 0
        hexactsize 0
        vexactsize 0
-       style Colorable
-       Padding 0
-       Margin 0
-       "Size To Content H" 1
-       "Size To Content V" 1
-       Columns 1
-       Rows 2
+       style blank
+       "Scrollbar V" 1
        {
-        FrameWidgetClass PanelPlayers_container {
+        GridSpacerWidgetClass ActionsStack {
          ignorepointer 1
-         color 0 0 0 0
-         position 0 0
-         size 1.0025 316.24002
-         hexactpos 1
-         vexactpos 1
+         size 1 1
+         hexactpos 0
+         vexactpos 0
          hexactsize 0
-         vexactsize 1
+         vexactsize 0
+         "Ignore invisible" 1
+         Padding 2
+         Margin 0
+         "Size To Content H" 1
+         "Size To Content V" 1
+         Columns 1
+         Rows 8
          {
-          ScrollWidgetClass PlayerList {
+          ButtonWidgetClass SectionHeader_Mgmt {
            ignorepointer 0
-           keepsafezone 0
-           size 0.98 0.99
-           halign center_ref
-           hexactpos 0
-           vexactpos 0
+           color 1 1 1 1
+           size 1 26
+           hexactpos 1
+           vexactpos 1
            hexactsize 0
-           vexactsize 0
-           style blank
-           "Scrollbar V" 1
+           vexactsize 1
+           style VPPButtonGhost
            {
-            GridSpacerWidgetClass GridPlayerList {
-             visible 1
+            TextWidgetClass SectionLabel_Mgmt {
              ignorepointer 1
-             keepsafezone 1
-             size 1 1
-             halign center_ref
-             hexactpos 0
-             vexactpos 0
+             color 0.91 0.639 0.239 1
+             position 4 0
+             size 0.8 1
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
              hexactsize 0
              vexactsize 0
-             Padding 1
-             Margin 0
-             "Size To Content H" 1
-             "Size To Content V" 1
-             content_halign center
-             content_valign center
-             Columns 1
-             Rows 100
+             style None
+             text "PLAYER MANAGEMENT"
+             font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
+             "text color" 0.91 0.639 0.239 1
+             "exact text" 1
+             "exact text size" 16
+             "size to text h" 1
+             "size to text v" 1
+             "text valign" center
+            }
+            ImageWidgetClass SectionChevron_Mgmt {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 6 0
+             size 14 14
+             halign right_ref
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 1
+             vexactsize 1
+             image0 "set:vpp_icons image:chevron_up"
+             mode blend
+             "src alpha" 1
+             "stretch mode" stretch_w_h
+             filter 1
             }
            }
           }
-          ButtonWidgetClass btnFnAddPlayersToGrp {
-           visible 0
-           position 0 0.02
-           size 0.6 0.09
-           halign center_ref
-           valign bottom_ref
-           hexactpos 0
-           vexactpos 0
+          GridSpacerWidgetClass SectionContent_Mgmt {
+           ignorepointer 1
+           size 1 0
+           hexactpos 1
+           vexactpos 1
            hexactsize 0
            vexactsize 0
-           scriptclass "ConfirmationEventHandler"
-           style Editor
-           text "Add to a user group"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           Padding 3
+           Margin 2
+           "Size To Content H" 1
+           "Size To Content V" 1
+           Columns 2
+           Rows 2
+           {
+            ButtonWidgetClass ActionHeal {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionHeal {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:heart"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_HEAL_PLAYERS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionKill {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionKill {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:skull"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt0 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_KILL_PLAYERS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionSendMessage {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionMsg {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:message_square"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt2 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_SEND_MESSAGE"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionSpectate {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionSpectate {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:eye"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt6 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_SPECTATE_PLAYER"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+           }
+          }
+          ButtonWidgetClass SectionHeader_Move {
+           ignorepointer 0
+           color 1 1 1 1
+           size 1 26
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           style VPPButtonGhost
+           {
+            TextWidgetClass SectionLabel_Move {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 4 0
+             size 0.8 1
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 0
+             vexactsize 0
+             style None
+             text "MOVEMENT"
+             font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
+             "text color" 0.91 0.639 0.239 1
+             "exact text" 1
+             "exact text size" 14
+             "size to text h" 1
+             "size to text v" 1
+             "text valign" center
+            }
+            ImageWidgetClass SectionChevron_Move {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 6 0
+             size 14 14
+             halign right_ref
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 1
+             vexactsize 1
+             image0 "set:vpp_icons image:chevron_up"
+             mode blend
+             "src alpha" 1
+             "stretch mode" stretch_w_h
+             filter 1
+            }
+           }
+          }
+          GridSpacerWidgetClass SectionContent_Move {
+           ignorepointer 1
+           size 1 0
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 0
+           Padding 3
+           Margin 2
+           "Size To Content H" 1
+           "Size To Content V" 1
+           Columns 2
+           Rows 2
+           {
+            ButtonWidgetClass ActionTpMeTo {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionTpMeTo {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:arrow_up_from_line"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt3 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_TP_ME_TO"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionTpToMe {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionTpToMe {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:arrow_down_to_line"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt1 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_TP_TO_ME"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionReturnPlayer {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionReturn {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:rotate_ccw"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt13 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_RETURN_PLAYERS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+           }
+          }
+          ButtonWidgetClass SectionHeader_State {
+           ignorepointer 0
+           color 1 1 1 1
+           size 1 26
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           style VPPButtonGhost
+           {
+            TextWidgetClass SectionLabel_State {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 4 0
+             size 0.8 1
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 0
+             vexactsize 0
+             style None
+             text "STATE & EFFECTS"
+             font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
+             "text color" 0.91 0.639 0.239 1
+             "exact text" 1
+             "exact text size" 14
+             "size to text h" 1
+             "size to text v" 1
+             "text valign" center
+            }
+            ImageWidgetClass SectionChevron_State {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 6 0
+             size 14 14
+             halign right_ref
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 1
+             vexactsize 1
+             image0 "set:vpp_icons image:chevron_up"
+             mode blend
+             "src alpha" 1
+             "stretch mode" stretch_w_h
+             filter 1
+            }
+           }
+          }
+          GridSpacerWidgetClass SectionContent_State {
+           ignorepointer 1
+           size 1 0
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 0
+           Padding 3
+           Margin 2
+           "Size To Content H" 1
+           "Size To Content V" 1
+           Columns 2
+           Rows 3
+           {
+            ButtonWidgetClass ActionFreezePlayer {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionFreeze {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:snowflake"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt11 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_FREEZE_PLAYER"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionMakeVomit {
+             visible 1
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionVomit {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:activity"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt7 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_MAKE_VOMIT"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionGiveGodmode {
+             visible 1
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionGodmode {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:shield"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt8 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_GODMODE"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionUnlimitedAmmo {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionAmmo {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:infinity"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt9 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_UNLIM_AMMO"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionInvisible {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionInvis {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:eye_off"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt10 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_SET_INVIS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionScalePlayer {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButton
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionScale {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:scaling"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt12 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "Set Scale"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+           }
+          }
+          ButtonWidgetClass SectionHeader_Tools {
+           ignorepointer 0
+           color 1 1 1 1
+           size 1 26
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 1
+           style VPPButtonGhost
+           {
+            TextWidgetClass SectionLabel_Tools {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 4 0
+             size 0.8 1
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 0
+             vexactsize 0
+             style None
+             text "TOOLS"
+             font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
+             "text color" 0.91 0.639 0.239 1
+             "exact text" 1
+             "exact text size" 14
+             "size to text h" 1
+             "size to text v" 1
+             "text valign" center
+            }
+            ImageWidgetClass SectionChevron_Tools {
+             ignorepointer 1
+             color 0.91 0.639 0.239 1
+             position 6 0
+             size 14 14
+             halign right_ref
+             valign center_ref
+             hexactpos 1
+             vexactpos 1
+             hexactsize 1
+             vexactsize 1
+             image0 "set:vpp_icons image:chevron_up"
+             mode blend
+             "src alpha" 1
+             "stretch mode" stretch_w_h
+             filter 1
+            }
+           }
+          }
+          GridSpacerWidgetClass SectionContent_Tools {
+           ignorepointer 1
+           size 1 0
+           hexactpos 1
+           vexactpos 1
+           hexactsize 0
+           vexactsize 0
+           Padding 3
+           Margin 2
+           "Size To Content H" 1
+           "Size To Content V" 1
+           Columns 2
+           Rows 1
+           {
+            ButtonWidgetClass ActionKickPlayer {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButtonDanger
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionKick {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:log_out"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt4 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_KICK_PLAYERS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionBanPlayer {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             scriptclass "ConfirmationEventHandler"
+             style VPPButtonDanger
+             font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+             {
+              ImageWidgetClass ImgActionBan {
+               ignorepointer 1
+               color 1 1 1 1
+               position 6 0
+               size 13 13
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:ban"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt5 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "#VSTR_LBL_BAN_PLAYERS"
+               font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+           }
           }
          }
         }
@@ -1419,79 +2087,13 @@ FrameWidgetClass rootFrame {
   }
   PanelWidgetClass Header {
    ignorepointer 0
-   position 0 0
-   size 0.91 0.028
-   halign center_ref
+   size 0.68 0.05
    hexactpos 0
    vexactpos 0
    hexactsize 0
    vexactsize 0
    draggable 1
    style blank
-  }
-  PanelWidgetClass HeaderTitle {
-   ignorepointer 1
-   color 0 0 0 1
-   size 1 0.03
-   halign center_ref
-   hexactpos 1
-   vexactpos 1
-   hexactsize 0
-   vexactsize 0
-   scaled 0
-   draggable 0
-   style DayZDefaultPanel
-   {
-    TextWidgetClass Title {
-     ignorepointer 1
-     size 1 1.3
-     halign center_ref
-     valign center_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     scaled 1
-     style None
-     text "#VSTR_PLAYER_MANAGER_TITLE"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
-     "exact text" 0
-     "size to text h" 1
-     "size to text v" 1
-     "text halign" center
-     "text valign" center
-    }
-    ButtonWidgetClass BtnClose {
-     clipchildren 1
-     color 0 0 0 1
-     size 0.03 1
-     halign right_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style Editor
-     {
-      ImageWidgetClass ImageClose {
-       ignorepointer 1
-       color 1 0 0 1
-       size 0.97 1
-       halign center_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       scaled 0
-       image0 "set:ccgui_enforce image:Icon28EmptySlot"
-       mode additive
-       "src alpha" 1
-       filter 1
-       nocache 1
-      }
-     }
-    }
-   }
   }
  }
 }
