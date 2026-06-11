@@ -1,6 +1,6 @@
 <WidgetStyles>
     <Widget Name="ButtonWidget">
-        <Style Name="VPPButton" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPButton" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_btn_tl" />
                 <Item Name="Top" Image="vpp_btn_t" />
@@ -57,7 +57,7 @@
                 <Item Name="RightBottom" Image="vpp_panel_br" />
             </State>
         </Style>
-        <Style Name="VPPButtonDanger" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPButtonDanger" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_btn_danger_tl" />
                 <Item Name="Top" Image="vpp_btn_danger_t" />
@@ -114,7 +114,7 @@
                 <Item Name="RightBottom" Image="vpp_panel_br" />
             </State>
         </Style>
-        <Style Name="VPPButtonGhost" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPButtonGhost" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />
@@ -173,7 +173,7 @@
         </Style>
     </Widget>
     <Widget Name="EditBoxWidget">
-        <Style Name="VPPInputBare" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPInputBare" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />
@@ -208,7 +208,7 @@
                 <Item Name="RightBottom" Image="" />
             </State>
         </Style>
-        <Style Name="VPPInput" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPInput" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_input_tl" />
                 <Item Name="Top" Image="vpp_input_t" />
@@ -245,7 +245,7 @@
         </Style>
     </Widget>
     <Widget Name="CheckBoxWidget">
-        <Style Name="VPPCheckBox" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPCheckBox" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="CheckBox" Image="vpp_check_off" />
             </State>
@@ -261,7 +261,7 @@
         </Style>
     </Widget>
     <Widget Name="SliderWidget">
-        <Style Name="VPPSlider" Font="vppadmintools/gui/fonts/InterDisplay-Regular12" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPSlider" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_input_tl" />
                 <Item Name="Top" Image="vpp_input_t" />
@@ -325,7 +325,7 @@
         </Style>
     </Widget>
     <Widget Name="PanelWidget">
-        <Style Name="VPPPanel" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPPanel" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_panel_tl" />
                 <Item Name="Top" Image="vpp_panel_t" />
@@ -349,7 +349,7 @@
                 <Item Name="RightBottom" Image="vpp_panel_br" />
             </State>
         </Style>
-        <Style Name="VPPInputPanel" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPInputPanel" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_input_tl" />
                 <Item Name="Top" Image="vpp_input_t" />
@@ -373,7 +373,7 @@
                 <Item Name="RightBottom" Image="vpp_input_br" />
             </State>
         </Style>
-        <Style Name="VPPHeader" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPHeader" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />
@@ -397,7 +397,7 @@
                 <Item Name="RightBottom" Image="" />
             </State>
         </Style>
-        <Style Name="VPPFillRound" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPFillRound" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="vpp_round_tl" />
                 <Item Name="Top" Image="vpp_round_t" />
@@ -421,7 +421,7 @@
                 <Item Name="RightBottom" Image="vpp_round_br" />
             </State>
         </Style>
-        <Style Name="VPPFill" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPFill" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />
@@ -445,7 +445,7 @@
                 <Item Name="RightBottom" Image="" />
             </State>
         </Style>
-        <Style Name="VPPCard" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPCard" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />
@@ -471,7 +471,7 @@
         </Style>
     </Widget>
     <Widget Name="ScrollWidget">
-        <Style Name="VPPScroll" Font="vppadmintools/gui/fonts/InterDisplay-Regular14" ImageSet="vpp_ui" Color="4294967295">
+        <Style Name="VPPScroll" Font="gui/fonts/sdf_MetronLight72" ImageSet="vpp_ui" Color="4294967295">
             <State Name="Normal">
                 <Item Name="LeftTop" Image="" />
                 <Item Name="Top" Image="" />

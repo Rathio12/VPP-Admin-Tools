@@ -269,6 +269,18 @@ modded class PlayerBase
 		return m_VfreezePlayer;
 	}
 	
+	/*
+		Removes all active bleeding sources (server side), without the full heal
+	*/
+	void VPPStopBleeding()
+	{
+		if (!GetGame().IsServer() && GetGame().IsMultiplayer())
+			return;
+		
+		if (m_BleedingManagerServer)
+			m_BleedingManagerServer.RemoveAllSources();
+	}
+	
 	bool GodModeStatus()
 	{
 		return hasGodmode;

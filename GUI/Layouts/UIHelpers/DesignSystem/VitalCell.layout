@@ -1,7 +1,7 @@
 FrameWidgetClass VitalCellRoot {
  ignorepointer 1
  position 0 0
- size 78 48
+ size 72 60
  hexactpos 1
  vexactpos 1
  hexactsize 1
@@ -11,7 +11,7 @@ FrameWidgetClass VitalCellRoot {
    ignorepointer 1
    color 0.604 0.627 0.651 1
    position 0 0
-   size 13 13
+   size 26 26
    halign center_ref
    hexactpos 1
    vexactpos 1
@@ -25,8 +25,8 @@ FrameWidgetClass VitalCellRoot {
   }
   TextWidgetClass VitalCellValue {
    ignorepointer 1
-   position 0 15
-   size 1 17
+   position 0 23
+   size 1 18
    halign center_ref
    hexactpos 1
    vexactpos 1
@@ -34,7 +34,8 @@ FrameWidgetClass VitalCellRoot {
    vexactsize 1
    style None
    text "100"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+   font "gui/fonts/sdf_MetronLight72"
+   "bold text" 1
    "exact text" 1
    "exact text size" 16
    "size to text h" 1
@@ -44,7 +45,7 @@ FrameWidgetClass VitalCellRoot {
   TextWidgetClass VitalCellLabel {
    ignorepointer 1
    color 0.604 0.627 0.651 1
-   position 0 31
+   position 0 41
    size 1 14
    halign center_ref
    hexactpos 1
@@ -53,10 +54,10 @@ FrameWidgetClass VitalCellRoot {
    vexactsize 1
    style None
    text "HEALTH"
-   font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+   font "gui/fonts/sdf_MetronLight72"
    "text color" 0.604 0.627 0.651 1
    "exact text" 1
-   "exact text size" 14
+   "exact text size" 12
    "size to text h" 1
    "size to text v" 1
    "text halign" center
@@ -65,7 +66,7 @@ FrameWidgetClass VitalCellRoot {
    ignorepointer 1
    color 0.165 0.180 0.200 1
    position 0 0
-   size 0.9 3
+   size 0.85 3
    halign center_ref
    valign bottom_ref
    hexactpos 1

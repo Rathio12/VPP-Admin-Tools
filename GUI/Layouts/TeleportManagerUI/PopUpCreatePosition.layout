@@ -32,8 +32,9 @@ PanelWidgetClass rootFrame {
    hexactsize 0
    vexactsize 0
    text "#VSTR_LBL_NEW_TP_POS_ATTS"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-   "exact text" 0
+   font "gui/fonts/sdf_MetronLight72"
+   "bold text" 1
+   "exact text" 1
    "exact text size" 16
    "size to text h" 0
    "text valign" center
@@ -70,9 +71,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_LBL_NAME"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 12
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
      "size to text h" 0
      "size to text v" 0
      "text valign" center
@@ -97,7 +98,8 @@ PanelWidgetClass rootFrame {
        vexactsize 0
        text "position name"
        "exact text" 1
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text size" 14
       }
      }
     }
@@ -110,9 +112,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_LBL_POS"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 11
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 13
      "size to text h" 0
      "size to text v" 0
      "text valign" center
@@ -128,7 +130,8 @@ PanelWidgetClass rootFrame {
      text "7500,0,7500"
      "limit visible" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
     }
    }
   }
@@ -152,7 +155,9 @@ PanelWidgetClass rootFrame {
      vexactsize 0
      style Editor
      text "#VSTR_CANCEL"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
     ButtonWidgetClass button_save {
      position 0 0.1
@@ -165,7 +170,9 @@ PanelWidgetClass rootFrame {
      scaled 1
      style Editor
      text "#VSTR_LBL_SAVE"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
    }
   }

@@ -53,12 +53,12 @@ FrameWidgetClass rootFrame {
      vexactsize 0
      style Normal
      text "button name"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
+     font "gui/fonts/sdf_MetronLight72"
      "outline size" 2
      "outline color" 0 0 0 1
      "bold text" 1
-     "exact text" 0
-     "exact text size" 22
+     "exact text" 1
+     "exact text size" 24
      "size to text h" 0
      "size to text v" 1
      "text halign" center

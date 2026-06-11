@@ -85,9 +85,9 @@ PanelWidgetClass PanelEntry {
      hexactsize 0
      vexactsize 0
      text "Item Display Name"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 22
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 24
      "text halign" center
      "text valign" center
     }
@@ -103,7 +103,9 @@ PanelWidgetClass PanelEntry {
      style Editor
      "no focus" 1
      text "Return"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
     ButtonWidgetClass btnTpToMe {
      size 0.07 1
@@ -116,7 +118,9 @@ PanelWidgetClass PanelEntry {
      style Editor
      "no focus" 1
      text "Bring"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
     ButtonWidgetClass btnDeleteItem {
      color 1 0 0 1

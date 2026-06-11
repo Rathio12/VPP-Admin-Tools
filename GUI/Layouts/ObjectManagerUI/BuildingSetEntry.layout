@@ -123,7 +123,10 @@ PanelWidgetClass PanelEntry {
      hexactsize 0
      vexactsize 0
      text "Item Display Name"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
      "size to text h" 0
      "size to text v" 1
      "text valign" center

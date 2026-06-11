@@ -59,8 +59,9 @@ PanelWidgetClass rootFrame {
    hexactsize 0
    vexactsize 0
    text "#VSTR_LBL_BUILDING_SET_ATTS"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-   "exact text" 0
+   font "gui/fonts/sdf_MetronLight72"
+   "bold text" 1
+   "exact text" 1
    "exact text size" 16
    "size to text h" 0
    "text valign" center
@@ -101,8 +102,9 @@ PanelWidgetClass rootFrame {
      style EditorProperty
      text "#VSTR_LBL_BUILDING_SET_NAME"
      "Use default text" 0
-     "exact text" 0
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
+     "exact text" 1
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 16
      "text halign" center
      "text valign" center
     }
@@ -115,7 +117,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_LBL_BLD_SET_ACTIVE"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
     ButtonWidgetClass button_export {
      size 0.5 0.2
@@ -130,7 +134,9 @@ PanelWidgetClass rootFrame {
      style Editor
      "no focus" 1
      text "#VSTR_LBL_EXPORT_RAW"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
    }
   }
@@ -156,7 +162,9 @@ PanelWidgetClass rootFrame {
      scaled 1
      style Editor
      text "#VSTR_LBL_OK"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 16
     }
    }
   }

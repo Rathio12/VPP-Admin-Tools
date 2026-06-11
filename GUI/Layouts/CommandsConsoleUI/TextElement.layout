@@ -42,7 +42,7 @@ GridSpacerWidgetClass ElementGrid {
      hexactsize 0
      vexactsize 0
      text "/sph akm"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 16
      "size to text h" 1

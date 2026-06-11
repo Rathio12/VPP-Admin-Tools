@@ -16,7 +16,7 @@ PanelWidgetClass PanelPlayer {
    ignorepointer 1
    color 0.298 0.686 0.314 1
    position 8 0
-   size 8 8
+   size 16 16
    valign center_ref
    hexactpos 1
    vexactpos 1
@@ -39,9 +39,11 @@ PanelWidgetClass PanelPlayer {
    vexactsize 0
    style VPPCheckBox
    text "PlayerName"
-   font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+   font "gui/fonts/sdf_MetronLight72"
+   "exact text" 1
+   "exact text size" 14
    "text outline size" 1
-   "text outline color" 0 0 0 0.9961
+   "text outline color" 0 0 0 0.996
    "text shadow color" 0 0 0 0
    checked 0
   }

@@ -42,8 +42,9 @@ GridSpacerWidgetClass rootFrame {
      vexactsize 0
      style Normal
      text "Tool Tip:"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
      "exact text size" 18
      "size to text h" 1
      "size to text v" 1
@@ -64,7 +65,8 @@ GridSpacerWidgetClass rootFrame {
    vexactsize 0
    style DayZNormal
    text "Some short text"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+   font "gui/fonts/sdf_MetronLight72"
+   "bold text" 1
    "text offset" 15 0
    "exact text" 1
    "exact text size" 22

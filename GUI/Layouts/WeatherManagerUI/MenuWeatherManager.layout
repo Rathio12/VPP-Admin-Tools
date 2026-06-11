@@ -72,9 +72,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_WORLD_TIME"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -106,8 +106,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Bold
          text "#VSTR_LBL_HOUR"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 12
          "size to text h" 1
          "size to text v" 1
@@ -124,7 +124,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "0"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 16
         }
         TextWidgetClass txtMinute {
          size 0.3 0.1
@@ -136,8 +138,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Bold
          text "#VSTR_LBL_MINUTE"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 12
          "size to text h" 1
          "size to text v" 1
@@ -154,7 +156,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "0"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 16
         }
         TextWidgetClass txtDay {
          size 0.3 0.1
@@ -166,8 +170,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Bold
          text "#VSTR_LBL_DAY"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 12
          "size to text h" 1
          "size to text v" 1
@@ -184,7 +188,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "0"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 16
         }
         TextWidgetClass txtMonth {
          size 0.3 0.1
@@ -196,8 +202,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Bold
          text "#VSTR_LBL_MONTH"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 12
          "size to text h" 1
          "size to text v" 1
@@ -214,7 +220,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "0"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 16
         }
         TextWidgetClass txtYear {
          size 0.3 0.1
@@ -226,8 +234,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Bold
          text "#VSTR_LBL_YEAR"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 11
          "size to text h" 1
          "size to text v" 1
@@ -244,7 +252,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "0"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 16
         }
        }
       }
@@ -260,7 +270,10 @@ FrameWidgetClass rootFrame {
        style Editor
        "no focus" 1
        text "#VSTR_APPLY"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
       }
      }
     }
@@ -299,9 +312,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_PRESETS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -412,7 +425,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_APPLY_PRESET"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
           ButtonWidgetClass BtnSaveTimePreset {
            position 0 0.02
@@ -426,7 +441,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_SAVE"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
           ButtonWidgetClass BtnDeleteWeatherPreset {
            color 0.8235 0.0941 0.0941 1
@@ -441,7 +458,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_DELETE_W_PRESET"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
          }
         }
@@ -456,7 +475,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          "no focus" 1
          text "#VSTR_LBL_USE_CURRENT_TIME"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         ImageWidgetClass ImgInfoTimePreset {
          ignorepointer 0
@@ -528,7 +549,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_APPLY_PRESET"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
           ButtonWidgetClass spacerbutton {
            visible 1
@@ -558,7 +581,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_SAVE"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
           EditBoxWidgetClass EditPresetName {
            position 0.08685 0
@@ -573,7 +598,8 @@ FrameWidgetClass rootFrame {
            text "#VSTR_LBL_ENTER_NAME"
            "Use default text" 1
            "exact text" 1
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 14
           }
           ButtonWidgetClass BtnDeleteTimePreset {
            color 0.8235 0.0941 0.0941 1
@@ -588,7 +614,9 @@ FrameWidgetClass rootFrame {
            style Editor
            "no focus" 1
            text "#VSTR_LBL_DELETE_W_PRESET"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 16
           }
          }
         }
@@ -660,9 +688,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_INFORMATION"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -705,8 +733,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_TIME"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -723,7 +751,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -749,8 +779,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_DATE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -767,7 +797,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -794,8 +826,8 @@ FrameWidgetClass rootFrame {
            vexactsize 0
            style Normal
            text "#VSTR_LBL_RAIN"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -812,7 +844,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -838,8 +872,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_OVERCAST"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -856,7 +890,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -882,8 +918,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_FOG"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -901,7 +937,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -927,8 +965,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_WIND_FORCE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 11
            "size to text h" 1
            "size to text v" 0
@@ -945,7 +983,9 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "null"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
            "size to text h" 1
            "size to text v" 0
            "text halign" center
@@ -969,7 +1009,10 @@ FrameWidgetClass rootFrame {
      style Editor
      "no focus" 1
      text "#VSTR_APPLY"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
     }
     PanelWidgetClass PanelWeatherConfig {
      ignorepointer 1
@@ -1019,9 +1062,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_WEATHER_CONFG"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -1084,12 +1127,12 @@ FrameWidgetClass rootFrame {
              vexactsize 0
              style Bold
              text "Rain:[50]"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
+             font "gui/fonts/sdf_MetronLight72"
              "outline size" 2
              "outline color" 0 0 0 1
              "bold text" 1
-             "exact text" 0
-             "exact text size" 12
+             "exact text" 1
+             "exact text size" 14
              "text halign" center
              "text valign" center
             }
@@ -1109,8 +1152,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           EditBoxWidgetClass EditRainDur {
            position 0.02 0.1
@@ -1126,8 +1170,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           TextWidgetClass DurationLabel {
            ignorepointer 1
@@ -1140,8 +1185,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_DURATION"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
            "size to text h" 0
            "size to text v" 0
@@ -1157,8 +1202,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_RATE_OF_CHANGE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
            "size to text h" 0
            "size to text v" 0
@@ -1204,12 +1249,12 @@ FrameWidgetClass rootFrame {
              vexactsize 0
              style Bold
              text "Overcast:[50]"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
+             font "gui/fonts/sdf_MetronLight72"
              "outline size" 2
              "outline color" 0 0 0 1
              "bold text" 1
-             "exact text" 0
-             "exact text size" 12
+             "exact text" 1
+             "exact text size" 14
              "size to text h" 0
              "size to text v" 0
              "text halign" center
@@ -1231,8 +1276,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           EditBoxWidgetClass EditOvercastDur {
            position 0.02 0.1
@@ -1248,8 +1294,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           TextWidgetClass DurationLabel0 {
            ignorepointer 1
@@ -1262,8 +1309,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_DURATION"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
           }
           TextWidgetClass RateOfChangeLabel0 {
@@ -1277,8 +1324,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_RATE_OF_CHANGE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
           }
          }
@@ -1320,12 +1367,12 @@ FrameWidgetClass rootFrame {
              vexactsize 0
              style Bold
              text "Fog:[50]"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
+             font "gui/fonts/sdf_MetronLight72"
              "outline size" 2
              "outline color" 0 0 0 1
              "bold text" 1
-             "exact text" 0
-             "exact text size" 12
+             "exact text" 1
+             "exact text size" 14
              "text halign" center
              "text valign" center
             }
@@ -1345,8 +1392,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           EditBoxWidgetClass EditFogDur {
            position 0.02 0.1
@@ -1362,8 +1410,9 @@ FrameWidgetClass rootFrame {
            "no focus" 0
            text "1"
            "Use default text" 0
-           "exact text" 0
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
+           "exact text" 1
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text size" 16
           }
           TextWidgetClass DurationLabel2 {
            ignorepointer 1
@@ -1376,8 +1425,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_DURATION"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
           }
           TextWidgetClass RateOfChangeLabel2 {
@@ -1391,8 +1440,8 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_RATE_OF_CHANGE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
            "exact text size" 12
           }
          }
@@ -1435,12 +1484,12 @@ FrameWidgetClass rootFrame {
              vexactsize 0
              style Bold
              text "WindForce:[50]"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
+             font "gui/fonts/sdf_MetronLight72"
              "outline size" 2
              "outline color" 0 0 0 1
              "bold text" 1
-             "exact text" 0
-             "exact text size" 12
+             "exact text" 1
+             "exact text size" 14
              "text halign" center
              "text valign" center
             }
@@ -1490,8 +1539,10 @@ FrameWidgetClass rootFrame {
      vexactsize 0
      style Bold
      text "#VSTR_WEATHER_MANAGER"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center

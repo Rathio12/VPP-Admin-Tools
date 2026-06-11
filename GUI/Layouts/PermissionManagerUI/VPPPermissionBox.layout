@@ -50,7 +50,10 @@ PanelWidgetClass PanelPerm {
      hexactsize 0
      vexactsize 0
      text "PermissionName"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
     }
    }
   }

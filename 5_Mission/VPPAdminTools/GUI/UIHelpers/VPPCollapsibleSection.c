@@ -5,7 +5,9 @@
 	ImageWidget. Clicking the header toggles the content; parent spacers with
 	"Ignore invisible" enabled will reflow the remaining sections.
 
-	Chevron image slots: image0 = expanded (chevron-up), image1 = collapsed (chevron-down).
+	Chevron image slots (image0 = expanded/up, image1 = collapsed/down) are loaded
+	here via LoadImageFile - declaring image1 in the .layout does NOT register the
+	second slot, so layouts only carry image0 for the initial look.
 */
 class VPPCollapsibleSection
 {

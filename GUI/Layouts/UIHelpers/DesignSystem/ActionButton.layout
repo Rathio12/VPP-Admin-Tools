@@ -8,13 +8,15 @@ ButtonWidgetClass ActionButtonRoot {
  hexactsize 0
  vexactsize 1
  style VPPButton
- font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+ font "gui/fonts/sdf_MetronLight72"
+ "exact text" 1
+ "exact text size" 14
  {
   ImageWidgetClass ActionButtonIcon {
    ignorepointer 1
    color 1 1 1 1
    position 6 0
-   size 14 14
+   size 13 13
    valign center_ref
    hexactpos 1
    vexactpos 1
@@ -37,9 +39,9 @@ ButtonWidgetClass ActionButtonRoot {
    vexactsize 0
    style None
    text "Action"
-   font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+   font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
-   "exact text size" 16
+   "exact text size" 14
    "size to text h" 1
    "size to text v" 1
    "text valign" center

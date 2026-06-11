@@ -1,21 +1,91 @@
 PanelWidgetClass PanelPlayerDetails {
  ignorepointer 1
  keepsafezone 1
- color 0.106 0.118 0.133 0.9
+ color 1 1 1 1
  position 0 0
- size 1 262
+ size 1 358
  halign center_ref
  hexactpos 1
  vexactpos 1
  hexactsize 0
  vexactsize 1
- style VPPFillRound
+ style VPPPanel
  {
+  PanelWidgetClass CardTitleStrip {
+   ignorepointer 1
+   color 0.039 0.043 0.047 0.85
+   position 0 1
+   size 0.995 28
+   halign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   style VPPFillRound
+   {
+    ImageWidgetClass ImgCardTitle {
+     ignorepointer 1
+     color 0.91 0.639 0.239 1
+     position 0 0
+     size 32 32
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     image0 "set:vpp_icons image:user"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+     filter 1
+    }
+    TextWidgetClass CardTitleName {
+     ignorepointer 1
+     position 32 0
+     size 0.5 1
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Player"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 16
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+    TextWidgetClass CardTitleGroup {
+     ignorepointer 1
+     color 0.91 0.639 0.239 1
+     position 10 0
+     size 0.3 1
+     halign right_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text ""
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.91 0.639 0.239 1
+     "exact text" 1
+     "exact text size" 16
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+   }
+  }
   ImageWidgetClass ImgIdentity {
    ignorepointer 1
-   color 0.910 0.639 0.239 1
-   position 8 6
-   size 12 12
+   color 0.91 0.639 0.239 1
+   position 0 30
+   size 24 24
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -28,8 +98,8 @@ PanelWidgetClass PanelPlayerDetails {
   }
   TextWidgetClass IdentityHeader {
    ignorepointer 1
-   color 0.910 0.639 0.239 1
-   position 26 4
+   color 0.91 0.639 0.239 1
+   position 26 36
    size 0.5 16
    hexactpos 1
    vexactpos 1
@@ -37,8 +107,9 @@ PanelWidgetClass PanelPlayerDetails {
    vexactsize 1
    style None
    text "IDENTITY"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
-   "text color" 0.910 0.639 0.239 1
+   font "gui/fonts/sdf_MetronLight72"
+   "text color" 0.91 0.639 0.239 1
+   "bold text" 1
    "exact text" 1
    "exact text size" 14
    "size to text h" 1
@@ -46,7 +117,7 @@ PanelWidgetClass PanelPlayerDetails {
   }
   FrameWidgetClass PlayerNameFrame {
    ignorepointer 1
-   position 8 24
+   position 8 56
    size 0.97 22
    hexactpos 1
    vexactpos 1
@@ -65,7 +136,7 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "#VSTR_LBL_NAME"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+     font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
      "exact text size" 16
@@ -85,9 +156,9 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "Survivor"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
-     "exact text size" 16
+     "exact text size" 18
      "size to text h" 1
      "size to text v" 1
      "text valign" center
@@ -96,7 +167,7 @@ PanelWidgetClass PanelPlayerDetails {
   }
   FrameWidgetClass PlayerGUIDFrame {
    ignorepointer 1
-   position 8 46
+   position 8 78
    size 0.97 22
    hexactpos 1
    vexactpos 1
@@ -115,7 +186,7 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "#VSTR_LBL_STEAMID"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+     font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
      "exact text size" 16
@@ -135,9 +206,9 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "76561198000000000"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
-     "exact text size" 16
+     "exact text size" 18
      "size to text h" 1
      "size to text v" 1
      "text valign" center
@@ -146,7 +217,7 @@ PanelWidgetClass PanelPlayerDetails {
   }
   FrameWidgetClass PlayerIDFrame {
    ignorepointer 1
-   position 8 68
+   position 8 100
    size 0.97 22
    hexactpos 1
    vexactpos 1
@@ -165,7 +236,7 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "#VSTR_LBL_GUID"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+     font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
      "exact text size" 16
@@ -185,9 +256,9 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-     font "vppadmintools/gui/fonts/InterDisplay-Medium12"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
-     "exact text size" 12
+     "exact text size" 14
      "size to text h" 1
      "size to text v" 1
      "text valign" center
@@ -196,7 +267,7 @@ PanelWidgetClass PanelPlayerDetails {
   }
   FrameWidgetClass PlayerUserGroupFrame {
    ignorepointer 1
-   position 8 90
+   position 8 122
    size 0.97 22
    hexactpos 1
    vexactpos 1
@@ -215,7 +286,7 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "#VSTR_LBL_USER_GROUP"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+     font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
      "exact text size" 16
@@ -225,7 +296,7 @@ PanelWidgetClass PanelPlayerDetails {
     }
     TextWidgetClass UserGroup {
      ignorepointer 1
-     color 0.910 0.639 0.239 1
+     color 0.91 0.639 0.239 1
      position 8 0
      size 0.6 1
      halign right_ref
@@ -236,10 +307,10 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "none"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium16"
-     "text color" 0.910 0.639 0.239 1
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.91 0.639 0.239 1
      "exact text" 1
-     "exact text size" 16
+     "exact text size" 18
      "size to text h" 1
      "size to text v" 1
      "text valign" center
@@ -248,9 +319,9 @@ PanelWidgetClass PanelPlayerDetails {
   }
   ImageWidgetClass ImgVitals {
    ignorepointer 1
-   color 0.910 0.639 0.239 1
-   position 8 118
-   size 12 12
+   color 0.91 0.639 0.239 1
+   position 0 146
+   size 24 24
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -263,8 +334,8 @@ PanelWidgetClass PanelPlayerDetails {
   }
   TextWidgetClass VitalsHeader {
    ignorepointer 1
-   color 0.910 0.639 0.239 1
-   position 26 116
+   color 0.91 0.639 0.239 1
+   position 26 150
    size 0.5 16
    hexactpos 1
    vexactpos 1
@@ -272,8 +343,9 @@ PanelWidgetClass PanelPlayerDetails {
    vexactsize 1
    style None
    text "VITALS"
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold14"
-   "text color" 0.910 0.639 0.239 1
+   font "gui/fonts/sdf_MetronLight72"
+   "text color" 0.91 0.639 0.239 1
+   "bold text" 1
    "exact text" 1
    "exact text size" 14
    "size to text h" 1
@@ -281,7 +353,7 @@ PanelWidgetClass PanelPlayerDetails {
   }
   GridSpacerWidgetClass VitalsGrid {
    ignorepointer 1
-   position 0 136
+   position 0 168
    size 1 56
    halign center_ref
    hexactpos 1
@@ -298,7 +370,7 @@ PanelWidgetClass PanelPlayerDetails {
    {
     FrameWidgetClass VitalCellHealth {
      ignorepointer 1
-     size 72 52
+     size 72 60
      hexactpos 0
      vexactpos 0
      hexactsize 1
@@ -308,7 +380,7 @@ PanelWidgetClass PanelPlayerDetails {
        ignorepointer 1
        color 0.298 0.686 0.314 1
        position 0 0
-       size 13 13
+       size 26 26
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -322,7 +394,7 @@ PanelWidgetClass PanelPlayerDetails {
       }
       TextWidgetClass Health {
        ignorepointer 1
-       position 0 15
+       position 0 23
        size 1 18
        halign center_ref
        hexactpos 1
@@ -331,7 +403,8 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "100"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
        "exact text" 1
        "exact text size" 16
        "size to text h" 1
@@ -341,7 +414,7 @@ PanelWidgetClass PanelPlayerDetails {
       TextWidgetClass HealthLabel {
        ignorepointer 1
        color 0.604 0.627 0.651 1
-       position 0 33
+       position 0 41
        size 1 14
        halign center_ref
        hexactpos 1
@@ -350,10 +423,10 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "HEALTH"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
-       "exact text size" 14
+       "exact text size" 12
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -371,7 +444,7 @@ PanelWidgetClass PanelPlayerDetails {
        {
         PanelWidgetClass BarHealth {
          ignorepointer 1
-         color 0.239 0.490 0.839 1
+         color 0.239 0.49 0.839 1
          position 0 0
          size 1 1
          hexactpos 0
@@ -386,7 +459,7 @@ PanelWidgetClass PanelPlayerDetails {
     }
     FrameWidgetClass VitalCellBlood {
      ignorepointer 1
-     size 72 52
+     size 72 60
      hexactpos 0
      vexactpos 0
      hexactsize 1
@@ -396,7 +469,7 @@ PanelWidgetClass PanelPlayerDetails {
        ignorepointer 1
        color 0.298 0.686 0.314 1
        position 0 0
-       size 13 13
+       size 26 26
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -410,7 +483,7 @@ PanelWidgetClass PanelPlayerDetails {
       }
       TextWidgetClass Blood {
        ignorepointer 1
-       position 0 15
+       position 0 23
        size 1 18
        halign center_ref
        hexactpos 1
@@ -419,7 +492,8 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "5000"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
        "exact text" 1
        "exact text size" 16
        "size to text h" 1
@@ -429,7 +503,7 @@ PanelWidgetClass PanelPlayerDetails {
       TextWidgetClass BloodLabel {
        ignorepointer 1
        color 0.604 0.627 0.651 1
-       position 0 33
+       position 0 41
        size 1 14
        halign center_ref
        hexactpos 1
@@ -438,10 +512,10 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "BLOOD"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
-       "exact text size" 14
+       "exact text size" 12
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -459,7 +533,7 @@ PanelWidgetClass PanelPlayerDetails {
        {
         PanelWidgetClass BarBlood {
          ignorepointer 1
-         color 0.239 0.490 0.839 1
+         color 0.239 0.49 0.839 1
          position 0 0
          size 1 1
          hexactpos 0
@@ -474,7 +548,7 @@ PanelWidgetClass PanelPlayerDetails {
     }
     FrameWidgetClass VitalCellShock {
      ignorepointer 1
-     size 72 52
+     size 72 60
      hexactpos 0
      vexactpos 0
      hexactsize 1
@@ -484,7 +558,7 @@ PanelWidgetClass PanelPlayerDetails {
        ignorepointer 1
        color 0.298 0.686 0.314 1
        position 0 0
-       size 13 13
+       size 26 26
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -498,7 +572,7 @@ PanelWidgetClass PanelPlayerDetails {
       }
       TextWidgetClass Shock {
        ignorepointer 1
-       position 0 15
+       position 0 23
        size 1 18
        halign center_ref
        hexactpos 1
@@ -507,7 +581,8 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "100"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
        "exact text" 1
        "exact text size" 16
        "size to text h" 1
@@ -517,7 +592,7 @@ PanelWidgetClass PanelPlayerDetails {
       TextWidgetClass ShockLabel {
        ignorepointer 1
        color 0.604 0.627 0.651 1
-       position 0 33
+       position 0 41
        size 1 14
        halign center_ref
        hexactpos 1
@@ -526,10 +601,10 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "SHOCK"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
-       "exact text size" 14
+       "exact text size" 12
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -547,7 +622,7 @@ PanelWidgetClass PanelPlayerDetails {
        {
         PanelWidgetClass BarShock {
          ignorepointer 1
-         color 0.239 0.490 0.839 1
+         color 0.239 0.49 0.839 1
          position 0 0
          size 1 1
          hexactpos 0
@@ -562,7 +637,7 @@ PanelWidgetClass PanelPlayerDetails {
     }
     FrameWidgetClass VitalCellWater {
      ignorepointer 1
-     size 72 52
+     size 72 60
      hexactpos 0
      vexactpos 0
      hexactsize 1
@@ -572,7 +647,7 @@ PanelWidgetClass PanelPlayerDetails {
        ignorepointer 1
        color 0.298 0.686 0.314 1
        position 0 0
-       size 13 13
+       size 26 26
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -586,7 +661,7 @@ PanelWidgetClass PanelPlayerDetails {
       }
       TextWidgetClass Water {
        ignorepointer 1
-       position 0 15
+       position 0 23
        size 1 18
        halign center_ref
        hexactpos 1
@@ -595,7 +670,8 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "1000"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
        "exact text" 1
        "exact text size" 16
        "size to text h" 1
@@ -605,7 +681,7 @@ PanelWidgetClass PanelPlayerDetails {
       TextWidgetClass WaterLabel {
        ignorepointer 1
        color 0.604 0.627 0.651 1
-       position 0 33
+       position 0 41
        size 1 14
        halign center_ref
        hexactpos 1
@@ -614,10 +690,10 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "WATER"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
-       "exact text size" 14
+       "exact text size" 12
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -635,7 +711,7 @@ PanelWidgetClass PanelPlayerDetails {
        {
         PanelWidgetClass BarWater {
          ignorepointer 1
-         color 0.239 0.490 0.839 1
+         color 0.239 0.49 0.839 1
          position 0 0
          size 1 1
          hexactpos 0
@@ -650,7 +726,7 @@ PanelWidgetClass PanelPlayerDetails {
     }
     FrameWidgetClass VitalCellEnergy {
      ignorepointer 1
-     size 72 52
+     size 72 60
      hexactpos 0
      vexactpos 0
      hexactsize 1
@@ -660,7 +736,7 @@ PanelWidgetClass PanelPlayerDetails {
        ignorepointer 1
        color 0.298 0.686 0.314 1
        position 0 0
-       size 13 13
+       size 26 26
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -674,7 +750,7 @@ PanelWidgetClass PanelPlayerDetails {
       }
       TextWidgetClass Energy {
        ignorepointer 1
-       position 0 15
+       position 0 23
        size 1 18
        halign center_ref
        hexactpos 1
@@ -683,7 +759,8 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "1000"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold16"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
        "exact text" 1
        "exact text size" 16
        "size to text h" 1
@@ -693,7 +770,7 @@ PanelWidgetClass PanelPlayerDetails {
       TextWidgetClass EnergyLabel {
        ignorepointer 1
        color 0.604 0.627 0.651 1
-       position 0 33
+       position 0 41
        size 1 14
        halign center_ref
        hexactpos 1
@@ -702,10 +779,10 @@ PanelWidgetClass PanelPlayerDetails {
        vexactsize 1
        style None
        text "ENERGY"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+       font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
-       "exact text size" 14
+       "exact text size" 12
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -723,7 +800,7 @@ PanelWidgetClass PanelPlayerDetails {
        {
         PanelWidgetClass BarEnergy {
          ignorepointer 1
-         color 0.239 0.490 0.839 1
+         color 0.239 0.49 0.839 1
          position 0 0
          size 1 1
          hexactpos 0
@@ -738,35 +815,257 @@ PanelWidgetClass PanelPlayerDetails {
     }
    }
   }
+  ImageWidgetClass ImgFlags {
+   ignorepointer 1
+   color 0.91 0.639 0.239 1
+   position 0 227
+   size 24 24
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   image0 "set:vpp_icons image:shield"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+   filter 1
+  }
+  TextWidgetClass FlagsHeader {
+   ignorepointer 1
+   color 0.91 0.639 0.239 1
+   position 26 232
+   size 0.5 16
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   style None
+   text "ADMIN FLAGS"
+   font "gui/fonts/sdf_MetronLight72"
+   "text color" 0.91 0.639 0.239 1
+   "bold text" 1
+   "exact text" 1
+   "exact text size" 14
+   "size to text h" 1
+   "size to text v" 1
+  }
+  FrameWidgetClass FlagFrameGodMode {
+   ignorepointer 1
+   position 0.02 252
+   size 0.46 18
+   hexactpos 0
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   {
+    TextWidgetClass FlagLabelGodMode {
+     ignorepointer 1
+     color 0.604 0.627 0.651 1
+     position 8 0
+     size 0.5 1
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "God Mode"
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.604 0.627 0.651 1
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+    TextWidgetClass FlagGodMode {
+     ignorepointer 1
+     color 0.361 0.38 0.4 1
+     position 8 0
+     size 0.4 1
+     halign right_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Disabled"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+   }
+  }
+  FrameWidgetClass FlagFrameInvisible {
+   ignorepointer 1
+   position 0.52 252
+   size 0.46 18
+   hexactpos 0
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   {
+    TextWidgetClass FlagLabelInvisible {
+     ignorepointer 1
+     color 0.604 0.627 0.651 1
+     position 8 0
+     size 0.5 1
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Invisible"
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.604 0.627 0.651 1
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+    TextWidgetClass FlagInvisible {
+     ignorepointer 1
+     color 0.361 0.38 0.4 1
+     position 8 0
+     size 0.4 1
+     halign right_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Disabled"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+   }
+  }
+  FrameWidgetClass FlagFrameUnlimitedAmmo {
+   ignorepointer 1
+   position 0.02 272
+   size 0.46 18
+   hexactpos 0
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   {
+    TextWidgetClass FlagLabelUnlimitedAmmo {
+     ignorepointer 1
+     color 0.604 0.627 0.651 1
+     position 8 0
+     size 0.5 1
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Unlimited Ammo"
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.604 0.627 0.651 1
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+    TextWidgetClass FlagUnlimitedAmmo {
+     ignorepointer 1
+     color 0.361 0.38 0.4 1
+     position 8 0
+     size 0.4 1
+     halign right_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Disabled"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+   }
+  }
+  FrameWidgetClass FlagFrameFrozen {
+   ignorepointer 1
+   position 0.52 272
+   size 0.46 18
+   hexactpos 0
+   vexactpos 1
+   hexactsize 0
+   vexactsize 1
+   {
+    TextWidgetClass FlagLabelFrozen {
+     ignorepointer 1
+     color 0.604 0.627 0.651 1
+     position 8 0
+     size 0.5 1
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Frozen"
+     font "gui/fonts/sdf_MetronLight72"
+     "text color" 0.604 0.627 0.651 1
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+    TextWidgetClass FlagFrozen {
+     ignorepointer 1
+     color 0.361 0.38 0.4 1
+     position 8 0
+     size 0.4 1
+     halign right_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     style None
+     text "Disabled"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
+     "size to text h" 1
+     "size to text v" 1
+     "text valign" center
+    }
+   }
+  }
   FrameWidgetClass PlayerHandsFrame {
    ignorepointer 1
-   position 8 198
+   position 8 296
    size 0.97 22
    hexactpos 1
    vexactpos 1
    hexactsize 0
    vexactsize 1
    {
-    ImageWidgetClass ImgInHands {
-     ignorepointer 1
-     color 0.604 0.627 0.651 1
-     position 0 0
-     size 13 13
-     valign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     image0 "set:vpp_icons image:sword"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-     filter 1
-    }
     TextWidgetClass HandsLabel {
      ignorepointer 1
      color 0.604 0.627 0.651 1
-     position 20 0
+     position 28 0
      size 0.4 1
      valign center_ref
      hexactpos 1
@@ -774,11 +1073,11 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "In Hands"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+     text "Item In Hands:"
+     font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
-     "exact text size" 16
+     "exact text size" 14
      "size to text h" 1
      "size to text v" 1
      "text valign" center
@@ -795,26 +1094,42 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "None"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
-     "exact text size" 16
+     "exact text size" 18
      "size to text h" 1
      "size to text v" 1
      "text valign" center
+    }
+    ImageWidgetClass ImgInHands {
+     ignorepointer 1
+     color 0.604 0.627 0.651 1
+     position 0 0
+     size 26 26
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     image0 "set:vpp_icons image:sword"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+     filter 1
     }
    }
   }
   ButtonWidgetClass btnCopyInfo {
    ignorepointer 0
    color 1 1 1 1
-   position 8 226
-   size 140 24
+   position 8 324
+   size 152 24
    hexactpos 1
    vexactpos 1
    hexactsize 1
    vexactsize 1
    style VPPButton
-   font "vppadmintools/gui/fonts/InterDisplay-Regular16"
+   font "gui/fonts/sdf_MetronLight72"
    {
     ImageWidgetClass ImgCopy {
      ignorepointer 1
@@ -843,7 +1158,7 @@ PanelWidgetClass PanelPlayerDetails {
      vexactsize 0
      style None
      text "#VSTR_LBL_COPY_INFO"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular14"
+     font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 14
      "size to text h" 1

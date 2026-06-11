@@ -52,7 +52,9 @@ PanelWidgetClass PanelFilter {
      hexactsize 0
      vexactsize 0
      text "FilterName"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 16
     }
     XComboBoxWidgetClass ColorCombo {
      position 0 0
@@ -64,7 +66,9 @@ PanelWidgetClass PanelFilter {
      hexactsize 0
      vexactsize 0
      style debugUI
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
      items "White;Green;Blue;Yellow;Orange;Red;Purple;Black"
     }
     ButtonWidgetClass btnDeleteFilter {

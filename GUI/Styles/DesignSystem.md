@@ -159,21 +159,15 @@ or layout must drive the color.
 | `VPPFillRound`   | PanelWidget      | rounded white fill (tint with `color`)      | Header strips, cards, player rows |
 | `VPPScroll`      | ScrollWidget     | invisible chrome                            | Scroll areas (like vanilla `blank`) |
 
-9-slice sprite geometry ("glass" theme): rounded 16x16 blocks sliced into 6px corners
-(5px radius, antialiased), 1px borders and stretchable edges/center
-(`vpp_btn_tl`, `vpp_btn_t`, ... `vpp_btn_br`). Fills are semi-transparent
-(alpha 190-235) so panels and buttons read as glass over the 3D scene. `vpp_panel`
-and `vpp_input` carry a thin white hairline border (alpha 56/80) for definition;
-the slider fill bar uses the rounded `vpp_accent` family. Patch families:
+9-slice sprite geometry mirrors vanilla `menuButton*`: 2x2 px corners, 1 px edges,
+1x1 center (`vpp_btn_tl`, `vpp_btn_t`, ... `vpp_btn_br`). Patch families:
 `vpp_btn`, `vpp_btn_hover`, `vpp_btn_push`, `vpp_btn_danger`, `vpp_btn_danger_hover`,
-`vpp_input`, `vpp_input_focus`, `vpp_panel`, `vpp_round` (borderless white, tintable),
-`vpp_accent` (rounded blue). Flat swatches: `vpp_fill_header`,
+`vpp_input`, `vpp_input_focus`, `vpp_panel`. Flat swatches: `vpp_fill_header`,
 `vpp_fill_track`, `vpp_fill_accent`, `vpp_fill_white`, `vpp_fill_transparent`.
 Checkboxes: `vpp_check_off`, `vpp_check_off_hover`, `vpp_check_on`, `vpp_check_disabled` (26x26).
 
 To change the look of every button/input/panel at once: edit the color constants in
-`tools/build_ui_atlas.py`, re-run it, and re-convert `vpp_ui.png` to `vpp_ui.edds`
-(no mipmaps / point filtering so the rounded borders stay crisp).
+`tools/build_ui_atlas.py`, re-run it, and re-convert `vpp_ui.png` to `vpp_ui.edds`.
 
 ---
 
@@ -198,4 +192,8 @@ To change the look of every button/input/panel at once: edit the color constants
 - Disabled buttons: engine dims them; avoid manual alpha fighting `Enable()`.
 - Prefab layouts for new UI live in `GUI/Layouts/UIHelpers/DesignSystem/`.
 - Collapsible sections use `VPPCollapsibleSection` (5_Mission `GUI/UIHelpers`).
+- Multi-state images: a second `image1` declared in a `.layout` does **not** register --
+  load both slots from script with `LoadImageFile(0/1, "set:vpp_icons image:...")`, then
+  switch with `SetImage()`. Layouts carry only `image0` for the initial look
+  (see `VPPCollapsibleSection` chevrons).
 - Avoid `color 1 0 0 1` debug markers on root frames; roots should be `0 0 0 0` or a token.

@@ -19,10 +19,10 @@ PanelWidgetClass dropdown_selector {
    vexactpos 1
    hexactsize 0
    vexactsize 0
-   font "vppadmintools/gui/fonts/InterDisplay-Medium"
+   font "gui/fonts/sdf_MetronLight72"
    "text offset" 10 0
-   "exact text" 0
-   "exact text size" 16
+   "exact text" 1
+   "exact text size" 18
    "text valign" center
   }
   FrameWidgetClass dropdown_selector_button {

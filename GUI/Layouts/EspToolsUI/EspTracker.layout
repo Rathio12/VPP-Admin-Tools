@@ -61,9 +61,9 @@ GridSpacerWidgetClass rootFrameEsp {
      scaled 1
      style Normal
      text "M4A1M4A1M4A1M4A1M4A1"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 11
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 13
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -82,9 +82,9 @@ GridSpacerWidgetClass rootFrameEsp {
      vexactsize 0
      style Bold
      text "[1250m]"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 11
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 13
      "size to text h" 1
      "size to text v" 1
      "text halign" center

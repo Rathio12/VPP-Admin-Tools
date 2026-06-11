@@ -71,9 +71,9 @@ FrameWidgetClass rootPermissionsEditor {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_AVA_PERMS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
          {
@@ -168,9 +168,9 @@ FrameWidgetClass rootPermissionsEditor {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_USER_GROUPS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -238,7 +238,10 @@ FrameWidgetClass rootPermissionsEditor {
        style Editor
        "no focus" 1
        text "#VSTR_LBL_CREATE_GROUP"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass btnSaveChanges {
        size 0.4 0.2
@@ -252,7 +255,10 @@ FrameWidgetClass rootPermissionsEditor {
        style Editor
        "no focus" 1
        text "#VSTR_LBL_UPDATE_PERMISSIONS"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass btnAddMembers {
        size 0.33 0.2
@@ -266,7 +272,10 @@ FrameWidgetClass rootPermissionsEditor {
        style Editor
        "no focus" 1
        text "#VSTR_LBL_ADD_MEMEBER"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass btnDeleteGroup {
        color 0.8902 0.0784 0.0784 1
@@ -281,7 +290,10 @@ FrameWidgetClass rootPermissionsEditor {
        style Editor
        "no focus" 1
        text "#VSTR_LBL_DELETE_GROUP"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
       }
      }
     }
@@ -323,7 +335,10 @@ FrameWidgetClass rootPermissionsEditor {
      vexactsize 0
      style Bold
      text "#VSTR_PERMISSIONS_MANAGER_TITLE"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
      "size to text h" 1
      "size to text v" 1
      "text halign" center

@@ -50,7 +50,10 @@ FrameWidgetClass rootFrame {
        vexactsize 0
        style Bold
        text "#VSTR_WEB_HOOKS_MANAGER_TITLE"
-       font "vppadmintools/gui/fonts/InterDisplay-Bold"
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
+       "exact text size" 14
        "size to text h" 1
        "size to text v" 1
        "text halign" center
@@ -130,9 +133,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_WEBHOOKS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -161,8 +164,9 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          text "#VSTR_LBL_CREATE_NEW_PRESET"
-         font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "bold text" 1
+         "exact text" 1
          "exact text size" 16
          "text halign" center
          "text valign" center
@@ -242,9 +246,9 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_WEBHOOKS_ATTS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -301,9 +305,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "#VSTR_LBL_SIMPLIFIED_LOGS"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -342,9 +346,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "#VSTR_LBL_SEND_DEATH_LOGS"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -383,9 +387,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "#VSTR_LBL_SEND_ADMIN_LOGS"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -424,9 +428,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "#VSTR_LBL_SEND_HIT_LOGS"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -464,9 +468,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "#VSTR_LBL_SEND_PLAYER_LEAVE_JOIN_LOGS"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -505,9 +509,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              text "Send Server Status Logs"
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
-             "exact text" 0
-             "exact text size" 16
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 18
              "size to text h" 1
              "size to text v" 0
              "text halign" center
@@ -534,7 +538,9 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              "no focus" 1
-             font "vppadmintools/gui/fonts/InterDisplay-Medium"
+             font "gui/fonts/sdf_MetronLight72"
+             "exact text" 1
+             "exact text size" 16
              items "Every: 60 seconds;Every: 5 minutes;Every: 10 minutes;Every: 15 minutes"
             }
            }
@@ -655,8 +661,9 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          text "#VSTR_LBL_SAVE_CHANGES"
-         font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "bold text" 1
+         "exact text" 1
          "exact text size" 16
          "text halign" center
          "text valign" center
@@ -701,8 +708,8 @@ FrameWidgetClass rootFrame {
          vexactsize 0
          style DayZBold
          text "#VSTR_LBL_WEBHOOKS_TIP"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
          "exact text size" 12
          "size to text h" 1
          "size to text v" 1

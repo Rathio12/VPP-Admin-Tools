@@ -106,7 +106,7 @@ FrameWidgetClass rootFrame {
        vexactsize 0
        style DayZBold
        text ""
-       font "vppadmintools/gui/fonts/InterDisplay-Regular22"
+       font "gui/fonts/sdf_MetronLight72"
        "exact text" 1
        "exact text size" 24
        "size to text h" 0
@@ -155,8 +155,10 @@ FrameWidgetClass rootFrame {
      vexactsize 0
      style Normal
      text "#VSTR_LBL_CMD_TITLE"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center

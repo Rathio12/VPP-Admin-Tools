@@ -62,11 +62,11 @@ FrameWidgetClass diagFrame {
          scaled 1
          style None
          text "TITLE"
-         font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+         font "gui/fonts/sdf_MetronLight72"
          "italic text" 0
          "bold text" 1
          "text sharpness" 3
-         "exact text" 0
+         "exact text" 1
          "exact text size" 24
          "size to text h" 1
          "size to text v" 1
@@ -90,8 +90,8 @@ FrameWidgetClass diagFrame {
        scriptclass ""
        style DayZNormal
        text "Are you sure you wish to delete [BandageDressing]?"
-       font "vppadmintools/gui/fonts/InterDisplay-Light"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
        "exact text size" 24
        "size to text h" 1
        "size to text v" 1
@@ -141,8 +141,9 @@ FrameWidgetClass diagFrame {
            hexactsize 0
            vexactsize 0
            text "YES"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
            "exact text size" 22
            "text halign" center
            "text valign" center
@@ -171,8 +172,9 @@ FrameWidgetClass diagFrame {
            hexactsize 0
            vexactsize 0
            text "NO"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
            "exact text size" 22
            "text halign" center
            "text valign" center
@@ -202,8 +204,9 @@ FrameWidgetClass diagFrame {
            hexactsize 0
            vexactsize 0
            text "Paste"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
            "exact text size" 22
            "text halign" center
            "text valign" center
@@ -233,8 +236,9 @@ FrameWidgetClass diagFrame {
            hexactsize 0
            vexactsize 0
            text "OK"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
            "exact text size" 22
            "text halign" center
            "text valign" center
@@ -265,8 +269,9 @@ FrameWidgetClass diagFrame {
            hexactsize 0
            vexactsize 0
            text "CANCEL"
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-           "exact text" 0
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
            "exact text size" 22
            "text halign" center
            "text valign" center
@@ -302,7 +307,8 @@ FrameWidgetClass diagFrame {
        "limit visible" 0
        "Use default text" 1
        "exact text" 1
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text size" 14
       }
      }
     }

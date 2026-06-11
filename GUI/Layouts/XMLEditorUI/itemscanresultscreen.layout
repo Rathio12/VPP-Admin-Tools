@@ -86,8 +86,8 @@ FrameWidgetClass rootFrame {
        hexactsize 0
        vexactsize 0
        text "#VSTR_LBL_PLEASE_WAIT"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
        "exact text size" 16
        "size to text h" 1
        "size to text v" 1
@@ -176,7 +176,9 @@ FrameWidgetClass rootFrame {
    hexactsize 0
    vexactsize 0
    style Editor
-   font "vppadmintools/gui/fonts/InterDisplay-Medium16"
+   font "gui/fonts/sdf_MetronLight72"
+   "exact text" 1
+   "exact text size" 18
   }
   EditBoxWidgetClass SearchInputBox {
    position 0 0.03
@@ -191,7 +193,9 @@ FrameWidgetClass rootFrame {
    text "#VSTR_SEARCH"
    "Use default text" 1
    "exact text" 1
-   font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+   font "gui/fonts/sdf_MetronLight72"
+   "bold text" 1
+   "exact text size" 14
   }
   ButtonWidgetClass btnDeleteObj {
    position 0.02 0.055
@@ -217,8 +221,8 @@ FrameWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "Delete Selected"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
      "exact text size" 16
      "text halign" center
      "text valign" center
@@ -251,8 +255,8 @@ FrameWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "Delete All"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
      "exact text size" 16
      "text halign" center
      "text valign" center

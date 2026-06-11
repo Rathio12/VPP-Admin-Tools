@@ -26,6 +26,7 @@ class VPPPlayerStats : VPPPlayerTemplate
 			{
 				case "Name":
 				m_CopyText += "Name: "+statValue;
+				SetCardTitle(statValue);
 				break;
 				
 				case "SteamID":
@@ -62,7 +63,47 @@ class VPPPlayerStats : VPPPlayerTemplate
         UpdateVital("Shock",  100.0);
         UpdateVital("Water",  5000.0);
         UpdateVital("Energy", 5000.0);
+        
+        if (m_stats.Contains("UserGroup"))
+        {
+            TextWidget groupTitle = TextWidget.Cast(m_EntryBox.FindAnyWidget("CardTitleGroup"));
+            if (groupTitle)
+                groupTitle.SetText(m_stats["UserGroup"]);
+        }
+        
+        UpdateFlag("GodMode");
+        UpdateFlag("UnlimitedAmmo");
+        UpdateFlag("Invisible");
+        UpdateFlag("Frozen");
     }
+	
+	private void SetCardTitle(string playerName)
+	{
+		TextWidget title = TextWidget.Cast(m_EntryBox.FindAnyWidget("CardTitleName"));
+		if (title)
+			title.SetText(playerName);
+	}
+	
+	/*
+		Renders an admin flag ("1"/"0" from server) as Enabled/Disabled
+		using design tokens positive-green / text-muted
+	*/
+	private void UpdateFlag(string flagName)
+	{
+		TextWidget flagText = TextWidget.Cast(m_EntryBox.FindAnyWidget("Flag" + flagName));
+		if (!flagText) return;
+		
+		if (m_stats.Contains(flagName) && m_stats[flagName] == "1")
+		{
+			flagText.SetText("Enabled");
+			flagText.SetColor(ARGB(255, 76, 175, 80));
+		}
+		else
+		{
+			flagText.SetText("Disabled");
+			flagText.SetColor(ARGB(255, 92, 97, 102));
+		}
+	}
 	
 	void ButtonClick( Widget w, int x, int y, int button )
 	{
@@ -84,6 +125,11 @@ class VPPPlayerStats : VPPPlayerTemplate
 	string GetStatValue(string name)
 	{
 		return m_stats[name];
+	}
+	
+	bool HasStat(string name)
+	{
+		return m_stats.Contains(name);
 	}
 	
 	/*

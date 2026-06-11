@@ -82,9 +82,9 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_SAVED_POSITIONS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -108,7 +108,10 @@ WindowWidgetClass rootFrame {
          style Editor
          "no focus" 1
          text "↻"
-         font "vppadmintools/gui/fonts/InterDisplay-Bold"
+         font "gui/fonts/sdf_MetronLight72"
+         "bold text" 1
+         "exact text" 1
+         "exact text size" 14
         }
        }
       }
@@ -181,9 +184,9 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          style Normal
          text "#VSTR_LBL_ACTIONS"
-         font "vppadmintools/gui/fonts/InterDisplay-Medium"
-         "exact text" 0
-         "exact text size" 16
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 18
          "text halign" center
          "text valign" center
         }
@@ -216,7 +219,9 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "#VSTR_LBL_ADD_NEW_POS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         ButtonWidgetClass btnEditPos {
          size 0.154 0.15
@@ -228,7 +233,9 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "#VSTR_LBL_EDIT_SEL_POS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         ButtonWidgetClass BtnRemove {
          color 0.906 0.223 0.223 1
@@ -242,7 +249,9 @@ WindowWidgetClass rootFrame {
          scriptclass "ConfirmationEventHandler"
          style Editor
          text "#VSTR_LBL_DEL_SEL_POS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         CheckBoxWidgetClass ChkShowMarkers {
          ignorepointer 0
@@ -254,7 +263,9 @@ WindowWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          text "#VSTR_LBL_TP_SHOW_MARKERS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
          checked 1
         }
         CheckBoxWidgetClass ChkTpSelected {
@@ -266,7 +277,9 @@ WindowWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          text "#VSTR_LBL_TP_TO_SEL_PLAYERS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         ButtonWidgetClass btnTeleport {
          size 0.154 0.15
@@ -278,7 +291,9 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          style Editor
          text "#VSTR_LBL_TP_TO_POS"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
         TextWidgetClass txtCursorPos {
          clipchildren 1
@@ -293,8 +308,10 @@ WindowWidgetClass rootFrame {
          vexactsize 0
          scaled 1
          text "X: 0 Y: 0 Z: 0X: 0 Y: 0 Z: 0"
-         font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-         "exact text" 0
+         font "gui/fonts/sdf_MetronLight72"
+         "bold text" 1
+         "exact text size" 14
+         "exact text" 1
          "size to text h" 1
          "size to text v" 1
          "text halign" center
@@ -358,7 +375,10 @@ WindowWidgetClass rootFrame {
      vexactsize 0
      style Bold
      text "#VSTR_TELEPORT_MANAGER_TITLE"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
      "size to text h" 1
      "size to text v" 1
      "text halign" center

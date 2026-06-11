@@ -54,7 +54,10 @@ PanelWidgetClass PanelData {
      hexactsize 0
      vexactsize 0
      text "Chernogorsk"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
     }
     TextWidgetClass CoordsInput {
      clipchildren 1
@@ -68,8 +71,8 @@ PanelWidgetClass PanelData {
      hexactsize 0
      vexactsize 0
      text "7500,300,7500"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
      "exact text size" 12
      "size to text h" 0
      "size to text v" 0

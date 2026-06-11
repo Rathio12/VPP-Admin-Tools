@@ -43,7 +43,10 @@ PanelWidgetClass rootFrame {
      vexactsize 0
      style Editor
      text "#VSTR_APPLY"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
     }
     ButtonWidgetClass btnCancel {
      position 0.01 0
@@ -55,7 +58,10 @@ PanelWidgetClass rootFrame {
      vexactsize 0
      style Editor
      text "#VSTR_CANCEL"
-     font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
+     "exact text size" 14
     }
     CheckBoxWidgetClass PermaTick {
      position 0.1 0
@@ -68,7 +74,9 @@ PanelWidgetClass rootFrame {
      vexactsize 0
      style Default
      text "#VSTR_BAN_PERMA"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 14
     }
    }
   }
@@ -98,8 +106,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_YEAR"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -114,8 +123,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_MONTH"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -130,8 +140,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_DAY"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -146,8 +157,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_HOUR"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -162,8 +174,9 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      text "#VSTR_MINUTE"
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
+     "exact text" 1
      "size to text h" 1
      "size to text v" 1
      "text halign" center
@@ -322,7 +335,8 @@ PanelWidgetClass rootFrame {
      text "2019"
      "Use default text" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
      "bold text" 1
     }
     EditBoxWidgetClass InputMonth {
@@ -338,7 +352,8 @@ PanelWidgetClass rootFrame {
      text "6"
      "Use default text" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
      "bold text" 1
     }
     EditBoxWidgetClass InputDay {
@@ -354,7 +369,8 @@ PanelWidgetClass rootFrame {
      text "25"
      "Use default text" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
      "bold text" 1
     }
     EditBoxWidgetClass InputHour {
@@ -370,7 +386,8 @@ PanelWidgetClass rootFrame {
      text "12"
      "Use default text" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
      "bold text" 1
     }
     EditBoxWidgetClass InputMinute {
@@ -386,7 +403,8 @@ PanelWidgetClass rootFrame {
      text "30"
      "Use default text" 0
      "exact text" 1
-     font "vppadmintools/gui/fonts/InterDisplay-Regular"
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text size" 14
      "bold text" 1
     }
     ButtonWidgetClass brtnYrDec {
@@ -558,9 +576,9 @@ PanelWidgetClass rootFrame {
      vexactsize 0
      style Normal
      text "#VSTR_EDIT_DURATION"
-     font "vppadmintools/gui/fonts/InterDisplay-Medium"
-     "exact text" 0
-     "exact text size" 16
+     font "gui/fonts/sdf_MetronLight72"
+     "exact text" 1
+     "exact text size" 18
      "text halign" center
      "text valign" center
     }

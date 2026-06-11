@@ -63,8 +63,8 @@ PanelWidgetClass PanelEntry {
        hexactsize 0
        vexactsize 0
        text "WebHookName"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
        "exact text size" 16
        "text valign" center
       }

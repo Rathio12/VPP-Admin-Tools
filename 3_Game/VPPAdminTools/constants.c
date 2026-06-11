@@ -98,6 +98,7 @@ class VPPATUIConstants
 	const static string MenuPlayerManager 			 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/MenuPlayerManager.layout";
 	const static string VPPPlayerList 				 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/VPPPlayerList.layout";
 	const static string VPPPlayerInfoBox 			 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/VPPPlayerInfoBox.layout";
+	const static string VPPModifierEntry 			 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/VPPModifierEntry.layout";
 
 	//Permissions Manager
 	const static string MenuPermissionsEditor 		 = "VPPAdminTools/GUI/Layouts/PermissionManagerUI/MenuPermissionsEditor.layout";

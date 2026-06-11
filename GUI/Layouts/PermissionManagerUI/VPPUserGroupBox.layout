@@ -56,8 +56,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "#VSTR_LBL_GROUP_NAME"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
        "exact text size" 16
        "size to text h" 1
        "size to text v" 0
@@ -74,9 +75,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "usergroupname"
-       font "vppadmintools/gui/fonts/InterDisplay-Medium"
-       "exact text" 0
-       "exact text size" 16
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 18
        "size to text h" 1
        "size to text v" 0
        "text halign" center
@@ -128,8 +129,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "#VSTR_LBL_GROUP_TOTAL_MEMBERS"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
        "exact text size" 16
        "size to text h" 1
        "size to text v" 0
@@ -146,9 +148,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "25"
-       font "vppadmintools/gui/fonts/InterDisplay-Medium"
-       "exact text" 0
-       "exact text size" 16
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 18
        "size to text h" 1
        "size to text v" 0
        "text halign" center
@@ -174,8 +176,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "#VSTR_LBL_GROUP_PERMS_LVL"
-       font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-       "exact text" 0
+       font "gui/fonts/sdf_MetronLight72"
+       "bold text" 1
+       "exact text" 1
        "exact text size" 16
        "size to text h" 1
        "size to text v" 0
@@ -192,9 +195,9 @@ PanelWidgetClass PanelUserGroup {
        hexactsize 0
        vexactsize 0
        text "25"
-       font "vppadmintools/gui/fonts/InterDisplay-Medium"
-       "exact text" 0
-       "exact text size" 16
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 18
        "size to text h" 1
        "size to text v" 0
        "text halign" center
@@ -275,7 +278,9 @@ PanelWidgetClass PanelUserGroup {
    vexactsize 0
    "no focus" 1
    text "SELECT"
-   font "vppadmintools/gui/fonts/InterDisplay-Medium"
+   font "gui/fonts/sdf_MetronLight72"
+   "exact text" 1
+   "exact text size" 16
   }
  }
 }

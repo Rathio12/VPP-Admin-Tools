@@ -87,7 +87,9 @@ FrameWidgetClass rootMenuServerManager {
          vexactsize 0
          style Editor
          text "#VSTR_LBL_REFRESH_ACTIVITY"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
          {
           CheckBoxWidgetClass ChkBoxUpdateActivity {
            position 0 0
@@ -99,7 +101,9 @@ FrameWidgetClass rootMenuServerManager {
            hexactsize 0
            vexactsize 0
            text "#VSTR_LBL_AUTO_UPDATE_ACTIVITY"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
           }
          }
         }
@@ -126,9 +130,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 1
            style Normal
            text "#VSTR_LBL_ACTIVVITY_MAP"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
-           "exact text" 0
-           "exact text size" 16
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 18
            "text halign" center
            "text valign" center
           }
@@ -173,7 +177,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Editor
            text "#VSTR_LBL_RELEASE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
           }
           ButtonWidgetClass BtnViewScript {
            disabled 1
@@ -186,7 +192,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Editor
            text "#VSTR_LBL_VIEW"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
           }
           ButtonWidgetClass BtnWriteScript {
            size 0.3 0.4
@@ -198,7 +206,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Editor
            text "#VSTR_LBL_WRITE"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
           }
           ButtonWidgetClass BtnLoadScript {
            disabled 1
@@ -211,7 +221,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Editor
            text "#VSTR_LBL_LOAD"
-           font "vppadmintools/gui/fonts/InterDisplay-Regular"
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 14
           }
           ButtonWidgetClass BtnRefreshScriptList {
            disabled 0
@@ -224,7 +236,10 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Editor
            text "↻"
-           font "vppadmintools/gui/fonts/InterDisplay-Bold"
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text" 1
+           "exact text size" 14
           }
          }
         }
@@ -277,9 +292,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 1
            style Normal
            text "#VSTR_LBL_SCRIPT_LOADER"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
-           "exact text" 0
-           "exact text size" 16
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 18
            "text halign" center
            "text valign" center
           }
@@ -353,9 +368,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 0
            style Normal
            text "#VSTR_LBL_PASSWORD"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
-           "exact text" 0
-           "exact text size" 16
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 18
            "size to text h" 1
            "size to text v" 1
            "text halign" right
@@ -376,7 +391,9 @@ FrameWidgetClass rootMenuServerManager {
            text "***********"
            "Use default text" 1
            "exact text" 1
-           font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
+           font "gui/fonts/sdf_MetronLight72"
+           "bold text" 1
+           "exact text size" 14
           }
          }
         }
@@ -391,7 +408,9 @@ FrameWidgetClass rootMenuServerManager {
          vexactsize 0
          style Editor
          text "Login"
-         font "vppadmintools/gui/fonts/InterDisplay-Regular"
+         font "gui/fonts/sdf_MetronLight72"
+         "exact text" 1
+         "exact text size" 14
         }
        }
       }
@@ -460,8 +479,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_SERVER_FPS"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -478,7 +498,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -504,8 +526,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_ONLINE_PLAYERS"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -522,7 +545,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -548,8 +573,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_SERVER_UPTIME"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -566,7 +592,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "0d 0h 0m 0s"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -592,8 +620,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_MEM_USED"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -610,7 +639,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -636,8 +667,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_NETWORK_TRAFFIC"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -654,7 +686,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -680,8 +714,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_NETWORK_TRAFFIC2"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -698,7 +733,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -724,8 +761,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "#VSTR_LBL_ACTIVE_AI"
-               font "vppadmintools/gui/fonts/InterDisplay-SemiBold"
-               "exact text" 0
+               font "gui/fonts/sdf_MetronLight72"
+               "bold text" 1
+               "exact text" 1
                "exact text size" 11
                "size to text h" 1
                "size to text v" 0
@@ -742,7 +780,9 @@ FrameWidgetClass rootMenuServerManager {
                hexactsize 0
                vexactsize 0
                text "null"
-               font "vppadmintools/gui/fonts/InterDisplay-Regular"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
                "size to text h" 1
                "size to text v" 0
                "text halign" center
@@ -781,9 +821,9 @@ FrameWidgetClass rootMenuServerManager {
            vexactsize 1
            style Normal
            text "#VSTR_LBL_SERVER_MONITOR"
-           font "vppadmintools/gui/fonts/InterDisplay-Medium"
-           "exact text" 0
-           "exact text size" 16
+           font "gui/fonts/sdf_MetronLight72"
+           "exact text" 1
+           "exact text size" 18
            "text halign" center
            "text valign" center
            {
@@ -832,7 +872,9 @@ FrameWidgetClass rootMenuServerManager {
        scriptclass "ConfirmationEventHandler"
        style Editor
        text "#VSTR_LBL_RESTART_SERVER"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass BtnLockServer {
        size 0.25 0.9
@@ -845,7 +887,9 @@ FrameWidgetClass rootMenuServerManager {
        scriptclass "ConfirmationEventHandler"
        style Editor
        text "#VSTR_LBL_LOCKSERVER"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass BtnKickAll {
        size 0.25 0.9
@@ -858,7 +902,9 @@ FrameWidgetClass rootMenuServerManager {
        scriptclass "ConfirmationEventHandler"
        style Editor
        text "#VSTR_LBL_KILL_ALL_PLAYERS"
-       font "vppadmintools/gui/fonts/InterDisplay-Regular"
+       font "gui/fonts/sdf_MetronLight72"
+       "exact text" 1
+       "exact text size" 14
       }
       ButtonWidgetClass BtnViewAdmLog {
        visible 0
@@ -914,8 +960,9 @@ FrameWidgetClass rootMenuServerManager {
      vexactsize 0
      style Bold
      text "#VSTR_SERVER_MANAGER_TITLE"
-     font "vppadmintools/gui/fonts/InterDisplay-Bold"
-     "exact text" 0
+     font "gui/fonts/sdf_MetronLight72"
+     "bold text" 1
+     "exact text" 1
      "exact text size" 16
      "size to text h" 1
      "size to text v" 1

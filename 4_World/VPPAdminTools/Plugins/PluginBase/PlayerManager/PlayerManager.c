@@ -23,6 +23,16 @@ class PlayerManager extends PluginBase
 		GetRPCManager().AddRPC("RPC_PlayerManager", "FreezePlayers", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "ChangePlayerScale", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "GetPlayerCount", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "StopBleedingPlayers", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "ClearInventory", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "GetPlayerModifiers", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "SetPlayerModifier", this, SingeplayerExecutionType.Server);
+	}
+	
+	private string BoolToFlag(bool state)
+	{
+		if (state) return "1";
+		return "0";
 	}
 	
 	void GetPlayerCount(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
@@ -391,7 +401,7 @@ class PlayerManager extends PluginBase
 	{
 		if( type == CallType.Server )
         {
-        	Param1<ref array<string>> data; // player id's
+        	Param2<ref array<string>, int> data; // player id's, state (1 = freeze, 0 = unfreeze, -1 = toggle)
 			if(!ctx.Read(data)) return;
 
 		#ifndef DIAG_DEVELOPER
@@ -402,6 +412,7 @@ class PlayerManager extends PluginBase
 			array<string> ids = data.param1;
 			if (ids.Count() < 1) return;
 
+			int freezeMode  = data.param2;
 			string adminID  = sender.GetPlainId();
 
 			if (!GetPermissionManager().VerifyPermission(adminID, "PlayerManager:FreezePlayers"))
@@ -414,7 +425,13 @@ class PlayerManager extends PluginBase
 					PlayerBase targetPlayer = GetPermissionManager().GetPlayerBaseByID(id);
 					if (targetPlayer != NULL)
 					{
-						targetPlayer.VPPFreezePlayer( !targetPlayer.VPPIsFreezeControls() );
+						bool newState;
+						if (freezeMode == -1)
+							newState = !targetPlayer.VPPIsFreezeControls();
+						else
+							newState = freezeMode == 1;
+						
+						targetPlayer.VPPFreezePlayer( newState );
 
 						if ( targetPlayer.VPPIsFreezeControls() )
 							GetPermissionManager().NotifyPlayer(sender.GetPlainId(), string.Format("Freeze Controls Set to [ TRUE ] for [%1] player(s)", ids.Count()), NotifyTypes.NOTIFY);
@@ -427,6 +444,163 @@ class PlayerManager extends PluginBase
 			}
 			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[PlayerManager] Freezing "+ ids.Count() +" Player(s) control"));
         }
+	}
+	
+	void StopBleedingPlayers( CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target )
+	{
+		if( type == CallType.Server )
+        {
+        	Param1<ref array<string>> data; // player id's
+			if(!ctx.Read(data)) return;
+
+		#ifndef DIAG_DEVELOPER
+			if (sender == null)
+				return;
+		#endif
+
+			array<string> ids = data.param1;
+			if (ids.Count() < 1) return;
+
+			string adminID = sender.GetPlainId();
+			if (!GetPermissionManager().VerifyPermission(adminID, "PlayerManager:StopBleeding"))
+				return;
+
+			foreach(string id : ids)
+			{
+				if (GetPermissionManager().VerifyPermission(adminID, "PlayerManager:StopBleeding", id))
+				{
+					PlayerBase targetPlayer = GetPermissionManager().GetPlayerBaseByID(id);
+					if (targetPlayer != NULL)
+					{
+						targetPlayer.VPPStopBleeding();
+						GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) stopped bleeding on player (steamid=%3)", sender.GetName(), sender.GetPlainId(), id));
+					}
+				}
+			}
+			GetPermissionManager().NotifyPlayer(adminID, string.Format("Removed bleeding sources from [%1] player(s)", ids.Count()), NotifyTypes.NOTIFY);
+			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[PlayerManager] Stopped bleeding on "+ ids.Count() +" player(s)"));
+        }
+	}
+	
+	void ClearInventory( CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target )
+	{
+		if( type == CallType.Server )
+        {
+        	Param1<ref array<string>> data; // player id's
+			if(!ctx.Read(data)) return;
+
+		#ifndef DIAG_DEVELOPER
+			if (sender == null)
+				return;
+		#endif
+
+			array<string> ids = data.param1;
+			if (ids.Count() < 1) return;
+
+			string adminID = sender.GetPlainId();
+			if (!GetPermissionManager().VerifyPermission(adminID, "PlayerManager:ClearInventory"))
+				return;
+
+			foreach(string id : ids)
+			{
+				if (GetPermissionManager().VerifyPermission(adminID, "PlayerManager:ClearInventory", id))
+				{
+					PlayerBase targetPlayer = GetPermissionManager().GetPlayerBaseByID(id);
+					if (targetPlayer != NULL)
+					{
+						targetPlayer.RemoveAllItems();
+						GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) cleared inventory of player (steamid=%3)", sender.GetName(), sender.GetPlainId(), id));
+					}
+				}
+			}
+			GetPermissionManager().NotifyPlayer(adminID, string.Format("Cleared inventory of [%1] player(s)", ids.Count()), NotifyTypes.NOTIFY);
+			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[PlayerManager] Cleared inventory of "+ ids.Count() +" player(s)"));
+        }
+	}
+	
+	/*
+		Enumerates every modifier registered on the target player's ModifiersManager
+		(sicknesses, buffs, regen states...) and returns id/name/active arrays to the client.
+	*/
+	void GetPlayerModifiers(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type == CallType.Server)
+		{
+			Param1<string> data; //target player id
+			if (!ctx.Read(data)) return;
+			
+		#ifndef DIAG_DEVELOPER
+			if (sender == null) return;
+		#endif
+			
+			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(), "MenuPlayerManager", "", false)) return;
+			
+			PlayerBase targetPlayer = GetPermissionManager().GetPlayerBaseByID(data.param1);
+			if (targetPlayer == null) return;
+			
+			ModifiersManager modsManager = targetPlayer.GetModifiersManager();
+			if (modsManager == null) return;
+			
+			array<int>    modIds     = new array<int>;
+			array<string> modNames   = new array<string>;
+			array<bool>   modActives = new array<bool>;
+			
+			for (int i = 1; i < eModifiers.COUNT; ++i)
+			{
+				ModifierBase modifier = modsManager.GetModifier(i);
+				if (modifier == null) continue;
+				
+				modIds.Insert(i);
+				modNames.Insert(modifier.GetName());
+				modActives.Insert(modifier.IsActive());
+			}
+			
+			GetRPCManager().VSendRPC("RPC_MenuPlayerManager", "HandlePlayerModifiers", new Param4<string, ref array<int>, ref array<string>, ref array<bool>>(data.param1, modIds, modNames, modActives), true, sender);
+		}
+	}
+	
+	/*
+		Activates or deactivates a single modifier on the target player.
+		Note: activation requests settle on the player's next modifier tick.
+	*/
+	void SetPlayerModifier(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type == CallType.Server)
+		{
+			Param3<string,int,bool> data; //target player id, modifier id, desired state
+			if (!ctx.Read(data)) return;
+			
+		#ifndef DIAG_DEVELOPER
+			if (sender == null) return;
+		#endif
+			
+			string adminID = sender.GetPlainId();
+			if (!GetPermissionManager().VerifyPermission(adminID, "PlayerManager:EditModifiers") || !GetPermissionManager().VerifyPermission(adminID, "PlayerManager:EditModifiers", data.param1)) return;
+			
+			PlayerBase targetPlayer = GetPermissionManager().GetPlayerBaseByID(data.param1);
+			if (targetPlayer == null) return;
+			
+			ModifiersManager modsManager = targetPlayer.GetModifiersManager();
+			if (modsManager == null) return;
+			
+			ModifierBase modifier = modsManager.GetModifier(data.param2);
+			if (modifier == null) return;
+			
+			string stateWord;
+			if (data.param3)
+			{
+				modsManager.ActivateModifier(data.param2);
+				stateWord = "activated";
+			}
+			else
+			{
+				modsManager.DeactivateModifier(data.param2);
+				stateWord = "deactivated";
+			}
+			
+			GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) %3 modifier \"%4\" on player (steamid=%5)", sender.GetName(), adminID, stateWord, modifier.GetName(), data.param1));
+			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(adminID, sender.GetName(), "[PlayerManager] Modifier " + modifier.GetName() + " " + stateWord + " on target: " + data.param1));
+		}
 	}
 	
 	void HealPlayers(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
@@ -503,6 +677,16 @@ class PlayerManager extends PluginBase
 				case "Energy":
 				targetPlayer.GetStatEnergy().Set(data.param1);
 				break;
+				
+				case "Temperature":
+				//NOTE: heat comfort is recomputed by Environment every ~3s tick; this applies an immediate nudge only
+				targetPlayer.GetStatHeatComfort().Set(Math.Clamp(data.param1, -1.0, 1.0));
+				break;
+				
+				case "HeatBuffer":
+				//persistent warmth control: stat range -30..+30, decays via Environment.ProcessHeatBuffer()
+				targetPlayer.GetStatHeatBuffer().Set(Math.Clamp(data.param1, -30.0, 30.0));
+				break;
 			}
 			GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) just updated a health stat on (steamid=%3)", sender.GetName(), sender.GetPlainId(), data.param2));
 
@@ -542,6 +726,12 @@ class PlayerManager extends PluginBase
 				dataMap.Insert("Weapon",inHandsName);
 				dataMap.Insert("SteamID",playerMan.VPlayerGetSteamId());
 				dataMap.Insert("UserGroup",GetPermissionManager().GetPlayerUserGrpNameByID(id));
+				dataMap.Insert("Temperature",PlayerBase.Cast(playerMan).GetStatHeatComfort().Get().ToString());
+				dataMap.Insert("HeatBuffer",PlayerBase.Cast(playerMan).GetStatHeatBuffer().Get().ToString());
+				dataMap.Insert("GodMode",BoolToFlag(playerMan.GodModeStatus()));
+				dataMap.Insert("UnlimitedAmmo",BoolToFlag(playerMan.VPPIsUnlimitedAmmo()));
+				dataMap.Insert("Invisible",BoolToFlag(playerMan.InvisibilityStatus()));
+				dataMap.Insert("Frozen",BoolToFlag(playerMan.VPPIsFreezeControls()));
 	
 				PlayerStatsData stats = new PlayerStatsData(dataMap);
 				GetRPCManager().VSendRPC( "RPC_MenuPlayerManager", "HandlePlayerStats", new Param1<ref PlayerStatsData>(stats), true, sender);
@@ -614,6 +804,12 @@ class PlayerManager extends PluginBase
 						dataMap.Insert("Weapon",inHandsName);
 						dataMap.Insert("SteamID",playerMan.VPlayerGetSteamId());
 						dataMap.Insert("UserGroup",GetPermissionManager().GetPlayerUserGrpNameByID(id));
+						dataMap.Insert("Temperature",PlayerBase.Cast(playerMan).GetStatHeatComfort().Get().ToString());
+				dataMap.Insert("HeatBuffer",PlayerBase.Cast(playerMan).GetStatHeatBuffer().Get().ToString());
+						dataMap.Insert("GodMode",BoolToFlag(playerMan.GodModeStatus()));
+						dataMap.Insert("UnlimitedAmmo",BoolToFlag(playerMan.VPPIsUnlimitedAmmo()));
+						dataMap.Insert("Invisible",BoolToFlag(playerMan.InvisibilityStatus()));
+						dataMap.Insert("Frozen",BoolToFlag(playerMan.VPPIsFreezeControls()));
 						
 						PlayerStatsData stats = new PlayerStatsData(dataMap);
 						GetRPCManager().VSendRPC( "RPC_MenuPlayerManager", "HandlePlayerStats", new Param1<ref PlayerStatsData>(stats), true, sender);
