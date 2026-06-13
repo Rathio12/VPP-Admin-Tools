@@ -318,8 +318,8 @@ FrameWidgetClass rootFrame {
        scaled 1
        style VPPListbox
        "no focus" 1
-       "title visible" 0
-       colums "class;52;display;48;"
+       "title visible" 1
+       colums "Class Name:;52;Display Name:;62;"
        "highlight row" 0
       }
       PanelWidgetClass SelectedItemStrip {
