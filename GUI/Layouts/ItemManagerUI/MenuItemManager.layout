@@ -3,7 +3,7 @@ FrameWidgetClass rootFrame {
  ignorepointer 0
  color 0 0 0 0
  position 0 0
- size 0.62 0.72
+ size 0.6 0.72
  hexactpos 1
  vexactpos 1
  hexactsize 0

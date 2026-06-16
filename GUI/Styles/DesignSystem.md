@@ -154,6 +154,21 @@ Icon usage map (Item Manager):
 | Type: structure          | `house`               |
 | Type: AI/animal          | `paw_print`           |
 
+Icon usage map (Teleport Manager):
+
+| Purpose                  | Sprite                |
+|--------------------------|-----------------------|
+| Teleport Manager / saved location | `map_pin` (accent-orange) |
+| World map panel / map header | `map`             |
+| Add location             | `map_pin_plus`        |
+| Locate (center map on row)| `locate_fixed`       |
+| Teleport-to (row + primary)| `crosshair` / `locate_fixed` (positive-green) |
+| Edit location            | `square_pen`          |
+| Delete location / recents | `trash_2` (danger-red)|
+| Copy cursor coords       | `copy`                |
+| Target = self            | `user`                |
+| Target = selected players| `users`               |
+
 ---
 
 ## 4. Widget Styles (`vpp_widgets.styles`)
@@ -208,6 +223,7 @@ To change the look of every button/input/panel at once: edit the color constants
 | Panel header height  | 28 px      | exact size |
 | Section header height| 24 px      | exact size |
 | Row height           | 26 px      | player list / preset library / preset contents rows |
+| Two-line row height  | 40 px      | teleport location rows (name over coords) on a `VPPFillRound` row bg |
 | Button height        | 28 px      | action buttons |
 | Icon button          | 26 x 26 px | per-row actions (favorite, add-to-preset, spawn, delete, crown) with 16 px icon |
 | Option row height    | 30 px      | spawn option rows (label + control: stepper, dropdown, checkbox) |
@@ -238,6 +254,21 @@ To change the look of every button/input/panel at once: edit the color constants
 - **Tabs**: pairs of `VPPButton`s in the panel header; the script swaps two root frames and
   tints labels `text-primary` (active) / `text-secondary` (inactive) — see `SetPanelTab`
   in MenuPlayerManager/MenuItemManager.
+- **Segmented toggle**: a mutually-exclusive choice rendered as two adjacent `VPPButton`s
+  (e.g. Self | Selected target toggle in the Teleport Manager). The script tints the active
+  side's label + icon `accent-orange` and the inactive side `text-secondary` (`SetTarget`).
+  Use instead of a lone checkbox when both states deserve an explicit, labelled button.
+- **Always-on map HUD**: hint/coords strips floated over a `MapWidget` MUST set
+  `ignorepointer 1` (and live on a `VPPFillRound` panel pinned with `valign bottom_ref`) so
+  they never swallow map clicks/drags. Map gestures stay on the `MapWidget`
+  (double-click = teleport, Ctrl+double-click = add, right-click = copy coords).
+- **Catalog category filter**: reuse the single `VPPDropDownMenu` for list scoping
+  (All / Towns / Custom / Recent in Teleport, item categories in Item Manager). Switching
+  category rebuilds the list source; the search box then toggles per-row visibility on top.
+- **Local client prefs**: per-player history/favorites live in `$profile:VPPAdminTools/*ClientPrefs.json`
+  (`ItemManagerClientPrefs`, `TeleportManagerClientPrefs`) — JSON via `JsonFileLoader`, capped &
+  deduped newest-first, never sent to the server. List rows built from prefs use a read-only row
+  "mode" (no multi-select/edit; Delete = remove-from-history).
 - **Quantity stepper**: `[-] [value] [+] [MAX]` — 26x26 `VPPButton`s around a `VPPInput`;
   "MAX"/empty resolves to the item's maximum at spawn time.
 - **Preview card**: `ItemPreviewWidget` inside a `VPPCard` well with a corner `VPPCheckBox`
@@ -247,3 +278,16 @@ To change the look of every button/input/panel at once: edit the color constants
 - **EditBox `"Use default text" 1`** turns the `text` value into a placeholder hint:
   `GetText()` returns `""` until the user types. Only use it for hint text (search fields),
   never on inputs that scripts read/write (e.g. the quantity stepper).
+- **Confirmation dialogs** (`GetVPPUIManager().HookConfirmationDialog(...)`): the *target*
+  button MUST declare `scriptclass "ConfirmationEventHandler"` in its `.layout`. The hook
+  does `target.GetScript(confirmClass)` — with no `scriptclass`, the handler is null and the
+  click silently does nothing. The dialog parents to a `FindAnyWidget("Main")` (fallback
+  `PanelConfirmationBox`) on the menu root, so the menu layout needs a `Main` panel.
+  YES/NO callbacks use `void Func(int result)`; input dialogs (`DIAG_OK_CANCEL_INPUT`,
+  `allowchars = true`) use `void Func(int result, string input)`.
+- **Dialog box chrome** (`GUI/Layouts/UIHelpers/VPPDialogBox.layout`): `VPPPanel` window,
+  rounded `bg-titlebar` `VPPFillRound` title strip (title 18 bold), `bg-input` `VPPInput`
+  field (16), affirmative buttons (`ButtonYES`/`ButtonOK`) = `VPPButton`, dismiss buttons
+  (`ButtonNO`/`ButtonCANCEL`/`ButtonPaste`) = `VPPButtonGhost`, labels 16 bold. Never rename
+  the script-bound widgets (`TitleText`, `ContentText`, `InputBox`, `BorderOutline`, the five
+  `Button*`) or drop their scriptclasses.

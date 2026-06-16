@@ -338,9 +338,39 @@ ImageSetClass {
    Size 64 64
    Flags 0
   }
+ ImageSetDefClass map {
+   Name "map"
+   Pos 448 384
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass map_pin {
+   Name "map_pin"
+   Pos 0 448
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass locate_fixed {
+   Name "locate_fixed"
+   Pos 64 448
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass crosshair {
+   Name "crosshair"
+   Pos 128 448
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass square_pen {
+   Name "square_pen"
+   Pos 192 448
+   Size 64 64
+   Flags 0
+  }
  ImageSetDefClass dot {
    Name "dot"
-   Pos 448 384
+   Pos 256 448
    Size 64 64
    Flags 0
   }
