@@ -169,6 +169,26 @@ Icon usage map (Teleport Manager):
 | Target = self            | `user`                |
 | Target = selected players| `users`               |
 
+Icon usage map (ESP Tools):
+
+| Purpose                          | Sprite                |
+|----------------------------------|-----------------------|
+| ESP Tools / window               | `eye`                 |
+| Scan toggle (reflects on/off)    | `eye` (on) / `eye_off` (off) |
+| Filters section                  | `crosshair`           |
+| Selected-items section           | `package`             |
+| Controls section                 | `scaling`             |
+| Add filter                       | `plus` (positive-green) |
+| Restore default filters          | `rotate_ccw`          |
+| Refresh (clear & rescan)         | `refresh_cw`          |
+| Per-filter color swatch picker   | `chevron_down`        |
+| Bring item to me                 | `arrow_down_to_line` (positive-green) |
+| Return item to previous position | `rotate_ccw`          |
+| Remove item from list            | `x`                   |
+| Delete (filter / item / all / radius) | `trash_2` (danger-red) |
+| Tooltip / info                   | `info`                |
+| Close                            | `x`                   |
+
 ---
 
 ## 4. Widget Styles (`vpp_widgets.styles`)

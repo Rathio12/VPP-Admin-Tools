@@ -368,9 +368,15 @@ ImageSetClass {
    Size 64 64
    Flags 0
   }
+ ImageSetDefClass info {
+   Name "info"
+   Pos 256 448
+   Size 64 64
+   Flags 0
+  }
  ImageSetDefClass dot {
    Name "dot"
-   Pos 256 448
+   Pos 320 448
    Size 64 64
    Flags 0
   }
