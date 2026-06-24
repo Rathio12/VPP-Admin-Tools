@@ -33,7 +33,7 @@ class PermissionManager extends ConfigurablePlugin
 		//Item Manager
 		AddPermissionType({ "MenuItemManager","MenuItemManager:SpawnItem","MenuItemManager:EditPreset","MenuItemManager:SpawnPreset","MenuItemManager:DeletePreset","MenuItemManager:AddPreset" });
 		//Server Manager
-		AddPermissionType({ "MenuServerManager","ServerManager:RestartServer","ServerManager:LockServer","ServerManager:KickAllPlayers","ServerManager:LoadScripts" });
+		AddPermissionType({ "MenuServerManager","ServerManager:RestartServer","ServerManager:LockServer","ServerManager:KickAllPlayers" });
 		//Weather Manager
 		AddPermissionType({ "MenuWeatherManager","WeatherManager:ApplyWeather","WeatherManager:ApplyTime","WeatherManager:SavePreset","WeatherManager:DeletePreset","WeatherManager:ApplyPreset","WeatherManager:ApplyTimePreset","WeatherManager:SaveTimePreset","WeatherManager:DeleteTimePreset" });
 		//Object Manager

@@ -26,7 +26,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Passcode:"
+   text "#VSTR_LBL_PASSCODE"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 12
@@ -61,7 +61,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style VPPButton
-   text "Copy"
+   text "#VSTR_LBL_COPY"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 13
@@ -75,7 +75,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style VPPButtonDanger
-   text "Clear"
+   text "#VSTR_LBL_CLEAR"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 13

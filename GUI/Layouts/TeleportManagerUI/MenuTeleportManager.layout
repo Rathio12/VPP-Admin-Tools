@@ -82,7 +82,7 @@ FrameWidgetClass rootFrame {
        hexactsize 0
        vexactsize 1
        style None
-       text "Save locations, teleport players and mark positions on the map."
+       text "#VSTR_TP_SUBTITLE"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -129,7 +129,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "Refresh"
+         text "#VSTR_REFRESH"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 16
@@ -226,7 +226,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "SAVED LOCATIONS"
+         text "#VSTR_LBL_SAVED_LOCATIONS"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 18
@@ -382,7 +382,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Add Location"
+           text "#VSTR_LBL_ADD_LOCATION"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 14
@@ -431,7 +431,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Delete Selected"
+           text "#VSTR_LBL_DELETE_SELECTED"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 14
@@ -479,7 +479,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Self"
+           text "#VSTR_LBL_SELF"
            font "gui/fonts/sdf_MetronLight72"
            "bold text" 1
            "exact text" 1
@@ -529,7 +529,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Selected Players"
+           text "#VSTR_LBL_SELECTED_PLAYERS"
            font "gui/fonts/sdf_MetronLight72"
            "bold text" 1
            "exact text" 1
@@ -560,7 +560,7 @@ FrameWidgetClass rootFrame {
            vexactpos 0
            hexactsize 0
            vexactsize 0
-           text "Select all"
+           text "#VSTR_LBL_SELECT_ALL"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -594,7 +594,7 @@ FrameWidgetClass rootFrame {
            vexactpos 0
            hexactsize 0
            vexactsize 0
-           text "Show Markers"
+           text "#VSTR_LBL_SHOW_MARKERS"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -645,7 +645,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "TELEPORT"
+           text "#VSTR_LBL_TELEPORT"
            font "gui/fonts/sdf_MetronLight72"
            "bold text" 1
            "exact text" 1
@@ -723,7 +723,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "WORLD MAP"
+         text "#VSTR_LBL_WORLD_MAP"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 18
@@ -825,7 +825,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "Double-click: teleport here     Ctrl+double-click: add location     Double Right-click: copy coords"
+         text "#VSTR_TP_MAP_HINT"
          font "gui/fonts/sdf_MetronLight72"
          "text color" 0.604 0.627 0.651 1
          "exact text" 1

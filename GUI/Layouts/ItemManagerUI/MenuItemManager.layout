@@ -82,7 +82,7 @@ FrameWidgetClass rootFrame {
        hexactsize 0
        vexactsize 1
        style None
-       text "Browse the item catalog, spawn items and manage presets."
+       text "#VSTR_ITEM_MANAGER_SUBTITLE"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -130,7 +130,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "Refresh"
+         text "#VSTR_REFRESH"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 16
@@ -272,7 +272,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "ITEM CATALOG"
+         text "#VSTR_LBL_ITEM_CATALOG"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 18
@@ -360,7 +360,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 1
          style None
-         text "No item selected"
+         text "#VSTR_LBL_NO_ITEM_SELECTED"
          font "gui/fonts/sdf_MetronLight72"
          "bold text" 1
          "exact text" 1
@@ -378,7 +378,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 1
          style None
-         text "Pick an item from the list above"
+         text "#VSTR_LBL_PICK_ITEM_HINT"
          font "gui/fonts/sdf_MetronLight72"
          "text color" 0.604 0.627 0.651 1
          "exact text" 1
@@ -562,7 +562,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "SPAWN"
+           text "#VSTR_LBL_TAB_SPAWN"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -595,7 +595,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "PRESETS"
+           text "#VSTR_LBL_PRESETS"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -618,7 +618,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "No preset"
+         text "#VSTR_LBL_NO_PRESET"
          font "gui/fonts/sdf_MetronLight72"
          "text color" 0.604 0.627 0.651 1
          "exact text" 1
@@ -721,7 +721,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "QUANTITY"
+           text "#VSTR_LBL_QUANTITY"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -830,7 +830,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "MAX"
+             text "#VSTR_LBL_MAX"
              font "gui/fonts/sdf_MetronLight72"
              "exact text" 1
              "exact text size" 14
@@ -969,7 +969,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "SPAWN ITEM"
+           text "#VSTR_LBL_SPAWN_ITEM"
            font "gui/fonts/sdf_MetronLight72"
            "bold text" 1
            "exact text" 1
@@ -1001,7 +1001,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "SPAWN IN"
+           text "#VSTR_LBL_SPAWN_IN"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1046,7 +1046,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "CONDITION"
+           text "#VSTR_LBL_CONDITION"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1103,7 +1103,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "LIBRARY"
+           text "#VSTR_LBL_LIBRARY"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.91 0.639 0.239 1
            "bold text" 1
@@ -1186,7 +1186,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "CONTENTS"
+           text "#VSTR_LBL_CONTENTS"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.91 0.639 0.239 1
            "bold text" 1
@@ -1209,7 +1209,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "Select a preset"
+           text "#VSTR_LBL_SELECT_A_PRESET"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1301,7 +1301,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "New"
+             text "#VSTR_LBL_NEW"
              font "gui/fonts/sdf_MetronLight72"
              "exact text" 1
              "exact text size" 14
@@ -1352,7 +1352,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "Save"
+             text "#VSTR_LBL_SAVE"
              font "gui/fonts/sdf_MetronLight72"
              "exact text" 1
              "exact text size" 14
@@ -1403,7 +1403,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "Delete"
+             text "#VSTR_LBL_DELETE"
              font "gui/fonts/sdf_MetronLight72"
              "exact text" 1
              "exact text size" 14
@@ -1436,7 +1436,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "SPAWN IN"
+           text "#VSTR_LBL_SPAWN_IN"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1

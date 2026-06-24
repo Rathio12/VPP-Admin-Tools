@@ -81,7 +81,7 @@ FrameWidgetClass rootFrame {
        hexactsize 0
        vexactsize 1
        style None
-       text "Manage connected players and perform administrative actions."
+       text "#VSTR_PLAYER_MANAGER_SUBTITLE"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -128,7 +128,7 @@ FrameWidgetClass rootFrame {
          hexactsize 0
          vexactsize 0
          style None
-         text "Refresh"
+         text "#VSTR_REFRESH"
          font "gui/fonts/sdf_MetronLight72"
          "exact text" 1
          "exact text size" 16
@@ -349,7 +349,7 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        scriptclass "ConfirmationEventHandler"
        style VPPButton
-       text "Add to a user group"
+       text "#VSTR_LBL_ADD_TO_USER_GROUP"
        font "gui/fonts/sdf_MetronLight72"
       }
       PanelWidgetClass PanelPlayers_footer {
@@ -387,7 +387,7 @@ FrameWidgetClass rootFrame {
            vexactpos 0
            hexactsize 0
            vexactsize 0
-           text "Select All"
+           text "#VSTR_LBL_SELECT_ALL"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 14
@@ -581,7 +581,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "EDIT VITALS"
+           text "#VSTR_LBL_EDIT_VITALS"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -613,7 +613,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "MODIFIERS"
+           text "#VSTR_LBL_MODIFIERS"
            font "gui/fonts/sdf_MetronLight72"
            "exact text" 1
            "exact text size" 16
@@ -675,7 +675,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "HEALTH"
+           text "#VSTR_LBL_HEALTH"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -785,7 +785,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "BLOOD"
+           text "#VSTR_LBL_BLOOD"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -897,7 +897,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "SHOCK"
+           text "#VSTR_LBL_SHOCK"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1008,7 +1008,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "WATER"
+           text "#VSTR_LBL_WATER"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1120,7 +1120,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "ENERGY"
+           text "#VSTR_LBL_ENERGY"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1232,7 +1232,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "TEMP"
+           text "#VSTR_LBL_TEMP"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1343,7 +1343,7 @@ FrameWidgetClass rootFrame {
            hexactsize 0
            vexactsize 0
            style None
-           text "HEAT BUFF"
+           text "#VSTR_LBL_HEAT_BUFF"
            font "gui/fonts/sdf_MetronLight72"
            "text color" 0.604 0.627 0.651 1
            "exact text" 1
@@ -1561,7 +1561,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "PLAYER MANAGEMENT"
+             text "#VSTR_LBL_PLAYER_MANAGEMENT"
              font "gui/fonts/sdf_MetronLight72"
              "text color" 0.91 0.639 0.239 1
              "bold text" 1
@@ -1813,7 +1813,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "MOVEMENT"
+             text "#VSTR_LBL_MOVEMENT"
              font "gui/fonts/sdf_MetronLight72"
              "text color" 0.91 0.639 0.239 1
              "bold text" 1
@@ -2032,7 +2032,7 @@ FrameWidgetClass rootFrame {
                hexactsize 0
                vexactsize 0
                style None
-               text "Set Position"
+               text "#VSTR_LBL_SET_POSITION"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14
@@ -2065,7 +2065,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "STATE & EFFECTS"
+             text "#VSTR_LBL_STATE_EFFECTS"
              font "gui/fonts/sdf_MetronLight72"
              "text color" 0.91 0.639 0.239 1
              "bold text" 1
@@ -2190,7 +2190,7 @@ FrameWidgetClass rootFrame {
                hexactsize 0
                vexactsize 0
                style None
-               text "Unfreeze"
+               text "#VSTR_LBL_UNFREEZE"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14
@@ -2284,7 +2284,7 @@ FrameWidgetClass rootFrame {
                hexactsize 0
                vexactsize 0
                style None
-               text "Stop Bleeding"
+               text "#VSTR_LBL_STOP_BLEEDING"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14
@@ -2470,7 +2470,7 @@ FrameWidgetClass rootFrame {
                hexactsize 0
                vexactsize 0
                style None
-               text "Set Scale"
+               text "#VSTR_LBL_SET_SCALE"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14
@@ -2503,7 +2503,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "INVENTORY & GEAR"
+             text "#VSTR_LBL_INVENTORY_GEAR"
              font "gui/fonts/sdf_MetronLight72"
              "text color" 0.91 0.639 0.239 1
              "bold text" 1
@@ -2583,7 +2583,7 @@ FrameWidgetClass rootFrame {
                hexactsize 0
                vexactsize 0
                style None
-               text "Clear Inventory"
+               text "#VSTR_LBL_CLEAR_INVENTORY"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14
@@ -2616,7 +2616,7 @@ FrameWidgetClass rootFrame {
              hexactsize 0
              vexactsize 0
              style None
-             text "TOOLS"
+             text "#VSTR_LBL_TOOLS"
              font "gui/fonts/sdf_MetronLight72"
              "text color" 0.91 0.639 0.239 1
              "bold text" 1

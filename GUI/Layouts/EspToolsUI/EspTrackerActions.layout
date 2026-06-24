@@ -26,7 +26,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Position:"
+   text "#VSTR_LBL_POS"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -54,7 +54,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Copy"
+     text "#VSTR_LBL_COPY"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 12
@@ -73,7 +73,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Select In PlayerManager"
+   text "#VSTR_LBL_SELECT_IN_PM"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -100,7 +100,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Bring to me:"
+   text "#VSTR_LBL_BRING_TO_ME"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -128,7 +128,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "To me"
+     text "#VSTR_LBL_TO_ME"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 12
@@ -147,7 +147,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Teleport to:"
+   text "#VSTR_LBL_TELEPORT_TO"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -175,7 +175,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Go to"
+     text "#VSTR_LBL_GO_TO"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 12
@@ -194,7 +194,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "Return:"
+   text "#VSTR_LBL_RETURN_TO"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -222,7 +222,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Return"
+     text "#VSTR_LBL_RETURN_PLAYERS"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 12
@@ -252,7 +252,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Kill"
+     text "#VSTR_TOOLTIP_TITLE_KILL_PLAYERS"
      font "gui/fonts/sdf_MetronLight72"
      "bold text" 1
      "exact text" 1
@@ -283,7 +283,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Heal"
+     text "#VSTR_LBL_HEAL_PLAYERS"
      font "gui/fonts/sdf_MetronLight72"
      "bold text" 1
      "exact text" 1

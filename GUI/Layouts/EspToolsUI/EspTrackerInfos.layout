@@ -62,7 +62,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style None
-   text "GUID:"
+   text "#VSTR_LBL_GUID"
    font "gui/fonts/sdf_MetronLight72"
    "exact text" 1
    "exact text size" 11
@@ -80,7 +80,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style VPPButton
-   text "Copy"
+   text "#VSTR_LBL_COPY"
    font "gui/fonts/sdf_MetronLight72"
   }
   TextWidgetClass GUID64 {
@@ -111,7 +111,7 @@ GridSpacerWidgetClass SpacerGrid {
    hexactsize 1
    vexactsize 1
    style VPPButton
-   text "Copy"
+   text "#VSTR_LBL_COPY"
    font "gui/fonts/sdf_MetronLight72"
   }
   TextWidgetClass Distance {
@@ -205,7 +205,7 @@ GridSpacerWidgetClass SpacerGrid {
      hexactsize 0
      vexactsize 0
      style None
-     text "Copy All"
+     text "#VSTR_LBL_COPY_ALL"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1
      "exact text size" 12

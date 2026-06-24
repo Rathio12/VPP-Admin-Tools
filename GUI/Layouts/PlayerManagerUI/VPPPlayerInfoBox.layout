@@ -106,7 +106,7 @@ PanelWidgetClass PanelPlayerDetails {
    hexactsize 0
    vexactsize 1
    style None
-   text "IDENTITY"
+   text "#VSTR_LBL_IDENTITY"
    font "gui/fonts/sdf_MetronLight72"
    "text color" 0.91 0.639 0.239 1
    "bold text" 1
@@ -342,7 +342,7 @@ PanelWidgetClass PanelPlayerDetails {
    hexactsize 0
    vexactsize 1
    style None
-   text "VITALS"
+   text "#VSTR_LBL_VITALS"
    font "gui/fonts/sdf_MetronLight72"
    "text color" 0.91 0.639 0.239 1
    "bold text" 1
@@ -422,7 +422,7 @@ PanelWidgetClass PanelPlayerDetails {
        hexactsize 0
        vexactsize 1
        style None
-       text "HEALTH"
+       text "#VSTR_LBL_HEALTH"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -511,7 +511,7 @@ PanelWidgetClass PanelPlayerDetails {
        hexactsize 0
        vexactsize 1
        style None
-       text "BLOOD"
+       text "#VSTR_LBL_BLOOD"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -600,7 +600,7 @@ PanelWidgetClass PanelPlayerDetails {
        hexactsize 0
        vexactsize 1
        style None
-       text "SHOCK"
+       text "#VSTR_LBL_SHOCK"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -689,7 +689,7 @@ PanelWidgetClass PanelPlayerDetails {
        hexactsize 0
        vexactsize 1
        style None
-       text "WATER"
+       text "#VSTR_LBL_WATER"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -778,7 +778,7 @@ PanelWidgetClass PanelPlayerDetails {
        hexactsize 0
        vexactsize 1
        style None
-       text "ENERGY"
+       text "#VSTR_LBL_ENERGY"
        font "gui/fonts/sdf_MetronLight72"
        "text color" 0.604 0.627 0.651 1
        "exact text" 1
@@ -840,7 +840,7 @@ PanelWidgetClass PanelPlayerDetails {
    hexactsize 0
    vexactsize 1
    style None
-   text "ADMIN FLAGS"
+   text "#VSTR_LBL_ADMIN_FLAGS"
    font "gui/fonts/sdf_MetronLight72"
    "text color" 0.91 0.639 0.239 1
    "bold text" 1
@@ -869,7 +869,7 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "God Mode"
+     text "#VSTR_LBL_GOD_MODE"
      font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
@@ -920,7 +920,7 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "Invisible"
+     text "#VSTR_LBL_INVISIBLE"
      font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
@@ -971,7 +971,7 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "Unlimited Ammo"
+     text "#VSTR_LBL_UNLIM_AMMO"
      font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
@@ -1022,7 +1022,7 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "Frozen"
+     text "#VSTR_LBL_FROZEN"
      font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1
@@ -1073,7 +1073,7 @@ PanelWidgetClass PanelPlayerDetails {
      hexactsize 0
      vexactsize 0
      style None
-     text "Item In Hands:"
+     text "#VSTR_LBL_ITEM_IN_HANDS"
      font "gui/fonts/sdf_MetronLight72"
      "text color" 0.604 0.627 0.651 1
      "exact text" 1

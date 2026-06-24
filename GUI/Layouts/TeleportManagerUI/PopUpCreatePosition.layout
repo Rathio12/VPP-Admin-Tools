@@ -48,7 +48,7 @@ PanelWidgetClass rootFrame {
      hexactsize 0
      vexactsize 0
      style None
-     text "NEW LOCATION"
+     text "#VSTR_LBL_NEW_LOCATION"
      font "gui/fonts/sdf_MetronLight72"
      "bold text" 1
      "exact text" 1

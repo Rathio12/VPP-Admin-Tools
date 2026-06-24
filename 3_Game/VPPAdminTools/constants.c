@@ -93,6 +93,7 @@ class VPPATUIConstants
 
 	//Server Manager
 	const static string MenuServerManager 			 = "VPPAdminTools/GUI/Layouts/ServerManagerUI/MenuServerManager.layout";
+	const static string ServerMonitorPin 			 = "VPPAdminTools/GUI/Layouts/ServerManagerUI/ServerMonitorPin.layout";
 
 	//Players Manager
 	const static string MenuPlayerManager 			 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/MenuPlayerManager.layout";
