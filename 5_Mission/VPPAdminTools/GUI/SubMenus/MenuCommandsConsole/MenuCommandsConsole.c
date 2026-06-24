@@ -7,6 +7,7 @@ class MenuCommandsConsole: AdminHudSubMenu
 	private ScrollWidget 	 	   m_ScrollerSuggest;
 	private MultilineEditBoxWidget m_CommandInput;
 	private ImageWidget      	   m_ImgInfo;
+	private ButtonWidget     	   m_BtnClearHistory;
 	private bool   				   inputFocused;
 	private ref array<string> 	   m_PrevCommands;
 	private int index = 0;
@@ -56,7 +57,8 @@ class MenuCommandsConsole: AdminHudSubMenu
 		m_GridSuggest  = GridSpacerWidget.Cast(M_SUB_WIDGET.FindAnyWidget("GridSuggest"));
 		m_ScrollerSuggest = ScrollWidget.Cast(M_SUB_WIDGET.FindAnyWidget("ScrollerSuggest"));
 		m_CommandInput    = MultilineEditBoxWidget.Cast(M_SUB_WIDGET.FindAnyWidget("CommandInput"));
-		
+		m_BtnClearHistory = ButtonWidget.Cast(M_SUB_WIDGET.FindAnyWidget("BtnClearHistory"));
+
 		//tooltip
 		ToolTipHandler toolTip;
 		m_ImgInfo.GetScript(toolTip);
@@ -67,7 +69,7 @@ class MenuCommandsConsole: AdminHudSubMenu
 		foreach(string command, Param2<string,string> params: m_CmdTooltips)
 		{
 			Widget sgElement = GetGame().GetWorkspace().CreateWidgets(VPPATUIConstants.TextElement, m_GridSuggest);
-			MultilineTextWidget.Cast(sgElement.FindAnyWidget("Message")).SetText("Command: " + command + "\n" + "Action: " + params.param1 + "\nExample: " + params.param2);
+			MultilineTextWidget.Cast(sgElement.FindAnyWidget("Message")).SetText(Widget.TranslateString("#VSTR_LBL_CMD_COMMAND") + " " + command + "\n" + Widget.TranslateString("#VSTR_LBL_CMD_ACTION") + " " + Widget.TranslateString(params.param1) + "\n" + Widget.TranslateString("#VSTR_LBL_CMD_EXAMPLE") + " " + params.param2);
 			sgElement.Show(false);
 			
 			m_ScrollerSuggest.Update();
@@ -101,8 +103,18 @@ class MenuCommandsConsole: AdminHudSubMenu
 	{
 		foreach(Widget w: m_HistoryWidgets)
 			w.Unlink();
-		
+
 		m_HistoryWidgets = new array<ref Widget>;
+	}
+
+	override bool OnClick(Widget w, int x, int y, int button)
+	{
+		if (w == m_BtnClearHistory)
+		{
+			ClearHistory();
+			return true;
+		}
+		return super.OnClick(w, x, y, button);
 	}
 
 	override void OnUpdate(float timeslice)
