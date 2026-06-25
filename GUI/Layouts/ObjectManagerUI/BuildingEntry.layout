@@ -8,21 +8,21 @@ PanelWidgetClass PanelEntry {
  vexactpos 0
  hexactsize 0
  vexactsize 0
- style editor_quad_dark
+ style VPPFillRound
  {
   PanelWidgetClass PnlBg {
    visible 1
    ignorepointer 0
-   color 0 0 0 1
+   color 0.106 0.118 0.133 1
    position 0 0
-   size 0.995 0.944
+   size 0.995 0.86
    halign center_ref
    valign center_ref
    hexactpos 0
    vexactpos 0
    hexactsize 0
    vexactsize 0
-   style editor_quad_dark
+   style VPPFillRound
   }
   GridSpacerWidgetClass entry_content {
    ignorepointer 0
@@ -34,7 +34,7 @@ PanelWidgetClass PanelEntry {
    vexactpos 0
    hexactsize 0
    vexactsize 0
-   style DayZDefaultPanelBottom
+   style Colorable
    Padding 5
    Margin 0
    "Size To Content H" 1
@@ -50,108 +50,109 @@ PanelWidgetClass PanelEntry {
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     font "gui/fonts/Metron22"
+     style VPPCheckBox
     }
     ButtonWidgetClass btnDeleteItem {
-     color 1 0 0 1
+     color 1 1 1 1
      position 0.075 0
-     size 0.055 0.7
+     size 0.055 0.85
      valign center_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
      scriptclass "ConfirmationEventHandler"
+     style VPPButtonGhost
      "no focus" 1
      {
       ImageWidgetClass iconDel {
        ignorepointer 1
+       color 0.761 0.271 0.271 1
        position 0 0
-       size 0.8 0.8
+       size 24 24
        halign center_ref
        valign center_ref
        hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       image0 "set:dayz_gui_vpp image:vpp_icon_trash"
-       mode additive
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:vpp_icons image:trash_2"
+       mode blend
        "src alpha" 1
-       "clamp mode" clamp
        "stretch mode" stretch_w_h
+       filter 1
       }
      }
     }
     ButtonWidgetClass btnEditItem {
      visible 1
-     color 1 0 0 1
+     color 1 1 1 1
      position 0.147 0
-     size 0.055 0.7
+     size 0.055 0.85
      valign center_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
      scriptclass ""
+     style VPPButtonGhost
      "no focus" 1
      {
       ImageWidgetClass iconEdit {
        ignorepointer 1
+       color 0.604 0.627 0.651 1
        position 0 0
-       size 1 1
+       size 24 24
        halign center_ref
        valign center_ref
        hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       image0 "set:dayz_gui image:icon_feedback"
-       mode additive
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:vpp_icons image:square_pen"
+       mode blend
        "src alpha" 1
-       "clamp mode" clamp
-       "stretch mode" stretch_h_center
+       "stretch mode" stretch_w_h
        filter 1
-       nocache 0
       }
      }
     }
     ButtonWidgetClass btnPhysicsDrop {
      visible 1
-     color 1 0 0 1
-     position 0.2185 0
-     size 0.065 0.7
+     color 1 1 1 1
+     position 0.219 0
+     size 0.065 0.85
      valign center_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
      vexactsize 0
      scriptclass "ConfirmationEventHandler"
+     style VPPButtonGhost
      "no focus" 1
      {
       ImageWidgetClass iconPhysicsDrop {
        ignorepointer 1
+       color 0.604 0.627 0.651 1
        position 0 0
-       size 0.8 0.8
+       size 24 24
        halign center_ref
        valign center_ref
        hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       image0 "VPPAdminTools\\GUI\\Textures\\down-arrow.paa"
-       mode additive
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       image0 "set:vpp_icons image:arrow_down_to_line"
+       mode blend
        "src alpha" 1
-       "clamp mode" clamp
-       "stretch mode" stretch_h_center
-       "flip u" 0
-       "flip v" 0
+       "stretch mode" stretch_w_h
        filter 1
-       "Transition width" 0.054
       }
      }
     }
     TextWidgetClass ItemName {
      ignorepointer 1
+     color 0.882 0.894 0.906 1
      position 0.02 0
      size 0.73 1
      halign right_ref
@@ -160,6 +161,7 @@ PanelWidgetClass PanelEntry {
      vexactpos 0
      hexactsize 0
      vexactsize 0
+     style None
      text "Item Display Name"
      font "gui/fonts/sdf_MetronLight72"
      "exact text" 1

@@ -434,9 +434,27 @@ ImageSetClass {
    Size 64 64
    Flags 0
   }
+ ImageSetDefClass hammer {
+   Name "hammer"
+   Pos 448 512
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass boxes {
+   Name "boxes"
+   Pos 0 576
+   Size 64 64
+   Flags 0
+  }
+ ImageSetDefClass circle_help {
+   Name "circle_help"
+   Pos 64 576
+   Size 64 64
+   Flags 0
+  }
  ImageSetDefClass dot {
    Name "dot"
-   Pos 448 512
+   Pos 128 576
    Size 64 64
    Flags 0
   }

@@ -331,8 +331,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 				switch(param.param1)
 				{
 					case "nominal":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputNominal.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputNominal.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputNominal.Enable(false);
 					}else{
 						m_InputNominal.SetText(param.param2);
@@ -340,8 +340,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "lifetime":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputLifetime.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputLifetime.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputLifetime.Enable(false);
 					}else{
 						m_InputLifetime.SetText(param.param2);
@@ -349,8 +349,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "restock":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputRestock.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputRestock.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputRestock.Enable(false);
 					}else{
 						m_InputRestock.SetText(param.param2);
@@ -358,8 +358,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "min":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputMin.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputMin.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputMin.Enable(false);
 					}else{
 						m_InputMin.SetText(param.param2);
@@ -367,8 +367,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "quantmin":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputQuantmin.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputQuantmin.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputQuantmin.Enable(false);
 					}else{
 						m_InputQuantmin.SetText(param.param2);
@@ -376,8 +376,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "quantmax":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputQuantmax.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputQuantmax.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputQuantmax.Enable(false);
 					}else{
 						m_InputQuantmax.SetText(param.param2);
@@ -385,8 +385,8 @@ class MenuXMLEditor extends AdminHudSubMenu
 					break;
 					
 					case "cost":
-					if (param.param2 == "NOT DEFINED" && param.param3 == -1){
-						m_InputCost.SetText("#VSTR_XML_ERR_NOT_DEF");
+					if (param.param2 == "#VSTR_NOT_DEFINED" && param.param3 == -1){
+						m_InputCost.SetText(Widget.TranslateString("#VSTR_XML_ERR_NOT_DEF"));
 						m_InputCost.Enable(false);
 					}else{
 						m_InputCost.SetText(param.param2);
@@ -438,37 +438,37 @@ class MenuXMLEditor extends AdminHudSubMenu
 			switch(param.param1)
 			{
 				case "nominal":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputNominal.GetText();
 				break;
 				
 				case "lifetime":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputLifetime.GetText();
 				break;
 				
 				case "restock":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputRestock.GetText();
 				break;
 				
 				case "min":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputMin.GetText();
 				break;
 				
 				case "quantmin":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputQuantmin.GetText();
 				break;
 				
 				case "quantmax":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputQuantmax.GetText();
 				break;
 				
 				case "cost":
-				if (param.param2 != "NOT DEFINED" && param.param3 != -1)
+				if (param.param2 != "#VSTR_NOT_DEFINED" && param.param3 != -1)
 					param.param2 = m_InputCost.GetText();
 				break;
 			}
