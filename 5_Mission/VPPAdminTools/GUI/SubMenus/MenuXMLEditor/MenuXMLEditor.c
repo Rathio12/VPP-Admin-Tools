@@ -101,7 +101,7 @@ class MenuXMLEditor extends AdminHudSubMenu
 		ToolTipHandler toolTipMenu;
 		m_ImgInfoXMLToolTip.GetScript(toolTipMenu);
 		toolTipMenu.SetTitle("#VSTR_TOOLTIP_TITLE");
-		toolTipMenu.SetContentText("Edit your types.xml file directly from here. Changes (to the CLE) after saving won't occur until next server restart."); //#VSTR_XML_MENU_TOOLTIP
+		toolTipMenu.SetContentText("#VSTR_XML_MENU_TOOLTIP");
 
 		ToolTipHandler toolTip;
 		
@@ -210,7 +210,7 @@ class MenuXMLEditor extends AdminHudSubMenu
 
 		if (w == m_BtnGetStats)
 		{
-			m_ItemListBoxXML.GetItemText(m_ItemListBoxXML.GetSelectedRow(),0,typeName);
+			m_ItemListBoxXML.GetItemText(m_ItemListBoxXML.GetSelectedRow(), 0, typeName);
 			if (typeName == "")
 			{
 				GetVPPUIManager().DisplayError("#VSTR_XML_ERR_SELECTFIRST");
@@ -222,7 +222,7 @@ class MenuXMLEditor extends AdminHudSubMenu
 			if (t && (t.IsInherited(CrashBase) || t.IsInherited(House) || t.IsInherited(BuildingSuper)))
 			{
 				VPPDialogBox dialogBox = GetVPPUIManager().CreateDialogBox(NULL, true);
-				dialogBox.InitDiagBox(DIAGTYPE.DIAG_YESNO, "Warning!", "The type you have selected will use a slower search method. This will cause a brief server performance lag spike!\nProceed?", this, "OnDiagResultConfirmScan");
+				dialogBox.InitDiagBox(DIAGTYPE.DIAG_YESNO, "#VSTR_TOOLTIP_TITLE_NOTICE", "#VSTR_XML_SCAN_WARNING", this, "OnDiagResultConfirmScan");
 			}else{
 				OnDiagResultConfirmScan(DIAGRESULT.YES);
 			}

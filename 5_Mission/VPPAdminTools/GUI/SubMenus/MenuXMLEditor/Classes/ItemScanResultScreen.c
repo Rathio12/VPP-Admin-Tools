@@ -20,7 +20,7 @@ class ItemScanResultScreen: ScriptedWidgetEventHandler
 		m_btnDeleteObj   = ButtonWidget.Cast(m_EntryWidget.FindAnyWidget("btnDeleteObj"));
 
 		m_btnDeleteAll	 = ButtonWidget.Cast(m_EntryWidget.FindAnyWidget("btnDeleteAll"));
-		GetVPPUIManager().HookConfirmationDialog(m_btnDeleteAll, m_EntryWidget, this, "ActionDeleteAll", DIAGTYPE.DIAG_YESNO, "Delete all?", "Are you sure you wish to delete all items scanned?", true);
+		GetVPPUIManager().HookConfirmationDialog(m_btnDeleteAll, m_EntryWidget, this, "ActionDeleteAll", DIAGTYPE.DIAG_YESNO, "#VSTR_LBL_DELETE_ALL", "#VSTR_XML_DELALL_BODY", true);
 
 		m_EntryWidget.SetHandler(this);
 		m_EntryWidget.SetSort(110,true);
@@ -172,7 +172,7 @@ class ItemScanResultScreen: ScriptedWidgetEventHandler
 			row = m_itemsList.GetSelectedRow();
 			if (row <= -1)
 			{
-				GetVPPUIManager().DisplayNotification("Nothing is selected!", "Can't preform action:", 3.0);
+				GetVPPUIManager().DisplayError("#VSTR_NOTIFY_ERR_XML_NOITEM");
 				return false;
 			}
 
@@ -186,7 +186,7 @@ class ItemScanResultScreen: ScriptedWidgetEventHandler
 			}
 			else
 			{
-				GetVPPUIManager().DisplayNotification("Can't preform action:", "Error, no cached data for item!", 3.0);
+				GetVPPUIManager().DisplayError("#VSTR_XML_ERR_NOCACHE");
 				return false;
 			}
 			return true;
