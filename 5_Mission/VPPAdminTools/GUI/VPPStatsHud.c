@@ -146,7 +146,7 @@ class VPPStatsHud : ScriptedWidgetEventHandler
 			vector p = pb.GetPosition();
 			m_OwnPosStr = p.ToString();
 			if (m_TxtPos)
-				m_TxtPos.SetText( string.Format("%1  %2  %3", p[0], p[1], p[2]) );
+				m_TxtPos.SetText( string.Format("%1 %2 %3", p[0], p[1], p[2]) );
 		}
 		else
 		{
