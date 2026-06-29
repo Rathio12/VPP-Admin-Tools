@@ -9,6 +9,7 @@ class VPPAdminHud extends VPPScriptedMenu
 	private WrapSpacerWidget m_WrapSpacerWidget;
 	private ref array<ref VPPButton> m_Buttons;
 	private Widget m_IconsPanel;
+	private ref VPPStatsHud m_StatsHud;
 	
 	protected float   m_HoverProgress;
 	protected bool    m_IsHovered;
@@ -54,6 +55,8 @@ class VPPAdminHud extends VPPScriptedMenu
 
 	void ~VPPAdminHud()
 	{
+		if (m_StatsHud)
+			delete m_StatsHud;
 	}
 	
 	/*
@@ -80,6 +83,9 @@ class VPPAdminHud extends VPPScriptedMenu
 
 	        m_HoverProgress = 0.0;
 	        m_IsHovered     = false;
+
+			//Persistent admin Stats HUD (workspace-parented; survives toolbar close, self-gates visibility).
+			m_StatsHud = new VPPStatsHud();
 
 			return layoutRoot;
 		}

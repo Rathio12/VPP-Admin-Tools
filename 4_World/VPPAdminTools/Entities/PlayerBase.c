@@ -27,6 +27,8 @@ modded class PlayerBase
 		RegisterNetSyncVariableBool("m_isInvisible");
 		RegisterNetSyncVariableBool("m_VfreezePlayer");
 		RegisterNetSyncVariableBool("m_VScalePlayer");
+		RegisterNetSyncVariableBool("hasGodmode");
+		RegisterNetSyncVariableBool("hasUnlimitedAmmo");
 		RegisterNetSyncVariableFloat("m_VPlayerScale", 0.01, 100.0, 3);
 		GetRPCManager().AddRPC( "RPC_PlayerBase", "InvokeReload", this, SingleplayerExecutionType.Client );
 	}
@@ -243,6 +245,8 @@ modded class PlayerBase
 	{
 		hasGodmode = trigger;
 		SetAllowDamage(!trigger);
+		if (GetGame().IsServer())
+			SetSynchDirty();
 	}
 
 	string VPlayerGetHashedId() { return m_VPlayerHashedId; }
@@ -304,6 +308,8 @@ modded class PlayerBase
 	void VPPSetUnlimitedAmmo(bool state)
 	{
 		hasUnlimitedAmmo = state;
+		if (GetGame().IsServer())
+			SetSynchDirty();
 	}
 	
 	bool VPPIsUnlimitedAmmo()

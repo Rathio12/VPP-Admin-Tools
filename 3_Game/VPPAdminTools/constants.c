@@ -95,6 +95,9 @@ class VPPATUIConstants
 	const static string MenuServerManager 			 = "VPPAdminTools/GUI/Layouts/ServerManagerUI/MenuServerManager.layout";
 	const static string ServerMonitorPin 			 = "VPPAdminTools/GUI/Layouts/ServerManagerUI/ServerMonitorPin.layout";
 
+	//Stats HUD
+	const static string StatsHud 					 = "VPPAdminTools/GUI/Layouts/StatsHudUI/StatsHud.layout";
+
 	//Players Manager
 	const static string MenuPlayerManager 			 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/MenuPlayerManager.layout";
 	const static string VPPPlayerList 				 = "VPPAdminTools/GUI/Layouts/PlayerManagerUI/VPPPlayerList.layout";

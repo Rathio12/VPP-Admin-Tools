@@ -205,6 +205,9 @@ modded class DayZGame
 		m_VPPATProfileOptions.RegisterProfileOption(EVPPATProfileOptions.CAM_MOUSE_SENSE, "vppat_cam_mouse_sense", VPPATProfileConstants.DEFAULT_CAM_MOUSE_SENSE);
 		m_VPPATProfileOptions.RegisterProfileOption(EVPPATProfileOptions.CAM_SMOOTHNESS, "vppat_cam_smoothness", VPPATProfileConstants.DEFAULT_CAM_SMOOTHNESS);
 		m_VPPATProfileOptions.RegisterProfileOption(EVPPATProfileOptions.CAM_FOV, "vppat_cam_fov", VPPATProfileConstants.DEFAULT_CAM_FOV);
+		//Stats HUD on/off. Encoded 1.0=enabled (default) / 2.0=disabled — never 0.0, because
+		//RegisterProfileOption treats a stored "0" as "unset" and would reset the user's choice.
+		m_VPPATProfileOptions.RegisterProfileOption(EVPPATProfileOptions.STATS_HUD_ENABLED, "vppat_stats_hud_enabled", 1.0);
 	}
 
 	//Credit to philip from CFTools ;)
@@ -302,6 +305,20 @@ modded class DayZGame
 	void SetVPPATProfileVal(EVPPATProfileOptions option, float value)
 	{
 		m_VPPATProfileOptions.SetProfileOptionVal(option, value);
+	}
+
+	//Stats HUD global on/off (persisted in the profile). Encoded 1.0=enabled / 2.0=disabled.
+	bool IsStatsHudEnabled()
+	{
+		return GetVPPATProfileVal(EVPPATProfileOptions.STATS_HUD_ENABLED) < 1.5;
+	}
+
+	void SetStatsHudEnabled(bool enabled)
+	{
+		float val = 2.0;
+		if (enabled)
+			val = 1.0;
+		SetVPPATProfileVal(EVPPATProfileOptions.STATS_HUD_ENABLED, val);
 	}
 
 	bool IsSpectateMode()
