@@ -80,7 +80,7 @@ modded class PlayerBase
 		SetName("");
 	}
 
-	void VPPHealPlayer(bool set_max = true)
+	void VPPHealPlayer(bool set_max = true, bool repair_items = true)
 	{
 		if (GetGame().IsServer() || !GetGame().IsMultiplayer())
 		{
@@ -119,8 +119,9 @@ modded class PlayerBase
 				GetStatEnergy().Set(GetStatEnergy().GetMax());
 			}
 			
-			// fix up inventory
-			FixAllInventoryItems();
+			// fix up inventory (skippable: the heal keybind heals without repairing gear)
+			if (repair_items)
+				FixAllInventoryItems();
 			
 			//remove bloody hands
 			PluginLifespan moduleLifespan = PluginLifespan.Cast(GetPlugin(PluginLifespan));

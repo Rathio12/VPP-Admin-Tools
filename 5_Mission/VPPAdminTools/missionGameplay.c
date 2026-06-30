@@ -623,15 +623,30 @@ modded class MissionGameplay
 
         if (!GetVPPUIManager().GetKeybindsStatus() && !GetVPPUIManager().IsTyping())
         {
+            //J = heal only, Ctrl+J = repair worn clothing (mirrors the K / Ctrl+K vehicle bind)
+            bool repairMode = g_Game.IsLeftCtrlDown();
             SurvivorBase target = SurvivorBase.Cast(g_Game.getObjectAtCrosshair(1000.0, 0.0,NULL));
-            if (target)
-            {
-                GetRPCManager().VSendRPC("RPC_MissionServer", "HandleChatCommand", new Param1<string>("/heal " + target.GetIdentity().GetName()), true);
-                GetVPPUIManager().DisplayNotification("Healed player at crosshairs!", "V++ Admin Tools:", 5.0);
-            }else{
-                GetRPCManager().VSendRPC("RPC_MissionServer", "HandleChatCommand", new Param1<string>("/heal " + GetGame().GetPlayer().GetIdentity().GetName()), true);
-                GetVPPUIManager().DisplayNotification("Player healed!", "V++ Admin Tools:", 5.0);
-            }
+            bool atCrosshair = (target != NULL);
+
+            Object healTarget = target;
+            if (!atCrosshair)
+                healTarget = GetGame().GetPlayer();
+
+            //no body to act on (dead / spectating): bail without a misleading success toast
+            if (healTarget == null)
+                return;
+
+            GetRPCManager().VSendRPC("RPC_AdminTools", "HealRepairTarget", new Param1<bool>(repairMode), true, NULL, healTarget);
+
+            string msg = "Player healed!";
+            if (repairMode && atCrosshair)
+                msg = "Healed & Repaired items of player at crosshairs!";
+            else if (repairMode && !atCrosshair)
+                msg = "Repaired your inventory items!";
+            else if (!repairMode && atCrosshair)
+                msg = "Healed player at crosshairs!";
+
+            GetVPPUIManager().DisplayNotification(msg, "V++ Admin Tools:", 5.0);
         }
     }
 

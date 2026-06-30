@@ -56,6 +56,11 @@ class EspToolsMenu extends AdminHudSubMenu
 
 	void ~EspToolsMenu()
 	{
+		if (m_ColorSwatches)
+		{
+			for (int i = 0; i < m_ColorSwatches.Count(); ++i)
+				m_ColorSwatches[i].Unlink();
+		}
 	}
 
 	override void OnCreate(Widget RootW)

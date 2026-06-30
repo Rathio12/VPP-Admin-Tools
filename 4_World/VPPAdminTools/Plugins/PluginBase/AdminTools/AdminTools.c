@@ -7,6 +7,7 @@ class AdminTools extends PluginBase
 		GetRPCManager().AddRPC( "RPC_AdminTools", "DeleteObject", this, SingeplayerExecutionType.Server );
 		GetRPCManager().AddRPC( "RPC_AdminTools", "ToggleFreeCam", this, SingeplayerExecutionType.Server );
 		GetRPCManager().AddRPC( "RPC_AdminTools", "RepairVehicles", this, SingeplayerExecutionType.Server );
+		GetRPCManager().AddRPC( "RPC_AdminTools", "HealRepairTarget", this, SingeplayerExecutionType.Server );
 		//-------------
 	}
 
@@ -81,6 +82,39 @@ class AdminTools extends PluginBase
 			GetRPCManager().VSendRPC( "RPC_HandleFreeCam", "HandleFreeCam", new Param1<bool>(true), true, sender);
 			GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) toggled freecam", sender.GetName(), sender.GetPlainId()));
 			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[AdminTools] Toggled Freecam"));
+		}
+	}
+
+	//Player heal / repair-clothing keybind. false = heal only (J), true = repair worn clothing (Ctrl+J). Mirrors RepairVehicles.
+	void HealRepairTarget(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type == CallType.Server && sender != null)
+		{
+			Param1<bool> data; //true = repair worn clothing, false = heal only
+			if (!ctx.Read(data))
+				return;
+
+			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(), "Chat:HealPlayer"))
+				return;
+
+			PlayerBase targetPlayer = PlayerBase.Cast(target);
+			if (targetPlayer == null)
+				return;
+
+			string action;
+			if (data.param1)
+			{
+				targetPlayer.VPPHealPlayer(true, true);
+				action = "repaired clothing & healed of";
+			}
+			else
+			{
+				targetPlayer.VPPHealPlayer(true, false);
+				action = "healed";
+			}
+
+			GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) %3 player \"%4\" @ crosshair", sender.GetName(), sender.GetPlainId(), action, targetPlayer.VPlayerGetName()));
+			GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[AdminTools] " + action + " player: " + targetPlayer.VPlayerGetName()));
 		}
 	}
 
