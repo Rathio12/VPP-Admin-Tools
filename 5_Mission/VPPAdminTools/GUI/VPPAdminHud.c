@@ -10,6 +10,7 @@ class VPPAdminHud extends VPPScriptedMenu
 	private ref array<ref VPPButton> m_Buttons;
 	private Widget m_IconsPanel;
 	private ref VPPStatsHud m_StatsHud;
+	private ref VPPSpectateOverlay m_SpectateOverlay;
 	
 	protected float   m_HoverProgress;
 	protected bool    m_IsHovered;
@@ -42,6 +43,7 @@ class VPPAdminHud extends VPPScriptedMenu
 		InsertButton("MenuPermissionsEditor", "Permission Editor", "set:dayz_gui_vpp image:vpp_icon_perms_editor", "#VSTR_TOOLTIP_PERMSEDITOR");
 		InsertButton("MenuWebHooks", "Webhooks", "set:dayz_gui_vpp image:vpp_icon_webHooks", "#VSTR_TOOLTIP_WEBHOOKS");
 		InsertButton("MenuXMLEditor", "XML Editor", "set:dayz_gui_vpp image:vpp_icon_xml_editor", "#VSTR_TOOLTIP_XMLEDITOR");
+		InsertButton("MenuSpectateTools", "Spectate", "set:dayz_gui_vpp image:vpp_icon_esp", "#VSTR_TOOLTIP_SPECTATE");
 		DefineButtons();
 		//----
 		//Compile Permissions needed by buttons registered.
@@ -57,6 +59,8 @@ class VPPAdminHud extends VPPScriptedMenu
 	{
 		if (m_StatsHud)
 			delete m_StatsHud;
+		if (m_SpectateOverlay)
+			delete m_SpectateOverlay;
 	}
 	
 	/*
@@ -86,6 +90,9 @@ class VPPAdminHud extends VPPScriptedMenu
 
 			//Persistent admin Stats HUD (workspace-parented; survives toolbar close, self-gates visibility).
 			m_StatsHud = new VPPStatsHud();
+
+			//Spectate overlay (same persistence pattern; self-gates on IsSpectating).
+			m_SpectateOverlay = new VPPSpectateOverlay();
 
 			return layoutRoot;
 		}

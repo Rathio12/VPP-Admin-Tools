@@ -29,6 +29,7 @@ modded class PlayerBase
 		RegisterNetSyncVariableBool("m_VScalePlayer");
 		RegisterNetSyncVariableBool("hasGodmode");
 		RegisterNetSyncVariableBool("hasUnlimitedAmmo");
+		RegisterNetSyncVariableBool("m_VPPATStreamLook");
 		RegisterNetSyncVariableFloat("m_VPlayerScale", 0.01, 100.0, 3);
 		GetRPCManager().AddRPC( "RPC_PlayerBase", "InvokeReload", this, SingleplayerExecutionType.Client );
 	}
@@ -192,6 +193,34 @@ modded class PlayerBase
 		}
 	}
 	*/
+
+	//look-stream ingest (SERVER): receives the spectated player's true camera
+	//angles via the vanilla entity RPC and hands them to the SpectateManager relay
+	override void OnRPC(PlayerIdentity sender, int rpc_type, ParamsReadContext ctx)
+	{
+		super.OnRPC(sender, rpc_type, ctx);
+
+		if (GetGame().IsDedicatedServer() && sender != null && rpc_type == VPPATRPCs.RPC_SPECTATE_LOOK)
+		{
+			//only the flagged player may stream, and only about THEMSELVES
+			if (!m_VPPATStreamLook)
+				return;
+			if (GetIdentity() == null)
+				return;
+			if (sender.GetPlainId() != GetIdentity().GetPlainId())
+				return;
+
+			float lookYaw;
+			float lookPitch;
+			if (!ctx.Read(lookYaw))
+				return;
+			if (!ctx.Read(lookPitch))
+				return;
+
+			if (GetSpectateManager())
+				GetSpectateManager().RelayLookData(sender.GetPlainId(), lookYaw, lookPitch);
+		}
+	}
 
 	void VPPSetScaleValue(float scale)
 	{
@@ -379,5 +408,195 @@ modded class PlayerBase
 		if (hcw != null)
 			return hcw.GetBaseAimingAngleUD();
 		return 0.0;
+	}
+
+	/*
+		Spectate: CLIENT-LOCAL attach of the (invisible, frozen) admin body to the
+		spectated player's Head bone — VPPBR-proven recipe. The engine then composes
+		our transform in the same phase as the target's animation/net interpolation,
+		and the spectate camera (expressed via CoordToLocal against this live base)
+		rides the target's motion lag-free; script-side bone sampling alone is
+		always one frame stale (visible as run-jitter and camera phase-through).
+		The SERVER's parked body position is untouched — links are per-machine and
+		the network bubble keeps updating off the server-side body.
+	*/
+	private int  m_VPPATOrigPhysLayer;      //captured pre-link interaction mask
+	private bool m_VPPATPhysLayerCaptured;
+
+	//1PP true-look streaming: server flips this net-synced flag while this player
+	//is spectated; the player's OWN client (the only machine that has the real
+	//camera direction) then samples + ships look angles at 20Hz
+	private bool  m_VPPATStreamLook;
+	private float m_VPPATLookAcc;
+	private float m_VPPATLookDbgAcc;
+	private bool  m_VPPATLookDbgActive;
+
+	void VPPATSetLookStream(bool state)
+	{
+		if (GetGame().IsServer())
+		{
+			m_VPPATStreamLook = state;
+			SetSynchDirty();
+		}
+	}
+
+	override void CommandHandler(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished)
+	{
+		super.CommandHandler(pDt, pCurrentCommandID, pCurrentCommandFinished);
+
+		//look-angle stream (VPPBR-proven design): mouse-look/freelook exist ONLY as
+		//this client's camera state and never replicate — sample the true camera
+		//direction and ship it to the server for relay to the spectating admin
+		if (m_VPPATStreamLook && !GetGame().IsDedicatedServer() && IsControlledPlayer() && IsAlive())
+		{
+			if (VPPSpectateConstants.ADS_DEBUG && !m_VPPATLookDbgActive)
+			{
+				m_VPPATLookDbgActive = true;
+				Print("[VPPADS] look stream: ACTIVE on this client (flag synced)");
+			}
+
+			m_VPPATLookAcc = m_VPPATLookAcc + pDt;
+			if (m_VPPATLookAcc >= VPPSpectateConstants.LOOK_STREAM_SEC)
+			{
+				m_VPPATLookAcc = 0.0;
+				vector lookAngles = GetGame().GetCurrentCameraDirection().VectorToAngles();
+
+				//vanilla ENTITY RPC, deliberately NOT the CF channel: the CF
+				//client->server path requires the sender to hold the admin password
+				//and silently rejects RPCs from the (non-admin) spectated player
+				ScriptRPC lookRpc = new ScriptRPC();
+				lookRpc.Write(lookAngles[0]);
+				lookRpc.Write(lookAngles[1]);
+				lookRpc.Send(this, VPPATRPCs.RPC_SPECTATE_LOOK, true, NULL);
+
+				if (VPPSpectateConstants.ADS_DEBUG)
+				{
+					m_VPPATLookDbgAcc = m_VPPATLookDbgAcc + VPPSpectateConstants.LOOK_STREAM_SEC;
+					if (m_VPPATLookDbgAcc >= 5.0)
+					{
+						m_VPPATLookDbgAcc = 0.0;
+						Print("[VPPADS] look stream: sending yaw=" + lookAngles[0].ToString() + " pitch=" + lookAngles[1].ToString());
+					}
+				}
+			}
+		}
+		else
+		{
+			m_VPPATLookDbgActive = false;
+		}
+	}
+
+	void VPPATAttachToSpectateTarget(PlayerBase target)
+	{
+		if (target == null)
+			return;
+
+		//GHOST the body inside the target: mirror the pose first, then full-child
+		//link at the entity root (pivot -1, positionOnly=false) with an identity
+		//local TM — feet-at-feet, turning WITH the target, an exact movement replica
+		SetPosition(target.GetPosition());
+		SetOrientation(target.GetOrientation());
+
+		vector localTM[4] = {"1 0 0", "0 1 0", "0 0 1", "0 0 0"};
+		LinkToLocalSpaceOf(target, localTM);
+		//DEBUG: ADS_DEBUG_SHOW_BODY keeps the body renderable to inspect the link
+		if (VPPSpectateConstants.ADS_DEBUG_SHOW_BODY)
+			ClearFlags(EntityFlags.SOLID, true);
+		else
+			ClearFlags(EntityFlags.VISIBLE|EntityFlags.SOLID, true);
+
+		//capture the ORIGINAL interaction mask before overriding — a player's real
+		//mask carries TERRAIN/BUILDING/etc bits; restoring a hardcoded bare
+		//CHARACTER layer broke the jump/fall command's ground detection after exit
+		//(infinite fall animation / stuck on jump)
+		if (!m_VPPATPhysLayerCaptured)
+		{
+			m_VPPATOrigPhysLayer = dBodyGetInteractionLayer(this);
+			m_VPPATPhysLayerCaptured = true;
+		}
+		//layer copied verbatim from VPPBR (note: NOCOLLISION is 0, so this equals RAGDOLL)
+		dBodySetInteractionLayer(this, PhxInteractionLayers.NOCOLLISION|PhxInteractionLayers.RAGDOLL);
+		//ghost physics controller: not solid to the target (vehicles do the same to
+		//linked occupants natively)
+		PhysicsSetSolid(false);
+		target.AddChild(this, -1, false);
+	}
+
+	/*
+		Cheap link re-assert: the admin body is network-synced, so server position
+		corrections arrive while the target moves (server and client disagree on a
+		moving target's position in flight) and get reconciled by REWRITING the
+		client link's local TM away from identity — a frozen world-frame offset
+		that misaligns the whole camera composition until re-asserted. Safe to
+		call every frame; one native call.
+	*/
+	void VPPATReassertSpectateLink(PlayerBase target)
+	{
+		if (target == null)
+			return;
+
+		vector localTM[4] = {"1 0 0", "0 1 0", "0 0 1", "0 0 0"};
+		LinkToLocalSpaceOf(target, localTM);
+	}
+
+	void VPPATDetachFromSpectateTarget()
+	{
+		UnlinkFromLocalSpace();
+		Object linkParent = Object.Cast(GetParent());
+		if (linkParent)
+			linkParent.RemoveChild(this);
+
+		//restore local render state; if server-synced invisibility is still active,
+		//its RPC handler + per-postframe SetInvisible keep the body hidden anyway
+		SetFlags(EntityFlags.VISIBLE|EntityFlags.SOLID, true);
+
+		//restore the EXACT captured interaction mask (never a hardcoded layer)
+		if (m_VPPATPhysLayerCaptured)
+		{
+			dBodySetInteractionLayer(this, m_VPPATOrigPhysLayer);
+			m_VPPATPhysLayerCaptured = false;
+		}
+
+		//FULL physics-controller recovery — the link natively suspends these (it is
+		//the vehicle-attachment mechanism) and nothing re-enables them on unlink:
+		//with gravity/simulation dead, a jump starts the fall command and the body
+		//never comes down or registers ground contact (infinite fall animation).
+		//Vanilla precedent: PhysicsSetSolid(true) is vanilla's own restore when
+		//pulling a body out of a vehicle link (DayZPlayerImplement HandleDeath).
+		PhysicsSetSolid(true);
+		PhysicsEnableGravity(true);
+		DisableSimulation(false);
+		dBodyActive(this, ActiveState.ACTIVE);
+	}
+
+	/*
+		Spectate ADS: the engine polls this on the CONTROLLED player to ask which
+		optics to draw as 2D overlays (the gate is script-side, not engine-side —
+		see vanilla DayZPlayerImplement.OnDrawOptics2D). While spectating, the
+		admin's frozen body is still the controlled player, so handing back the
+		TARGET's 2D optic makes the real scope overlay (tube + reticle) render
+		for the spectator.
+	*/
+	protected override array<InventoryItem> OnDrawOptics2D()
+	{
+		if (!GetGame().IsDedicatedServer())
+			VPPDayZPlayerCameraSpectate.DbgOverlayHeartbeat(IsControlledPlayer());
+
+		if (!GetGame().IsDedicatedServer() && IsControlledPlayer() && g_Game.IsSpectateMode())
+		{
+			VPPDayZPlayerCameraSpectate.DbgMarkOverlayPoll();
+			ItemOptics spectateOptic = VPPDayZPlayerCameraSpectate.GetActive2DOverlayOptic();
+			if (spectateOptic)
+			{
+				VPPDayZPlayerCameraSpectate.DbgMarkOverlayServe(spectateOptic);
+				array<InventoryItem> optics = new array<InventoryItem>;
+				optics.Insert(spectateOptic);
+				return optics;
+			}
+			//spectating with no spectate optic to draw: NEVER fall through to super —
+			//it would serve the admin's own latched optic/NVGs over the spectate view
+			return null;
+		}
+		return super.OnDrawOptics2D();
 	}
 };

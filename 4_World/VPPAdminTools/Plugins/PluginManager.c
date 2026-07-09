@@ -34,6 +34,7 @@ modded class PluginManager
 			RegisterPlugin("VPPESPTools",		             false,		true);
 			RegisterPlugin("BuildingSetManager", 			 false, 	true);
 			RegisterPlugin("SteamAPIManager", 			 	 false, 	true);
+			RegisterPlugin("SpectateManager", 			 	 false, 	true);
 
 			MakeDirectory("$profile:VPPAdminTools");
 			MakeDirectory("$profile:VPPAdminTools/ConfigurablePlugins");

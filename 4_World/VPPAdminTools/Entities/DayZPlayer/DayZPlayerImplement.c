@@ -1,9 +1,18 @@
 modded class DayZPlayerImplement
 {
 	private bool m_VPPFreeCamActive;
+	private bool m_VPPSpectateCamActive;
 
 	override int CameraHandler(int pCameraMode)
 	{
+		//spectate FIRST: this early return is mandatory — the admin keeps their
+		//in-hands weapon during spectate, and a latched m_CameraOptics/Ironsight
+		//(admin entered spectate while ADS; input frozen so the exit edge never
+		//processes) would otherwise send vanilla's optics camera instead
+		if (IsVPPSpectateCamActive())
+		{
+			return DayZPlayerCameras.VPPAT_SPECTATE_CAMERA;
+		}
 		if (IsFreeCamActive())
 		{
 			return DayZPlayerCameras.VPP_FREE_CAMERA;
@@ -19,5 +28,15 @@ modded class DayZPlayerImplement
 	bool IsFreeCamActive()
 	{
 		return m_VPPFreeCamActive;
+	}
+
+	void SetVPPSpectateCamActive(bool state)
+	{
+		m_VPPSpectateCamActive = state;
+	}
+
+	bool IsVPPSpectateCamActive()
+	{
+		return m_VPPSpectateCamActive;
 	}
 };

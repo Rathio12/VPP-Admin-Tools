@@ -147,4 +147,6 @@ class VPPATUIConstants
 
 	//Spectate Tools
 	const static string MenuSpectateTools 			 = "VPPAdminTools/GUI/Layouts/SpectateUI/MenuSpectateTools.layout";
+	const static string SpectatePlayerEntry 		 = "VPPAdminTools/GUI/Layouts/SpectateUI/SpectatePlayerEntry.layout";
+	const static string SpectateOverlay 			 = "VPPAdminTools/GUI/Layouts/SpectateUI/SpectateOverlay.layout";
 };

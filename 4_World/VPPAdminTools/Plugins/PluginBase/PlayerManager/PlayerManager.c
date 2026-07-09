@@ -1,7 +1,5 @@
 class PlayerManager extends PluginBase
 {
-	private ref Timer m_RPCDelay;
-	
 	void PlayerManager()
 	{
 		/* RPCs */
@@ -200,6 +198,8 @@ class PlayerManager extends PluginBase
 		}
 	}
 	
+	//Legacy entry point (Player Manager UI) — rerouted into the SpectateManager engine.
+	//Keeps the RPC name/params so existing clients/UI are untouched.
 	void SpectatePlayer(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
 	{
 		if (type == CallType.Server)
@@ -207,43 +207,9 @@ class PlayerManager extends PluginBase
         	Param1<string> data; //target id
        	 	if ( !ctx.Read( data ) ) return;
 
-			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(),"PlayerManager:SpectatePlayer")) return;
-			
-			if (GetPermissionManager().VerifyPermission(sender.GetPlainId(),"PlayerManager:SpectatePlayer",data.param1))
-			{
-				if (sender.GetPlainId() == data.param1)
-				{
-					GetPermissionManager().NotifyPlayer(sender.GetPlainId(),"You can't spectate your self!",NotifyTypes.ERROR);
-					return;
-				}
-				
-				PlayerBase tgp = GetPermissionManager().GetPlayerBaseByID(data.param1);
-				if (tgp != null)
-				{
-					PlayerBase adminPlayer = GetPermissionManager().GetPlayerBaseByID(sender.GetPlainId());
-					if (adminPlayer != null)
-						adminPlayer.SetPosition(Vector(tgp.GetPosition()[0],-120,tgp.GetPosition()[2]));
+			if (sender == null) return;
 
-					m_RPCDelay = new Timer();
-					m_RPCDelay.Run(2.0,this,"InvokeSpectate", new Param2<string,string>(data.param1,sender.GetPlainId()),false);
-					GetPermissionManager().NotifyPlayer(sender.GetPlainId(),"#VSTR_NOTIFY_SPECTATE",NotifyTypes.NOTIFY);
-					GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[PlayerManager] Started to spectate player: "+ data.param1));
-				}
-
-				GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) started to spectate player: \"%3\"", sender.GetName(), sender.GetPlainId(), data.param1));
-			}
-		}
-	}
-	
-	void InvokeSpectate(string id, string adminID)
-	{
-		PlayerBase spectateTarget = GetPermissionManager().GetPlayerBaseByID(id);
-		PlayerBase adminPlayer    = GetPermissionManager().GetPlayerBaseByID(adminID);
-		if (spectateTarget == null) return;
-
-		if (adminPlayer != null){
-			GetGame().ObjectDelete(adminPlayer);
-			GetRPCManager().VSendRPC( "RPC_MenuPlayerManager", "InitSpectate", new Param1<Object>(spectateTarget), true, adminPlayer.GetIdentity() );
+			GetSpectateManager().RequestSpectateDirect(sender, data.param1);
 		}
 	}
 	

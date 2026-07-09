@@ -17,6 +17,8 @@ modded class MissionGameplay
     Widget m_EspCanvas;
     CanvasWidget m_EspCanvasWidget;
 
+    ref VPPSpectateClientHandler m_SpectateHandler; //spectate engine client glue (registers RPC_SpectateClient)
+
 	void MissionGameplay()
 	{
 	}
@@ -59,6 +61,13 @@ modded class MissionGameplay
         GetRPCManager().AddRPC("RPC_HandleFreeCam", "HandleFreeCam", this, SingleplayerExecutionType.Client);
         GetRPCManager().AddRPC("RPC_HandleMeshEspToggle", "HandleMeshEspToggle", this, SingleplayerExecutionType.Client);
 
+        //spectate engine client glue (registers RPC_SpectateClient handlers)
+        m_SpectateHandler = VPPSpectateClientHandler.GetInstance();
+
+        //the spectate flag lives game-scope (3_Game) and survives disconnect-while-spectating;
+        //a fresh mission is never spectating — clear any stale state
+        g_Game.SetSpectateMode(false);
+
         VPPKeybindsManager.RegisterBind("UAToggleAdminTools", VPPBinds.Press, "ToggleAdminTools", this);
         VPPKeybindsManager.RegisterBind("UAOpenAdminTools", VPPBinds.Press, "OpenAdminTools", this);
         VPPKeybindsManager.RegisterBind("UAToggleCmdConsole", VPPBinds.Press, "ToggleCmdConsole", this);
@@ -70,6 +79,9 @@ modded class MissionGameplay
         VPPKeybindsManager.RegisterBind("UACopyPositionClipboard", VPPBinds.Press, "CopyPositionClipboard", this);
         VPPKeybindsManager.RegisterBind("UARepairVehicleAtCrosshairs", VPPBinds.Press, "RepairVehicleAtCrosshairs", this);
         VPPKeybindsManager.RegisterBind("UAExitSpectate", VPPBinds.Press, "ExitSpectate", this);
+        VPPKeybindsManager.RegisterBind("UAToggleSpectatePerspective", VPPBinds.Press, "ToggleSpectatePerspective", this);
+        VPPKeybindsManager.RegisterBind("UASpectateNextTarget", VPPBinds.Press, "SpectateNextTarget", this);
+        VPPKeybindsManager.RegisterBind("UASpectatePrevTarget", VPPBinds.Press, "SpectatePrevTarget", this);
         VPPKeybindsManager.RegisterBind("UACollapseESPDropDwn", VPPBinds.DoubleClick, "PlayerEspDropdowns", this);
         VPPKeybindsManager.RegisterBind("UATogglePlayerDetailEsp", VPPBinds.DoubleClick, "PlayerEspHealth", this);
         VPPKeybindsManager.RegisterBind("UAToggleMeshEsp", VPPBinds.Press, "ToggleMeshESP", this);
@@ -558,6 +570,10 @@ modded class MissionGameplay
         if ((!m_Toggles) || (!m_ToolsToggled))
             return;
 
+        //mutual exclusion: freecam and spectate share the body-freeze scripted command
+        if (g_Game.IsSpectateMode())
+            return;
+
         if (!GetVPPUIManager().GetKeybindsStatus() && !GetVPPUIManager().IsTyping())
         {
             DayZPlayerImplement player = DayZPlayerImplement.Cast(GetGame().GetPlayer());
@@ -667,11 +683,96 @@ modded class MissionGameplay
 
     void ExitSpectate()
     {
+        //instant exit through the spectate engine — the old ReconnectToCurrentSession
+        //path is retired (the admin's body is alive and restored server-side).
         if (g_Game.IsSpectateMode())
         {
-            g_Game.ReconnectToCurrentSession();
-            g_Game.SetSpectateMode(false);
+            GetSpectateClient().RequestExit();
         }
+    }
+
+    void ToggleSpectatePerspective()
+    {
+        if (GetVPPUIManager().GetKeybindsStatus() || GetVPPUIManager().IsTyping())
+            return;
+
+        if (g_Game.IsSpectateMode())
+        {
+            GetSpectateClient().TogglePerspective();
+        }
+    }
+
+    void SpectateNextTarget()
+    {
+        SpectateCycleTarget(true);
+    }
+
+    void SpectatePrevTarget()
+    {
+        SpectateCycleTarget(false);
+    }
+
+    void SpectateCycleTarget(bool forward)
+    {
+        //don't cycle targets while the admin is typing (e.g. the menu's search box —
+        //N/B keystrokes would fire target switches otherwise)
+        if (GetVPPUIManager().GetKeybindsStatus() || GetVPPUIManager().IsTyping())
+            return;
+
+        if (!g_Game.IsSpectateMode())
+            return;
+
+        string selfId = "";
+        if (GetGame().GetPlayer() && GetGame().GetPlayer().GetIdentity())
+            selfId = GetGame().GetPlayer().GetIdentity().GetPlainId();
+
+        //name-sorted cycle list (skip self)
+        array<string> keys = new array<string>;
+        map<string, string> keyToId = new map<string, string>;
+        array<ref VPPUser> users = GetPlayerListManager().GetUsers();
+        foreach (VPPUser user : users)
+        {
+            if (user.GetUserId() == selfId)
+                continue;
+
+            string key = user.GetUserName() + "|" + user.GetUserId();
+            keys.Insert(key);
+            keyToId.Set(key, user.GetUserId());
+        }
+
+        if (keys.Count() == 0)
+            return;
+
+        keys.Sort();
+
+        //locate the current target in the sorted ring
+        int currentIdx = -1;
+        string currentId = GetSpectateClient().GetTargetId();
+        for (int i = 0; i < keys.Count(); i++)
+        {
+            if (keyToId.Get(keys[i]) == currentId)
+            {
+                currentIdx = i;
+                break;
+            }
+        }
+
+        int nextIdx;
+        if (currentIdx == -1)
+        {
+            nextIdx = 0;
+        }
+        else
+        {
+            if (forward)
+                nextIdx = (currentIdx + 1) % keys.Count();
+            else
+                nextIdx = ((currentIdx - 1) + keys.Count()) % keys.Count();
+        }
+
+        string nextId = keyToId.Get(keys[nextIdx]);
+        if (nextId != currentId)
+            GetSpectateClient().RequestSpectate(nextId);
     }
 
     void PlayerEspHealth()
@@ -794,6 +895,11 @@ modded class MissionGameplay
         {
             if (data.param1)
             {
+                //RPC race guard: a freecam toggle sent just before entering spectate
+                //must not re-enable the freecam under an active spectate session
+                if (g_Game.IsSpectateMode())
+                    return;
+
                 DayZPlayerImplement player = DayZPlayerImplement.Cast(GetGame().GetPlayer());
                 if (!player)
                     return;

@@ -88,7 +88,6 @@ class MenuPlayerManager extends AdminHudSubMenu
 	void MenuPlayerManager()
 	{
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerStats", this, SingleplayerExecutionType.Client);
-		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "InitSpectate", this, SingleplayerExecutionType.Client);
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "SetPlayerCount", this, SingleplayerExecutionType.Client);
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerModifiers", this, SingleplayerExecutionType.Client);
 		
@@ -284,7 +283,7 @@ class MenuPlayerManager extends AdminHudSubMenu
 		m_ActionStopBleeding.Enable(pCount >= 1);
 		m_ActionSetPosition.Enable(pCount >= 1);
 		m_ActionClearInventory.Enable(pCount >= 1);
-		m_ActionSpectate.Enable(pCount == 1 & !g_Game.IsSpectateMode());
+		m_ActionSpectate.Enable(pCount == 1 && !g_Game.IsSpectateMode());
 		
 		//Sliders apply btns
 		m_BtnApplyHealth.Enable(pCount >= 1);
@@ -683,33 +682,12 @@ class MenuPlayerManager extends AdminHudSubMenu
         }
 	}
 	
-	void InitSpectate(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
-	{
-		Param1<Object> data;
-		if (!ctx.Read(data)) return;
-		
-		if( type == CallType.Client )
-		{
-			if (data.param1 != null)
-			{
-				if (GetGame().GetPlayer() != null)
-				{
-					GetGame().ObjectDelete(GetGame().GetPlayer());
-					GetGame().SelectPlayer(null, null);
-				}
-				
-				VPPSpectateCam cam = VPPSpectateCam.Cast(GetGame().CreateObject( "VPPSpectateCam", data.param1.GetPosition(),true ));
-				cam.SetTargetObj(PlayerBase.Cast(data.param1));
-				cam.SetActive(true);
-				g_Game.SetSpectateMode(true);
-			}
-		}
-	}
-
 	void SpectateTarget()
 	{
 		GetVPPUIManager().DisplayNotification("#VSTR_NOTIFY_SPECTATE_REQ");
-		GetRPCManager().VSendRPC("RPC_PlayerManager", "SpectatePlayer", new Param1<string>(GetSelectedPlayersIDs()[0]), true);
+		//route through the spectate client handler (NOT the legacy RPC_PlayerManager
+		//path) so the death-grace preference is synced to the server before entering
+		GetSpectateClient().RequestSpectate(GetSelectedPlayersIDs()[0]);
 	}
 	
 	void KillSelectedPlayers(int result)

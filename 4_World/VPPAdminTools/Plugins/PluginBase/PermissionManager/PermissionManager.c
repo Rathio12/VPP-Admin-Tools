@@ -44,6 +44,8 @@ class PermissionManager extends ConfigurablePlugin
 		AddPermissionType({ "MenuPlayerManager","PlayerManager:GiveGodmode","PlayerManager:BanPlayer","PlayerManager:KickPlayer","PlayerManager:HealPlayers","PlayerManager:SetPlayerStats","PlayerManager:KillPlayers","PlayerManager:GodMode","PlayerManager:SpectatePlayer","PlayerManager:TeleportToPlayer","PlayerManager:TeleportPlayerTo","PlayerManager:SetPlayerInvisible","PlayerManager:SendMessage", "PlayerManager:GiveUnlimitedAmmo", "PlayerManager:MakePlayerVomit", "PlayerManager:FreezePlayers", "PlayerManager:ChangeScale", "PlayerManager:StopBleeding", "PlayerManager:ClearInventory", "PlayerManager:EditModifiers"});
 		//Bans Manager
 		AddPermissionType({ "MenuBansManager","BansManager:UnbanPlayer","BansManager:UpdateBanDuration","BansManager:UpdateBanReason" });
+		//Spectate Tools menu (action perm reuses PlayerManager:SpectatePlayer)
+		AddPermissionType({ "MenuSpectateTools" });
 		//WebHooks Menu
 		AddPermissionType({ "MenuWebHooks","MenuWebHooks:Create", "MenuWebHooks:Edit", "MenuWebHooks:Delete" });
 		//Teleport Manager Menu
