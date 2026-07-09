@@ -1,14 +1,3 @@
-/*
-	Godmoded players must never drown.
-
-	The vanilla DrowningMdfr drains health/shock via DIRECT AddHealth() calls
-	(OnTick), which bypass SetAllowDamage — so godmode alone does not protect
-	against it. This matters for admins in godmode generally, and specifically
-	for the spectate system, whose frozen admin body is parked under the target
-	and can end up under water.
-
-	Runs server-side (ModifiersManager), where GodModeStatus() is authoritative.
-*/
 modded class DrowningMdfr
 {
 	override bool ActivateCondition(PlayerBase player)

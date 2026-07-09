@@ -1,12 +1,3 @@
-/*
-	In-spectate overlay — a minimal top-center pill showing who is being spectated,
-	the view mode, live target vitals, and the control hints.
-
-	Exact VPPStatsHud mechanics: workspace-parented (survives toolbar close),
-	driven by the global GUI update queue, self-gates visibility each tick on
-	GetSpectateClient().IsSpectating(), Unlink + queue-remove in the destructor.
-	Owned by VPPAdminHud (created in Init, deleted in ~VPPAdminHud).
-*/
 class VPPSpectateOverlay : ScriptedWidgetEventHandler
 {
 	protected Widget      m_Root;

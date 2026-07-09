@@ -33,6 +33,12 @@ class MenuSpectateTools extends AdminHudSubMenu
 	private ImageWidget  m_ImgStatusDot;
 	private TextWidget   m_TxtStatus;
 
+	//ADS trim debug tuning (3D-sight spectate camera; visible only when VPPSpectateConstants.ADS_TUNE_UI)
+	private Widget       m_PanelAdsTuning;
+	private SliderWidget m_SliderAdsRight;
+	private SliderWidget m_SliderAdsUp;
+	private ButtonWidget m_BtnAdsTrimReset;
+
 	//death-grace preset dropdown
 	private Widget                m_GraceDropHost;
 	private ref VPPDropDownMenu   m_GraceDropDown;
@@ -94,6 +100,45 @@ class MenuSpectateTools extends AdminHudSubMenu
 			savedIdx = m_GraceValues.Find(VPPSpectateConstants.DEATH_GRACE_DEFAULT);
 		m_GraceDropDown.SetIndex(savedIdx);
 
+		//ADS trim debug sliders (3D-sight spectate camera): widget range 0..0.2
+		//shown as -0.1..+0.1 m via the display transform (heat-buffer precedent);
+		//live values pushed into VPPSpectateADSTuning in OnUpdate
+		m_PanelAdsTuning  = Widget.Cast( M_SUB_WIDGET.FindAnyWidget( "PanelAdsTuning") );
+		m_SliderAdsRight  = SliderWidget.Cast( M_SUB_WIDGET.FindAnyWidget( "SliderAdsRight") );
+		m_SliderAdsUp     = SliderWidget.Cast( M_SUB_WIDGET.FindAnyWidget( "SliderAdsUp") );
+		m_BtnAdsTrimReset = ButtonWidget.Cast( M_SUB_WIDGET.FindAnyWidget( "BtnAdsTrimReset") );
+		if (m_PanelAdsTuning && m_SliderAdsRight && m_SliderAdsUp)
+		{
+			if (VPPSpectateConstants.ADS_TUNE_UI)
+			{
+				//script-side range/step: float layout attributes are unproven in this
+				//mod, SetMinMax/SetStep with floats are vanilla-proven (ScriptConsole)
+				m_SliderAdsRight.SetMinMax(0.0, 0.2);
+				m_SliderAdsRight.SetStep(0.001);
+				m_SliderAdsUp.SetMinMax(0.0, 0.2);
+				m_SliderAdsUp.SetStep(0.001);
+
+				VPPSliderRowHandler adsRowHandler;
+				m_SliderAdsRight.GetScript(adsRowHandler);
+				if (adsRowHandler)
+				{
+					adsRowHandler.SetStep(0.001);
+					adsRowHandler.SetDisplayTransform(1.0, -0.1, 3);
+				}
+				m_SliderAdsUp.GetScript(adsRowHandler);
+				if (adsRowHandler)
+				{
+					adsRowHandler.SetStep(0.001);
+					adsRowHandler.SetDisplayTransform(1.0, -0.1, 3);
+				}
+				SyncAdsTuningSliders();
+			}
+			else
+			{
+				m_PanelAdsTuning.Show(false);
+			}
+		}
+
 		//engine events keep the rail live even while the menu is open
 		GetSpectateClient().m_OnSpectateStarted.Insert(OnSpectateStartedEvt);
 		GetSpectateClient().m_OnSpectateStopped.Insert(OnSpectateStoppedEvt);
@@ -139,6 +184,14 @@ class MenuSpectateTools extends AdminHudSubMenu
 			string sig = BuildListSignature();
 			if (sig != m_ListSignature)
 				RebuildList();
+		}
+
+		//ADS trim debug sliders: the row handler consumes OnChange (returns true),
+		//so POLL and push into the live tuning statics the camera reads each frame
+		if (VPPSpectateConstants.ADS_TUNE_UI && m_SliderAdsRight && m_SliderAdsUp)
+		{
+			VPPSpectateADSTuning.s_RightOffset = m_SliderAdsRight.GetCurrent() - 0.1;
+			VPPSpectateADSTuning.s_UpOffset    = m_SliderAdsUp.GetCurrent() - 0.1;
 		}
 	}
 
@@ -383,6 +436,15 @@ class MenuSpectateTools extends AdminHudSubMenu
 		GetSpectateClient().SetDeathGrace(m_GraceValues[index]);
 	}
 
+	//seed slider positions from the live tuning statics (widget 0..0.2 = -0.1..+0.1 m)
+	protected void SyncAdsTuningSliders()
+	{
+		if (!m_SliderAdsRight || !m_SliderAdsUp)
+			return;
+		m_SliderAdsRight.SetCurrent(VPPSpectateADSTuning.s_RightOffset + 0.1);
+		m_SliderAdsUp.SetCurrent(VPPSpectateADSTuning.s_UpOffset + 0.1);
+	}
+
 	protected string ResolveName(string userId)
 	{
 		array<ref VPPUser> users = GetPlayerListManager().GetUsers();
@@ -451,6 +513,13 @@ class MenuSpectateTools extends AdminHudSubMenu
 				GetGame().CopyToClipboard(m_SelectedId);
 				GetVPPUIManager().DisplayNotification("#VSTR_NOTIFY_SUCCESS_COPY_TOCLIPBOARD");
 			}
+			return true;
+		}
+
+		if (w == m_BtnAdsTrimReset)
+		{
+			VPPSpectateADSTuning.Reset();
+			SyncAdsTuningSliders();
 			return true;
 		}
 

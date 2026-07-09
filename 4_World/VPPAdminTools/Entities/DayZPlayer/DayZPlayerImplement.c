@@ -5,10 +5,6 @@ modded class DayZPlayerImplement
 
 	override int CameraHandler(int pCameraMode)
 	{
-		//spectate FIRST: this early return is mandatory — the admin keeps their
-		//in-hands weapon during spectate, and a latched m_CameraOptics/Ironsight
-		//(admin entered spectate while ADS; input frozen so the exit edge never
-		//processes) would otherwise send vanilla's optics camera instead
 		if (IsVPPSpectateCamActive())
 		{
 			return DayZPlayerCameras.VPPAT_SPECTATE_CAMERA;

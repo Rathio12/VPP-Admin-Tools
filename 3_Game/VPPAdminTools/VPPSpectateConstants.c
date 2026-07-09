@@ -48,8 +48,8 @@ class VPPSpectateConstants
 
 	//first person
 	const static float CAM_1PP_FWD_OFFSET    = -0.04;
-	const static float CAM_1PP_FWD_OFFSET_SPRINT = 0.12;
-	const static float CAM_1PP_UP_OFFSET     = 0.03; //0.03
+	const static float CAM_1PP_FWD_OFFSET_SPRINT = 0.15;
+	const static float CAM_1PP_UP_OFFSET     = 0.03;
 	const static float CAM_1PP_NEARPLANE     = 0.04;
 	const static float CAM_1PP_POS_SMOOTH    = 0.05;  //Math.SmoothCD time constant
 
@@ -59,24 +59,35 @@ class VPPSpectateConstants
 	//ADS (target aiming down sights)
 	const static float ADS_TICK_SEC          = 0.25;  //server sight-mode poll cadence
 	const static float CAM_ADS_FOV_SMOOTH    = 0.1;   //FOV SmoothCD time (vanilla ironsights value — the ONLY steady-state ADS filter, matching vanilla)
-	//2D-SCOPE PATH ONLY (hunting/PSO fullscreen overlay): SmoothAngle coef bridging
-	//the 20Hz look stream between samples. 3D sights take the RIGID path — position
-	//and direction raw from ONE weapon sample per frame, ZERO filtering (vanilla
-	//ironsights has no smoothing between weapon TM and camera TM; any lag at ~5cm
-	//eye relief re-creates the gun-chase decoupling).
 	const static float CAM_ADS_SMOOTH_COEF   = 12.0;
 	//2D-SCOPE PATH ONLY: per-axis SmoothCD time on the eye position (weapon model
 	//hidden — nothing rendered to stay rigid with). DEAD for 3D sights.
 	const static float CAM_ADS_POS_SMOOTH    = 0.02;
 	const static float CAM_ADS_BACK_OFFSET   = 0.05;  //3D sights: eye offset along -sightDir on the RAW weapon basis (near-plane clearance off the optic housing)
-	const static float CAM_ADS_RIGHT_OFFSET  = 0.0;   //3D sights: eye offset along the raw weapon RIGHT axis (+right / -left)
-	const static float CAM_ADS_UP_OFFSET     = 0.0;   //3D sights: eye offset along the raw weapon UP axis (+up / -down)
-	const static bool  ADS_DEBUG             = true;  //[VPPADS] diagnostics in script.log (flip off for release)
-	const static bool  ADS_DEBUG_SHOW_BODY   = true;  //DEBUG: keep the admin body VISIBLE while spectating (shows the client-local link; visible to EVERYONE incl. the target — flip off for release)
+	const static float CAM_ADS_RIGHT_OFFSET  = 0.0;   //3D sights: BAKE TARGET — eye offset (m) along the NORMALIZED weapon RIGHT axis (+right / -left). Tune via the spectate-menu debug sliders (ADS_TUNE_UI), then write the found value HERE; VPPSpectateADSTuning below seeds from it so the dynamic default stays in sync
+	const static float CAM_ADS_UP_OFFSET     = 0.0;   //3D sights: BAKE TARGET — eye offset (m) along the NORMALIZED weapon UP axis (+up / -down). Same bake flow as RIGHT_OFFSET
+	const static float CAM_ADS_CORR_STRENGTH = 1.0;  //master scale (0 = correction off entirely)
+	const static float CAM_ADS_CORR_FULL_DEG = 3.0;  //|streamYaw-weaponYaw| at/below this: FULL correction (covers measured 0.1-1.2 deg slow-aim divergence + 1.65-3.3 deg median-hold quantization sawtooth)
+	const static float CAM_ADS_CORR_ZERO_DEG = 10.0; //|streamYaw-weaponYaw| at/above this: ZERO correction (under the 12-deg measured fast-turn divergence floor)
+	const static bool  ADS_DEBUG             = false;  //[VPPADS] diagnostics in script.log (flip off for release)
+	const static bool  ADS_DEBUG_SHOW_BODY   = false;  //DEBUG: keep the admin body VISIBLE while spectating (shows the client-local link; visible to EVERYONE incl. the target — flip off for release)
+	const static bool  ADS_TUNE_UI           = false;  //show the ADS trim tuning sliders in the Spectate menu rail (flip off for release; separate from ADS_DEBUG so log spam and tuning UI toggle independently)
 
 	//1PP true-look streaming: the target's REAL camera direction only exists on
 	//their client (mouse-look/freelook never replicate) — their client samples and
 	//ships it via the server while spectated (VPPBR-proven design, 20Hz)
 	const static float LOOK_STREAM_SEC      = 0.05;  //target-side sample/send cadence
 	const static int   LOOK_STREAM_STALE_MS = 400;   //fall back to replicated aim beyond this
+};
+
+class VPPSpectateADSTuning
+{
+	static float s_RightOffset = VPPSpectateConstants.CAM_ADS_RIGHT_OFFSET; //m, +right / -left on the normalized weapon basis
+	static float s_UpOffset    = VPPSpectateConstants.CAM_ADS_UP_OFFSET;   //m, +up / -down on the normalized weapon basis
+
+	static void Reset()
+	{
+		s_RightOffset = VPPSpectateConstants.CAM_ADS_RIGHT_OFFSET;
+		s_UpOffset    = VPPSpectateConstants.CAM_ADS_UP_OFFSET;
+	}
 };

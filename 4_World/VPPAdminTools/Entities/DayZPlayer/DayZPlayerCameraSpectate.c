@@ -1,31 +1,3 @@
-/*
-	Spectate camera — runs INSIDE the engine's DayZPlayerCamera pipeline (same
-	hijack as DayZPlayerCameraFree): CameraHandler returns VPPAT_SPECTATE_CAMERA
-	while spectating and the engine constructs/drives this class. Running in the
-	player pipeline keeps the native optics machinery alive (OnDrawOptics2D 2D
-	scope overlays, reddot rendering) — a scripted Camera entity does not.
-
-	THIRD_PERSON: behind-shoulder follow ("as if playing the target") built from the
-	target's replicated orientation + aim angles (readable client-side on remotes),
-	smoothed with the VPPBR velocity+acceleration filter, with free mouse ORBIT
-	offsets on top and mouse-wheel zoom. Camera-vs-world collision via RaycastRV.
-
-	FIRST_PERSON: glued to the target's Head bone with the same angle smoothing;
-	position micro-jitter removed per-axis with Math.SmoothCD (keeps walk bob).
-
-	ADS (server-pushed sight mode, 1PP only): the camera moves to the target's
-	weapon/optic sight line via the two-point ModelToWorld technique. Sway/recoil
-	come free via the replicated hand animation. FOV blends to ironsights (60 deg)
-	or the optic's config zoom.
-
-	Transform output (freecam-proven recipe): world pos/angles computed exactly as
-	before, expressed per frame in the ADMIN body's model space via CoordToLocal.
-	The body's follow-teleports cancel out because the conversion is recomputed
-	every frame from the body's current transform.
-
-	NOT named DayZPlayerCameraSpectate — that global class name exists in VPPBR
-	and co-loading both mods would be a compile error.
-*/
 class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 {
 	protected PlayerBase m_Target;
@@ -85,17 +57,11 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 	protected float      m_FovCurrent;
 	protected float      m_FovVel[1];
 
-	//streamed TRUE look angles (the target's real camera direction — sampled on
-	//THEIR client at 20Hz and relayed via the server; mouse-look/freelook never
-	//replicate through animation state, so this is the only accurate source)
 	protected float      m_StreamLookYaw;
 	protected float      m_StreamLookPitch;
 	protected int        m_StreamLookTime; //g_Game.GetTime() of last sample (0 = never)
+	protected float      m_CorrYawApplied;
 
-	//per-frame result plumbing: the Update* methods produce a WORLD-space pos +
-	//angles; EmitResult converts and writes the DayZPlayerCameraResult. The last
-	//emitted frame is cached because a DayZPlayerCamera has no persistent
-	//transform — freeze-frame (target streamed out) must re-emit it every frame.
 	protected vector     m_OutCamPos;
 	protected vector     m_OutCamAngles;
 	protected vector     m_LastCamPosWS;
@@ -127,10 +93,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 	//the one live spectate cam (consumed by modded PlayerBase.OnDrawOptics2D)
 	protected static VPPDayZPlayerCameraSpectate s_ActiveInstance;
 
-	//push protocol: the ENGINE constructs the camera instance, so the handler
-	//parks state here; the ctor consumes it and live pushes forward to the
-	//instance. s_PendingTarget is deliberately a plain (non-ref) PlayerBase —
-	//Enforce auto-nulls it if the entity is deleted.
 	protected static PlayerBase s_PendingTarget;
 	protected static int        s_PendingView;
 	protected static int        s_PendingSightMode;
@@ -146,9 +108,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		m_FovCurrent = g_Game.GetUserFOV();
 		m_FovVel[0]  = 0.0;
 
-		//consume the state the handler parked before flipping the camera flag.
-		//Order matters: SetView's "enter 1PP while already sighted" branch needs
-		//the target first; SetTargetADS needs the view.
 		SetTarget(s_PendingTarget);
 		SetView(s_PendingView);
 		SetTargetADS(s_PendingSightMode);
@@ -156,9 +115,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 
 	void ~VPPDayZPlayerCameraSpectate()
 	{
-		//safety net ONLY — the engine destroys instances at its own pace (the base
-		//OnActivate CallLater can pin them briefly). Primary cleanup is teardown-
-		//driven via OnTeardown(); by then these no-op (flags false, guard false).
 		ClearOpticVisuals();
 		if (s_ActiveInstance == this)
 			s_ActiveInstance = null;
@@ -216,6 +172,40 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		if (m_StreamLookTime == 0)
 			return false;
 		return (g_Game.GetTime() - m_StreamLookTime) < VPPSpectateConstants.LOOK_STREAM_STALE_MS;
+	}
+
+	protected float ComputeStreamCorrTargetYaw(float weaponYawSigned, out float outErr, out float outAlpha)
+	{
+		float err = m_StreamLookYaw - weaponYawSigned;
+		if (err > 180.0)
+			err = err - 360.0;
+		if (err < -180.0)
+			err = err + 360.0;
+		outErr = err;
+		outAlpha = 0.0;
+
+		if (!HasFreshStreamedLook())
+			return 0.0;
+
+		float absErr = Math.AbsFloat(err);
+		float fullB = VPPSpectateConstants.CAM_ADS_CORR_FULL_DEG;
+		float zeroB = VPPSpectateConstants.CAM_ADS_CORR_ZERO_DEG;
+		float alpha = 0.0;
+		if (absErr <= fullB)
+		{
+			alpha = 1.0;
+		}
+		else if (absErr >= zeroB)
+		{
+			alpha = 0.0;
+		}
+		else
+		{
+			alpha = 1.0 - ((absErr - fullB) / (zeroB - fullB));
+		}
+		alpha = alpha * VPPSpectateConstants.CAM_ADS_CORR_STRENGTH;
+		outAlpha = alpha;
+		return alpha * err;
 	}
 
 	//called by the handler at teardown BEFORE the camera flag flips, so no frame
@@ -293,8 +283,10 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		ClearSight();
 
 		//streamed look belongs to the old target too — invalidate until the new
-		//target's stream arrives (fallback covers the gap)
+		//target's stream arrives (fallback covers the gap); the applied correction
+		//belongs to the old target as well (this coincides with a full reseed)
 		m_StreamLookTime = 0;
+		m_CorrYawApplied = 0.0;
 
 		//restore the view-appropriate near plane (an old target's optic override
 		//must not leak onto the new target's plain view)
@@ -370,9 +362,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			if (m_View == EVPPSpectateView.FIRST_PERSON)
 			{
 				m_NearPlaneCurrent = VPPSpectateConstants.CAM_1PP_NEARPLANE;
-				//re-seed head-bone smoothing (no swing-in) — but NOT from a corpse:
-				//a ragdolled body reports junk orientation and the death-grace path
-				//would then hold those junk angles for the whole grace period
 				if (m_Target && m_Target.IsAlive())
 					SeedFromTarget();
 			}
@@ -400,10 +389,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		if (PlayerBase.Cast(m_pPlayer).GetCurrentCamera() != this)
 			return;
 
-		//LINK INTEGRITY (per-frame): server position corrections smear the client
-		//link's local TM while the target moves — re-assert the identity link the
-		//moment the body drifts off the target (alignment is otherwise permanently
-		//offset by whatever delta was in flight when the correction landed)
 		if (m_Target != null)
 		{
 			PlayerBase ownBody = PlayerBase.Cast(m_pPlayer);
@@ -427,19 +412,11 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			}
 		}
 
-		//sight visuals must not outlive a LIVING, PRESENT target — cheap flag-gated
-		//call. Covers both loss modes: death (server NONE edge can lag a tick) and
-		//stream-out (m_Target auto-nulls and NO server edge ever comes, because the
-		//server-side target still exists and is still in optics)
 		if (m_Target == null || !m_Target.IsAlive())
 			ClearOpticVisuals();
 
 		if (m_Target == null)
 		{
-			//freeze-frame: re-emit the last good world transform every frame (the
-			//player-camera pipeline recomputes from scratch each frame). A DEAD
-			//target still renders normally below (death grace); the SERVER decides
-			//when the session actually ends.
 			if (!m_HasLastFrame)
 			{
 				//ctor race fallback: at most one frame before the server force-ends
@@ -471,16 +448,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		EmitResult(pOutResult);
 	}
 
-	//converts the computed WORLD pos/angles into the player-camera result.
-	//
-	//TWO OUTPUT RECIPES (user-validated combination):
-	//- ADS (sight rendering): OwnerTM-IDENTITY OVERRIDE — bit-exact placement,
-	//  no composition ambiguity; a sight must be pixel-exact.
-	//- FOLLOW modes (1PP/3PP): linked-base fully-relative transform — the
-	//  render-time composition re-bases our one-frame-stale sampling onto the
-	//  target's live motion (smooth at sprint); centimeter-level composition
-	//  error is invisible without a sight to line up. The per-frame LINK-DRIFT
-	//  RE-ASSERT keeps the composition base clean for both.
 	protected void EmitResult(out DayZPlayerCameraResult pOutResult)
 	{
 		bool adsRendering = false;
@@ -500,33 +467,10 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			pOutResult.m_fIgnoreParentRoll  = 1.0;
 			pOutResult.m_fIgnoreParentPitch = 1.0;
 			pOutResult.m_fIgnoreParentYaw   = 1.0;
-			//HB LEVER (the one behavior change of this round). Engine default (false)
-			//means the camera result is NOT applied on the frame it was computed:
-			//dayzplayer.c:31 - "Whether the camera updates the next frame or blends
-			//with next character update". That engine-side deferred blend runs AFTER
-			//our zero-filter write-through, is script-invisible, and is the prime
-			//suspect for "camera tries smoothing then snaps" now that render-vs-
-			//logical divergence is probe-DEAD (renderDeltaYaw was exactly 0 in 85/85
-			//samples - GetRenderTransform is bit-identical to GetTransform on the
-			//sight entity, so render-TM sampling would be a no-op and stays OUT).
-			//Vanilla precedent: both vehicle cameras (DayZPlayerCameraVehicles.c:11
-			//and :195) set this via g_Game.IsPhysicsExtrapolationEnabled() - "always
-			//true on retail release builds" (Game.c:795) - precisely because the
-			//followed entity moves between character updates, the same situation as
-			//our remote target. Hardcoded true so a diag-build extrapolation toggle
-			//can't silently disable the lever during DayZDiag testing (the burst
-			//probe logs the extrap state separately). The FOLLOW branch sets its own
-			//flag via FOLLOW_UPDATE_EVERY_FRAME (separate constant, separate round).
 			pOutResult.m_bUpdateEveryFrame = ADS_UPDATE_EVERY_FRAME;
 		}
 		else if (m_Target != null)
 		{
-			//PROBE-PROVEN (ghost full-child link): GetTransform on the linked body
-			//returns the COMPOSED world TM riding the target LIVE (bodyYaw tracked
-			//the target's turning, bodyDist=0). That IS the engine's composition
-			//base — invert against it directly. (The earlier local-TM behavior was
-			//specific to positionOnly=true links; v7's parent-x-local rebuild
-			//DOUBLE-composed the target TM and dumped the camera in the ocean.)
 			vector baseTM[4];
 			m_pPlayer.GetTransform(baseTM);
 
@@ -543,36 +487,8 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			pOutResult.m_fIgnoreParentRoll   = 0.0;
 			pOutResult.m_fIgnoreParentPitch  = 0.0;
 			pOutResult.m_fIgnoreParentYaw    = 0.0;
-			//HB LEVER (this round's one behavior change): kill the engine-side
-			//deferred blend in the FOLLOW branch too. Engine default (false) means
-			//frame N's RELATIVE result is applied against the base's LATER transform
-			//("blends with next character update", dayzplayer.c:31) — so every step
-			//of the target's quantized replicated TM (1.41-deg yaw grid, log-proven
-			//hold-then-jump, and bodyDist=0 proves our base rides it exactly) lands
-			//RAW in the applied pose through the stale inverse, bypassing SmoothAngle
-			//and SmoothCD entirely, then gets re-absorbed by the next recompute while
-			//the filters are mid-settle: snap-then-settle precisely when the body
-			//shifts. The identical lever just fixed the proven ADS snap — and the ADS
-			//result is base-INDEPENDENT, so the deferral alone was proven harmful
-			//before the base mismatch this branch adds on top. Vanilla precedent for
-			//a FOLLOW camera on a base that moves outside character-update cadence,
-			//including 3PP: DayZPlayerCameraVehicles.c:11 and :195 (true on retail,
-			//Game.c:795). Hardcoded true so a diag-build extrapolation toggle can't
-			//silently disable the lever (extrap state is logged separately by the
-			//burst probes). Applies to 1PP AND 3PP — the shared-branch flag is one
-			//variable; gate on m_View if 3PP ever regresses. Also removes the latent
-			//latch: ADS set this true and no branch ever wrote it back, so post-ADS
-			//follow frames may already have run latched-true depending on engine
-			//result-object reuse — from now on follow is explicit and deterministic.
 			pOutResult.m_bUpdateEveryFrame   = FOLLOW_UPDATE_EVERY_FRAME;
 
-			//FOLLOW BURST PROBE (validation for this round + the M4/M5 residual):
-			//unthrottled 60-frame bursts every 10s logging per-frame deltas of the
-			//RAW head bone (does GetBonePositionWS hold-then-jump at replication
-			//cadence? — the M5 question, never directly measured), the emitted cam
-			//position (does the output still snap, or only settle smoothly?), and
-			//the quantized body yaw (step marker). This is the per-frame plain-1PP
-			//data the last session lacked (emits were 3s-throttled).
 			if (VPPSpectateConstants.ADS_DEBUG)
 			{
 				int nowFol = g_Game.GetTime();
@@ -860,10 +776,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 
 		DbgADS("apply: EnterOptics=" + entered.ToString() + " IsInOptics=" + m_VisualOptic.IsInOptics().ToString() + " allowsDOF=" + m_VisualOptic.AllowsDOF().ToString() + " EMon=" + m_VisualSwitchedEM.ToString());
 
-		//2D scopes: the fullscreen overlay IS the view — hide the physical weapon
-		//and its attachments so the scope model doesn't block the screen. Vanilla
-		//hides the OWNER's viewmodel via the inside-camera flag, but the target's
-		//weapon is a REMOTE entity that flag cannot touch.
 		if (m_VisualOptic.IsUsingOptics2DModel())
 		{
 			if (m_VisualWeapon)
@@ -1076,9 +988,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		m_SightCamDirMS = dirMS.Normalized();
 		m_SightValid = true;
 
-		//only engage the render-side effects when the ADS view is actually
-		//rendering (1PP); in 3PP a mode edge must not overwrite the third-person
-		//near plane or throw the scope PPE over the orbit view
 		if (m_View == EVPPSpectateView.FIRST_PERSON)
 		{
 			ApplyADSNearPlane();
@@ -1113,16 +1022,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		return GameConstants.DZPLAYER_CAMERA_FOV_IRONSIGHTS; //0.5236 rad (60 deg)
 	}
 
-	//NOTE: a vanilla-exact sight TM via the target's HumanItemAccessor was tried
-	//and is DEAD on remotes: WeaponGetAimingModelDirTm returned false on 100% of
-	//probes (aiming model is owner-only). The two-point ModelToWorld sight line
-	//below is the only viable source — do not re-attempt the accessor path.
-
-	//compute the world-space sight line once and seed the shared camera state on it —
-	//position SNAPS on ADS enter (blending would sweep the camera through the skull);
-	//the FOV ease in UpdateFOV sells the transition. For 3D sights this is literally
-	//one frame of the per-frame RIGID path (raw pose, velocities zeroed); for 2D
-	//scopes it seeds the look-stream filters.
 	protected void SeedADS()
 	{
 		if (!m_SightValid)
@@ -1154,6 +1053,25 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			pitch = m_StreamLookPitch;
 		}
 
+		//3D sights: apply the same stream correction as the per-frame rigid path,
+		//SNAPPED — the seed is already a snap point, and the per-frame low-pass
+		//then continues from this exact value (no first-frame pop)
+		if (!seedIs2D)
+		{
+			float seedErr = 0.0;
+			float seedAlpha = 0.0;
+			m_CorrYawApplied = ComputeStreamCorrTargetYaw(yaw, seedErr, seedAlpha);
+			yaw = yaw + m_CorrYawApplied;
+			if (yaw > 180.0)
+				yaw = yaw - 360.0;
+			if (yaw < -180.0)
+				yaw = yaw + 360.0;
+		}
+		else
+		{
+			m_CorrYawApplied = 0.0;
+		}
+
 		m_YawCurrent    = yaw;
 		m_YawVelocity   = 0.0;
 		m_PitchCurrent  = pitch;
@@ -1171,7 +1089,7 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		HandleZoomInput(dt);
 		HandleOrbitInput(dt);
 
-		//death grace: hold the current angles (a ragdolled corpse reports junk
+		//death grace: hold the current angles (a corpse reports junk
 		//orientation) but keep the pivot tracking the body
 		float yawT;
 		float pitchT;
@@ -1201,10 +1119,6 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 
 		vector camPos = pivot - (fwd * m_Dist) + (right * VPPSpectateConstants.CAM_3PP_SHOULDER);
 
-		//camera-vs-world collision: pull in front of whatever the pivot->cam ray hits.
-		//Ignore the target (or their vehicle when seated) so we never collide with them.
-		//Kept as script raycast: the engine's external-camera solver assumes the pivot
-		//is the camera's OWNER — ours is the remote target.
 		Object ignoreObj = m_Target;
 		HumanCommandVehicle hcv = m_Target.GetCommand_Vehicle();
 		if (hcv && hcv.GetTransport())
@@ -1313,13 +1227,14 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		vector dirWS = p1 - p0;
 		dirWS.Normalize();
 
-		//3D sights follow the WEAPON line: the rendered weapon is slaved to the
-		//replicated body yaw (8-bit quantized, 1.41-deg steps, lags the true aim by
-		//tens of degrees in fast turns — log-proven 12-41.5 deg), so a streamed
-		//direction over a weapon-anchored position reads as "glued to the head, not
-		//the weapon". The weapon line keeps the sight axis screen-centered by
-		//construction. 2D scopes keep the streamed TRUE aim: their weapon model is
-		//hidden and the fullscreen overlay has no rendered sight axis to disagree with.
+		vector wpnAngles = dirWS.VectorToAngles();
+		float wpnYaw = wpnAngles[0];
+		float wpnPitch = wpnAngles[1];
+		if (wpnYaw > 180.0)
+			wpnYaw = wpnYaw - 360.0;
+		if (wpnPitch > 180.0)
+			wpnPitch = wpnPitch - 360.0;
+
 		vector rawAngles;
 		bool usedStream = false;
 		if (sightIs2D && HasFreshStreamedLook())
@@ -1331,21 +1246,22 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 		}
 		else
 		{
-			rawAngles = dirWS.VectorToAngles();
+			rawAngles = wpnAngles;
 		}
 
-		//CADENCE PROBE (renderDeltaYaw RETIRED: 85/85 samples measured
-		//GetRenderTransform bit-identical to GetTransform on the sight entity -
-		//even mid-turn - so there is no render-side interpolation to inherit and
-		//render-TM sampling stays out). The open question is HB vs HC: does the
-		//sampled sight line advance smoothly every rendered frame (then the old
-		//stepping lived in the engine's deferred result blend - the
-		//m_bUpdateEveryFrame lever in EmitResult addresses it), or does it hold
-		//for N frames and jump on sim/replication ticks (HC upstream - not fixable
-		//camera-side)? A 3s-throttled sample cannot see frame-scale holds, so this
-		//probe runs UNTHROTTLED BURSTS - 60 consecutive frames every 10s - logging
-		//per-frame deltas of the sampled sight yaw (continuous-valued) against the
-		//replicated body yaw (4/17-deg quantized).
+		float corrErr = 0.0;
+		float corrAlpha = 0.0;
+		float corrTarget = ComputeStreamCorrTargetYaw(wpnYaw, corrErr, corrAlpha);
+		if (!sightIs2D)
+		{
+			float corrK = Math.Clamp(VPPSpectateConstants.CAM_ADS_SMOOTH_COEF * dt, 0.0, 1.0);
+			m_CorrYawApplied = m_CorrYawApplied + ((corrTarget - m_CorrYawApplied) * corrK);
+		}
+		else
+		{
+			m_CorrYawApplied = 0.0;
+		}
+
 		if (VPPSpectateConstants.ADS_DEBUG)
 		{
 			string dbgSrc = "rigid";
@@ -1389,57 +1305,36 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 				m_DbgBurstPrevTime = nowSrc;
 				m_DbgBurstPrevYaw = prbYaw;
 				m_DbgBurstPrevBody = prbBody;
-				//per-line src label: a mid-burst stream<->2Dfallback source switch in a
-				//2D window makes a one-frame dYaw spike that must not read as an HC step
 				string prbLine = "adsBURST: src=" + dbgSrc + " dt=" + dt.ToString() + " yaw=" + prbYaw.ToString() + " dYaw=" + prbDY.ToString();
 				prbLine = prbLine + " body=" + prbBody.ToString() + " dBody=" + prbDB.ToString();
+				prbLine = prbLine + " strYaw=" + m_StreamLookYaw.ToString() + " strPitch=" + m_StreamLookPitch.ToString() + " wpnPitch=" + wpnPitch.ToString();
+				prbLine = prbLine + " err=" + corrErr.ToString() + " alpha=" + corrAlpha.ToString() + " corr=" + m_CorrYawApplied.ToString();
 				DbgADS(prbLine);
 			}
 		}
 
 		if (sightIs2D)
 		{
-			//2D SCOPES — UNCHANGED PATH: the weapon model is hidden behind the
-			//fullscreen overlay (no rendered sight axis to stay rigid with) and the
-			//20Hz look stream needs inter-sample smoothing at scope zoom
 			m_YawCurrent   = SmoothAngle(m_YawCurrent, rawAngles[0], m_YawVelocity, dt, VPPSpectateConstants.CAM_ADS_SMOOTH_COEF);
 			m_PitchCurrent = SmoothAngle(m_PitchCurrent, rawAngles[1], m_PitchVelocity, dt, VPPSpectateConstants.CAM_ADS_SMOOTH_COEF);
 			m_SmoothedHeadPos[0] = Math.SmoothCD(m_SmoothedHeadPos[0], p0[0], m_PosVelX, VPPSpectateConstants.CAM_ADS_POS_SMOOTH, 1000, dt);
 			m_SmoothedHeadPos[1] = Math.SmoothCD(m_SmoothedHeadPos[1], p0[1], m_PosVelY, VPPSpectateConstants.CAM_ADS_POS_SMOOTH, 1000, dt);
 			m_SmoothedHeadPos[2] = Math.SmoothCD(m_SmoothedHeadPos[2], p0[2], m_PosVelZ, VPPSpectateConstants.CAM_ADS_POS_SMOOTH, 1000, dt);
 
-			//no trim offsets: the eye sits AT the sight point — shifting it only
-			//skews the overlay
 			m_OutCamPos    = m_SmoothedHeadPos;
 			m_OutCamAngles = Vector(m_YawCurrent, m_PitchCurrent, 0);
 		}
 		else
 		{
-			//3D SIGHTS — VANILLA RIGID RECIPE (ironsights principle ported): vanilla
-			//parents the ADS camera to the hand bone (m_iDirectBone, mode 4) with
-			//ZERO smoothing between weapon TM and camera TM — gun and camera move as
-			//ONE rigid body and the sight is screen-centered by CONSTRUCTION; mode 4
-			//Y-aligns the camera, so vanilla ADS strips weapon cant and roll stays 0
-			//here too. Ported: position AND direction come RAW from the SAME
-			//ModelToWorld sample of the rendered weapon this frame. NO filter is
-			//tolerable: at ~5cm eye relief a 1cm positional lag reads as >10deg of
-			//apparent sight displacement (the walking gun-chase), and any angle
-			//filter points the view off the rendered weapon axis for its settle
-			//time (the per-step wiggle). The replicated 1.41-deg yaw steps rotate
-			//gun+camera TOGETHER: the sight stays pixel-locked and a step shows as
-			//a whole-view rotation — the replication noise floor every observer of
-			//a remote player already sees.
-			float rigYaw   = rawAngles[0];
-			float rigPitch = rawAngles[1];
+			float rigYaw   = wpnYaw;
+			float rigPitch = wpnPitch;
+
+			rigYaw = rigYaw + m_CorrYawApplied;
 			if (rigYaw > 180.0)
 				rigYaw = rigYaw - 360.0;
-			if (rigPitch > 180.0)
-				rigPitch = rigPitch - 360.0;
+			if (rigYaw < -180.0)
+				rigYaw = rigYaw + 360.0;
 
-			//WRITE-THROUGH into the shared smoothing state (velocities zeroed) so
-			//every exit handoff — SetTargetADS NONE edge (SeedFromTarget), the
-			//mid-frame !m_SightValid fallback into UpdateFirstPerson, the view
-			//toggle — takes over from the LIVE camera pose, pop-free
 			m_YawCurrent      = rigYaw;
 			m_YawVelocity     = 0.0;
 			m_PitchCurrent    = rigPitch;
@@ -1449,21 +1344,20 @@ class VPPDayZPlayerCameraSpectate extends DayZPlayerCameraBase
 			m_PosVelY[0] = 0.0;
 			m_PosVelZ[0] = 0.0;
 
-			//trim offsets are FIXED CHILD OFFSETS of the raw weapon frame (the
-			//equivalent of vanilla's bone-relative m_CameraTM): BACK keeps
-			//near-plane clearance off the optic housing. Basis built from the raw
-			//sight line so the trim is rigid to the weapon (right/up deliberately
-			//left un-normalized exactly as before — RIGHT/UP are 0 today)
 			vector adsRight = vector.Up * dirWS;
-			vector adsUp    = dirWS * adsRight;
-			m_OutCamPos    = p0 - (dirWS * VPPSpectateConstants.CAM_ADS_BACK_OFFSET) + (adsRight * VPPSpectateConstants.CAM_ADS_RIGHT_OFFSET) + (adsUp * VPPSpectateConstants.CAM_ADS_UP_OFFSET);
+			if (adsRight.LengthSq() < 0.000001)
+			{
+				//PRE-correction yaw: the trim basis must never depend on alpha
+				vector adsFallbackAngles = Vector(wpnYaw + 90.0, 0, 0);
+				adsRight = adsFallbackAngles.AnglesToVector();
+			}
+			adsRight.Normalize();
+			vector adsUp = dirWS * adsRight;
+			adsUp.Normalize();
+			m_OutCamPos    = p0 - (dirWS * VPPSpectateConstants.CAM_ADS_BACK_OFFSET) + (adsRight * VPPSpectateADSTuning.s_RightOffset) + (adsUp * VPPSpectateADSTuning.s_UpOffset);
 			m_OutCamAngles = Vector(rigYaw, rigPitch, 0);
 		}
 
-		//per-frame upkeep: CommandHandler runs for EVERY player instance, so the
-		//remote target's own weapon logic on this client can flip these back
-		//(and vanilla's UpdateOpticsReddotVisibility gate reads the remote optic's
-		//unreplicated energy state) — win the fight cheaply via flag checks
 		if (m_VisualsApplied && m_VisualOptic)
 		{
 			if (!m_VisualOptic.m_reddot_displayed)

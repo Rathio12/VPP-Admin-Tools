@@ -1,16 +1,3 @@
-/*
-	Server-authoritative spectate engine (keep-body architecture).
-
-	The admin's body stays ALIVE during spectate: frozen (HumanCommandScript_VPPCam),
-	invisible and godmoded, parked FOLLOW_Y_OFFSET meters under the target. A 1s tick
-	re-teleports the body when the target drifts, keeping the admin's network bubble
-	centered on the target, and pushes a vitals sample to the spectating client.
-	Exit restores the body in place — instantly, with NO session reconnect.
-
-	Channels:
-	  RPC_SpectateManager (C->S): RequestSpectate / RequestExitSpectate / RequestInitRetry / ClientReadyAck
-	  RPC_SpectateClient  (S->C): StartSpectate / EndSpectate / TargetVitals (handled by VPPSpectateClientHandler)
-*/
 class SpectateManager extends PluginBase
 {
 	private ref map<string, ref SpectateSession> m_Sessions;
