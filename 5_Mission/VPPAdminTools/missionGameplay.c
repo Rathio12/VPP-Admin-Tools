@@ -230,7 +230,7 @@ modded class MissionGameplay
         {
             if (!man)
                 continue;
-            if(man == GetGame().GetPlayer())
+            if(man == GetGame().GetPlayer() && !IsFreeCamActive()) //own skeleton visible from freecam only
                 continue;
 
             PlayerBase playerPB = PlayerBase.Cast(man);
@@ -244,6 +244,14 @@ modded class MissionGameplay
             else if(ScreenPosRelative[2] < 0)
                 continue;
 
+            //corpses draw dim grey; line width thins out with distance for a cleaner look
+            int drawColor = color;
+            if (!playerPB.IsAlive())
+                drawColor = ARGB(255, 150, 150, 150);
+
+            float camDist = vector.Distance(GetGame().GetCurrentCameraPosition(), playerPB.GetPosition());
+            float width = Math.Clamp(2.5 - (camDist * 0.004), 1.0, 2.5);
+
             foreach(ESPBonesParams params : m_EspBones)
             {
                 int fromIdx = playerPB.GetBoneIndexByName(params.param1);
@@ -251,25 +259,25 @@ modded class MissionGameplay
 
                 vector fromPos = TransformToScreenPos(playerPB.GetBonePositionWS(fromIdx));
                 vector toPos   = TransformToScreenPos(playerPB.GetBonePositionWS(toIdx));
-                m_EspCanvasWidget.DrawLine(toPos[0], toPos[1], fromPos[0], fromPos[1], 2, color);
+                m_EspCanvasWidget.DrawLine(toPos[0], toPos[1], fromPos[0], fromPos[1], width, drawColor);
             }
 
-            //Draw Face
+            //Draw Face (12 segments instead of 360 -> same look, huge fps win)
             int headIdx = playerPB.GetBoneIndexByName("head");
             int neckIdx = playerPB.GetBoneIndexByName("neck");
             vector fpos = TransformToScreenPos(playerPB.GetBonePositionWS(headIdx));
             vector npos = TransformToScreenPos(playerPB.GetBonePositionWS(neckIdx));
 
-            float size = 1 * fpos[1] - npos[1];
-            for(int j = 0; j < 360; j++)
+            float size = Math.Clamp(Math.AbsFloat(fpos[1] - npos[1]), 2, 120);
+            for(int j = 0; j < 360; j = j + 30)
             {
                 float x1 = fpos[0] + (size * Math.Cos(j * Math.DEG2RAD));
                 float y1 = fpos[1] + (size * Math.Sin(j * Math.DEG2RAD));
 
-                float x2 = fpos[0] + (size * Math.Cos((j + 1) * Math.DEG2RAD));
-                float y2 = fpos[1] + (size * Math.Sin((j + 1) * Math.DEG2RAD));
+                float x2 = fpos[0] + (size * Math.Cos((j + 30) * Math.DEG2RAD));
+                float y2 = fpos[1] + (size * Math.Sin((j + 30) * Math.DEG2RAD));
 
-                m_EspCanvasWidget.DrawLine(x1, y1, x2, y2, 2, color);
+                m_EspCanvasWidget.DrawLine(x1, y1, x2, y2, width, drawColor);
             }
         }
     }
@@ -669,6 +677,12 @@ modded class MissionGameplay
     {
         if (g_Game.IsSpectateMode())
         {
+            //Tear down the camera first so its re-attach loop stops
+            if (VPPSpectateCam.ACTIVE_CAM)
+            {
+                VPPSpectateCam.ACTIVE_CAM.SetActive(false);
+                GetGame().ObjectDelete(VPPSpectateCam.ACTIVE_CAM);
+            }
             g_Game.ReconnectToCurrentSession();
             g_Game.SetSpectateMode(false);
         }

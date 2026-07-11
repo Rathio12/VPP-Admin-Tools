@@ -139,8 +139,12 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 			m_BtnKill = ButtonWidget.Cast(m_RootWidget.FindAnyWidget("BtnKill"));
 			m_BtnTpReturn = ButtonWidget.Cast(m_RootWidget.FindAnyWidget("BtnTpReturn"));
 			
-			EspToolsMenu espManager = EspToolsMenu.Cast(VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud)).GetSubMenuByType(EspToolsMenu));
-			if (!player.IsAlive() && !espManager.ShowDeadPlayers())
+			EspToolsMenu espManager;
+			VPPAdminHud initHud = VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud));
+			if (initHud)
+				espManager = EspToolsMenu.Cast(initHud.GetSubMenuByType(EspToolsMenu));
+
+			if (espManager && !player.IsAlive() && !espManager.ShowDeadPlayers())
 			{
 				espManager.RemoveTracker(this);
 				return;
@@ -284,13 +288,19 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 			case m_ChkSelectPlayer:
 				MenuPlayerManager pManager;
 				VPPAdminHud rootMenu = VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud));
+				if (!rootMenu)
+					return true;
+
 				if (rootMenu.GetSubMenuByType(MenuPlayerManager) == null)
 				{
 					rootMenu.CreateSubMenu(MenuPlayerManager);
 				}
-				pManager = MenuPlayerManager.Cast(VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud)).GetSubMenuByType(MenuPlayerManager));
-				pManager.GetPlayerEntry(m_GUID64Input).SetSelected(m_ChkSelectPlayer.IsChecked());
-				pManager.SendForPlayerStats();
+				pManager = MenuPlayerManager.Cast(rootMenu.GetSubMenuByType(MenuPlayerManager));
+				if (pManager && pManager.GetPlayerEntry(m_GUID64Input))
+				{
+					pManager.GetPlayerEntry(m_GUID64Input).SetSelected(m_ChkSelectPlayer.IsChecked());
+					pManager.SendForPlayerStats();
+				}
 				return true;
 			break;
 			
@@ -333,8 +343,11 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 		if (!m_CheckBox)
 			return;
 
-		EspToolsMenu espManager = EspToolsMenu.Cast(VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud)).GetSubMenuByType(EspToolsMenu));
-		
+		EspToolsMenu espManager;
+		VPPAdminHud chkHud = VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud));
+		if (chkHud)
+			espManager = EspToolsMenu.Cast(chkHud.GetSubMenuByType(EspToolsMenu));
+
 		if (m_CheckBox.IsChecked())
 		{
 			if (player)
@@ -430,7 +443,10 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 				ls[1] = ls[1] + 0.3;
 				startPos  = player.CoordToParent(ls);
 				
-				espManager = EspToolsMenu.Cast(VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud)).GetSubMenuByType(EspToolsMenu));
+				VPPAdminHud espHud = VPPAdminHud.Cast(GetVPPUIManager().GetMenuByType(VPPAdminHud));
+				if (espHud)
+					espManager = EspToolsMenu.Cast(espHud.GetSubMenuByType(EspToolsMenu));
+
 				if (!player.IsAlive() && (espManager && !espManager.ShowDeadPlayers()))
 				{
 					espManager.RemoveTracker(this);
@@ -474,13 +490,19 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 				m_ItemDistanceWidget.SetText( "[" + Math.Floor(CalcDistance()).ToString() + "m]" );
 			}
 
+			//Look-direction dart in front of the head (players only, close range to avoid clutter)
+			if (player && player.IsAlive() && z <= 150)
+			{
+				DrawLookArrow(startPos);
+			}
+
 			BaseBuildingBase baseBuilding;
 			if (player || BaseBuildingBase.CastTo(baseBuilding, m_TrackerEntity) || BasebuildingHelperFuncs.IsItemStorageSafe(m_TrackerEntity))
 			{
 				if (player)
 				{
 					//Check death
-					if (!player.IsAlive() && espManager.ShowDeadPlayers() && player.GetIdentity())
+					if (!player.IsAlive() && espManager && espManager.ShowDeadPlayers() && player.GetIdentity())
 					{
 						m_ItemNameWidget.SetText(player.GetIdentity().GetName() + " (Dead)");
 					}
@@ -521,8 +543,12 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 
 			if (player && m_DetialedWidget)
 			{
-				m_RootWidget.FindAnyWidget("IconDead").Show(!player.IsAlive());
-				m_RootWidget.FindAnyWidget("StrDead").Show(!player.IsAlive());
+				Widget iconDead = m_RootWidget.FindAnyWidget("IconDead");
+				Widget strDead = m_RootWidget.FindAnyWidget("StrDead");
+				if (iconDead)
+					iconDead.Show(!player.IsAlive());
+				if (strDead)
+					strDead.Show(!player.IsAlive());
 
 				float hpPct = Math.Clamp(player.GetTransferValues().m_HealthClient, 0.0, 1.0);
 				float blPct = Math.Clamp(player.GetTransferValues().m_BloodClient, 0.0, 1.0);
@@ -582,6 +608,52 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 		}
 	}
 
+	//---- look-direction arrow ----
+	//Body facing only: always horizontal, in front of the player. (Head-bone rotation
+	//and aim pitch both proved unreliable/confusing for remote players.)
+	protected vector GetLookDirection()
+	{
+		vector dir = player.GetDirection();
+		dir[1] = 0;
+		dir.Normalize();
+		return dir;
+	}
+
+	protected static vector CrossProduct(vector a, vector b)
+	{
+		return Vector((a[1] * b[2]) - (a[2] * b[1]), (a[2] * b[0]) - (a[0] * b[2]), (a[0] * b[1]) - (a[1] * b[0]));
+	}
+
+	protected void DrawLookArrow(vector headPos)
+	{
+		if (!EspToolsMenu.s_ShowLookArrow)
+			return;
+
+		vector dir = GetLookDirection();
+		if (dir.Length() < 0.01)
+			return;
+
+		float scale = EspToolsMenu.s_ArrowSize;
+		int color   = EspToolsMenu.s_ArrowColor;
+		int flags   = ShapeFlags.ONCE | ShapeFlags.TRANSP | ShapeFlags.NOZBUFFER;
+
+		//main arrow: Shape.CreateArrow (proven renderer, 3D cone head).
+		//kept short and anchored right at the head so it can't read as detached
+		vector from = headPos + (dir * (0.15 * scale));
+		vector to   = from + (dir * (0.55 * scale));
+		Shape.CreateArrow(from, to, 0.1 * scale, color, flags);
+
+		//4 small fins at the tip (up/down/left/right) so the arrow reads in 3D from any angle
+		vector side = CrossProduct(dir, "0 1 0");
+		side.Normalize();
+		vector backPos = to - (dir * (0.1 * scale));
+		float finSize = 0.06 * scale;
+		Debug.DrawLine(to, backPos + Vector(0, finSize, 0), color, flags);
+		Debug.DrawLine(to, backPos - Vector(0, finSize, 0), color, flags);
+		Debug.DrawLine(to, backPos + (side * finSize), color, flags);
+		Debug.DrawLine(to, backPos - (side * finSize), color, flags);
+	}
+
 	//design-system vital threshold tint (DesignSystem.md §1)
 	int VitalColor(float pct)
 	{
@@ -602,7 +674,7 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 		if (m_MouseEventHold)
 			m_MouseEventHold.SetActive(false);
 
-		if (m_TrackerEntity)
+		if (m_TrackerEntity && m_MouseEventHold && m_MouseEventHold.GetMarker())
 		{
 			vector posMarker = m_MouseEventHold.GetMarker().GetPosition();
 			GetRPCManager().VSendRPC("RPC_TeleportManager", "TeleportEntity", new Param1<vector>(posMarker), true, NULL, m_TrackerEntity);
@@ -669,6 +741,9 @@ class VPPESPTracker: ScriptedWidgetEventHandler
 	
 	bool IsTrackedObject(Object obj)
 	{
+		if (!obj || !m_TrackerEntity)
+			return false;
+
 		return obj.GetNetworkIDString() == m_TrackerEntity.GetNetworkIDString();
 	}
 	

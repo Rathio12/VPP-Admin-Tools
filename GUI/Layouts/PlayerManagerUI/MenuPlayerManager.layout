@@ -2657,7 +2657,7 @@ FrameWidgetClass rootFrame {
            "Size To Content H" 1
            "Size To Content V" 1
            Columns 2
-           Rows 1
+           Rows 2
            {
             ButtonWidgetClass ActionKickPlayer {
              color 1 1 1 1
@@ -2744,6 +2744,52 @@ FrameWidgetClass rootFrame {
                vexactsize 0
                style None
                text "#VSTR_LBL_BAN_PLAYERS"
+               font "gui/fonts/sdf_MetronLight72"
+               "exact text" 1
+               "exact text size" 14
+               "size to text h" 1
+               "size to text v" 1
+               "text valign" center
+              }
+             }
+            }
+            ButtonWidgetClass ActionSeeFlags {
+             color 1 1 1 1
+             size 0.48 28
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style VPPButton
+             font "gui/fonts/sdf_MetronLight72"
+             {
+              ImageWidgetClass ImgActionSeeFlags {
+               ignorepointer 1
+               color 0.91 0.639 0.239 1
+               position 0 0
+               size 24 24
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:vpp_icons image:shield"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass actiontxt6 {
+               ignorepointer 1
+               position 25 0
+               size 1 1
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 0
+               vexactsize 0
+               style None
+               text "See Flags"
                font "gui/fonts/sdf_MetronLight72"
                "exact text" 1
                "exact text size" 14

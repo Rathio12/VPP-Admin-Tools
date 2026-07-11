@@ -15,6 +15,8 @@ class PlayerManager extends PluginBase
 		GetRPCManager().AddRPC("RPC_PlayerManager", "HealPlayers", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "KillPlayers", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "SpectatePlayer", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "ReSpectatePlayer", this, SingeplayerExecutionType.Server);
+		GetRPCManager().AddRPC("RPC_PlayerManager", "GetPlayerFlags", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "TeleportHandle", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "KickPlayer", this, SingeplayerExecutionType.Server);
 		GetRPCManager().AddRPC("RPC_PlayerManager", "BanPlayer", this, SingeplayerExecutionType.Server);
@@ -225,7 +227,7 @@ class PlayerManager extends PluginBase
 						adminPlayer.SetPosition(Vector(tgp.GetPosition()[0],-120,tgp.GetPosition()[2]));
 
 					m_RPCDelay = new Timer();
-					m_RPCDelay.Run(2.0,this,"InvokeSpectate", new Param2<string,string>(data.param1,sender.GetPlainId()),false);
+					m_RPCDelay.Run(2.0,this,"InvokeSpectate", new Param3<string,string,PlayerIdentity>(data.param1,sender.GetPlainId(),sender),false);
 					GetPermissionManager().NotifyPlayer(sender.GetPlainId(),"#VSTR_NOTIFY_SPECTATE",NotifyTypes.NOTIFY);
 					GetWebHooksManager().PostData(AdminActivityMessage, new AdminActivityMessage(sender.GetPlainId(), sender.GetName(), "[PlayerManager] Started to spectate player: "+ data.param1));
 				}
@@ -235,18 +237,95 @@ class PlayerManager extends PluginBase
 		}
 	}
 	
-	void InvokeSpectate(string id, string adminID)
+	void InvokeSpectate(string id, string adminID, PlayerIdentity adminIdentity = NULL)
 	{
 		PlayerBase spectateTarget = GetPermissionManager().GetPlayerBaseByID(id);
 		PlayerBase adminPlayer    = GetPermissionManager().GetPlayerBaseByID(adminID);
 		if (spectateTarget == null) return;
 
-		if (adminPlayer != null){
+		//Admin may already be spectating (no player object) -- fall back to their identity from the request
+		PlayerIdentity identity = adminIdentity;
+		if (adminPlayer != null)
+		{
+			identity = adminPlayer.GetIdentity();
 			GetGame().ObjectDelete(adminPlayer);
-			GetRPCManager().VSendRPC( "RPC_MenuPlayerManager", "InitSpectate", new Param1<Object>(spectateTarget), true, adminPlayer.GetIdentity() );
+		}
+
+		if (identity != null)
+			GetRPCManager().VSendRPC( "RPC_MenuPlayerManager", "InitSpectate", new Param1<Object>(spectateTarget), true, identity );
+	}
+
+	//Re-attach an already-spectating admin to their target (died/respawned/reconnected). No teleport, no delay.
+	void ReSpectatePlayer(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type == CallType.Server && sender != null)
+		{
+			Param1<string> data; //target id
+			if (!ctx.Read(data)) return;
+
+			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(),"PlayerManager:SpectatePlayer","",false)) return;
+			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(),"PlayerManager:SpectatePlayer",data.param1)) return;
+			if (sender.GetPlainId() == data.param1) return;
+
+			PlayerBase tgp = GetPermissionManager().GetPlayerBaseByID(data.param1);
+			if (tgp != null && tgp.IsAlive())
+			{
+				GetRPCManager().VSendRPC("RPC_MenuPlayerManager", "ReInitSpectate", new Param2<Object,vector>(tgp, tgp.GetPosition()), true, sender);
+				GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) spectate re-attached to player: \"%3\"", sender.GetName(), sender.GetPlainId(), data.param1));
+				return;
+			}
+
+			//No body at all: either logged out, or dead and sitting on the respawn screen.
+			//A player who is only respawning still has a connected identity, so use that to
+			//tell the two apart instead of guessing from the missing PlayerBase.
+			if (tgp == null && !IsPlayerOnline(data.param1))
+			{
+				GetRPCManager().VSendRPC("RPC_MenuPlayerManager", "SpectateTargetLost", new Param1<string>(data.param1), true, sender);
+				GetSimpleLogger().Log(string.Format("\"%1\" (steamid=%2) spectate target left the server: \"%3\"", sender.GetName(), sender.GetPlainId(), data.param1));
+			}
+			//else: dead / respawning -> stay attached to the body and keep retrying
 		}
 	}
+
+	//True while the identity is still connected (covers players sitting on the respawn screen)
+	bool IsPlayerOnline(string steamId)
+	{
+		array<Man> players = new array<Man>;
+		GetGame().GetWorld().GetPlayerList(players);
+		foreach(Man man : players)
+		{
+			if (man && man.GetIdentity() && man.GetIdentity().GetPlainId() == steamId)
+				return true;
+		}
+		return false;
+	}
 	
+	//Send the FlagSystem report for one player back to the requesting admin
+	void GetPlayerFlags(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type == CallType.Server && sender != null)
+		{
+			Param1<string> data; //target steam64
+			if (!ctx.Read(data)) return;
+
+			if (!GetPermissionManager().VerifyPermission(sender.GetPlainId(), "PlayerManager:SeeFlags", "", false)) return;
+
+			string playerName = data.param1;
+			string report;
+
+			if (!GetFlagSystem() || !GetFlagSystem().IsEnabled())
+			{
+				report = "The flag system is disabled on this server.\n(Enable it in ConfigurablePlugins/FlagSystem.json)";
+			}
+			else
+			{
+				report = GetFlagSystem().BuildFlagReport(data.param1, playerName);
+			}
+
+			GetRPCManager().VSendRPC("RPC_MenuPlayerManager", "HandlePlayerFlags", new Param2<string,string>(playerName, report), true, sender);
+		}
+	}
+
 	void KillPlayers(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
 	{
         if (type == CallType.Server)

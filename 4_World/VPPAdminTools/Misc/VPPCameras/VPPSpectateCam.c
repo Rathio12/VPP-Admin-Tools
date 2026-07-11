@@ -1,24 +1,72 @@
 class VPPSpectateCam extends Camera
 {
+	static VPPSpectateCam ACTIVE_CAM;
+
 	private vector m_y_p_r_previous;
 	private vector u_d_p_r_previous;
 	private float m_bblUpdateInterval = 0.0;
+	private float m_ReattachTimer = 0.0;
+	private string m_TargetUID;
 	PlayerBase m_FollowObject;
 
 	override void EOnFrame( IEntity other, float timeSlice )
 	{
-		if (m_FollowObject == NULL) return;
-			FollowTarget3PP(timeSlice);
+		if (m_FollowObject)
+		{
+			FollowTarget3PP(timeSlice); //keeps following the body even when target is dead
+
+			if (m_FollowObject.IsAlive())
+			{
+				m_ReattachTimer = 0.0;
+				return;
+			}
+		}
+		else
+		{
+			//No target entity: keep the network bubble alive at the camera position
+			if (m_bblUpdateInterval > 0.5)
+			{
+				GetGame().UpdateSpectatorPosition(GetPosition());
+				m_bblUpdateInterval = 0;
+			}
+			m_bblUpdateInterval = m_bblUpdateInterval + timeSlice;
+		}
+
+		//Target died or entity is gone (respawned far away / disconnected):
+		//keep asking the server to re-attach every 5 seconds until spectate is exited or re-targeted
+		if (!g_Game.IsSpectateMode() || m_TargetUID == string.Empty)
+			return;
+
+		m_ReattachTimer = m_ReattachTimer + timeSlice;
+		if (m_ReattachTimer >= 5.0)
+		{
+			m_ReattachTimer = 0.0;
+			GetRPCManager().VSendRPC("RPC_PlayerManager", "ReSpectatePlayer", new Param1<string>(m_TargetUID), true);
+		}
 	}
-	
+
 	void VPPSpectateCam()
 	{
+		ACTIVE_CAM = this;
 		SetEventMask( EntityEvent.FRAME );
 	}
-	
+
+	void ~VPPSpectateCam()
+	{
+		if (ACTIVE_CAM == this)
+			ACTIVE_CAM = NULL;
+	}
+
+	void SetTargetUID(string uid)
+	{
+		m_TargetUID = uid;
+		m_ReattachTimer = 0.0;
+	}
+
 	void SetTargetObj(PlayerBase target)
 	{
 		m_FollowObject = target;
+		m_ReattachTimer = 0.0;
 		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
 	}
 	

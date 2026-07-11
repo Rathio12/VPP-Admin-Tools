@@ -75,6 +75,7 @@ class MenuPlayerManager extends AdminHudSubMenu
 	private ButtonWidget m_ActionClearInventory;
 	private ButtonWidget m_ActionScalePlayer;
 	private ButtonWidget m_ActionReturnPlayer;
+	private ButtonWidget m_ActionSeeFlags;
 	//----------------
 	
 	//Collapsible action sections--
@@ -85,10 +86,15 @@ class MenuPlayerManager extends AdminHudSubMenu
 	private ref VPPCollapsibleSection m_SectionTools;
 	//----------------
 	
+	protected string m_LastSpectateUID; //steam64 of last spectate target (for auto re-attach)
+
 	void MenuPlayerManager()
 	{
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerStats", this, SingleplayerExecutionType.Client);
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "InitSpectate", this, SingleplayerExecutionType.Client);
+		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "ReInitSpectate", this, SingleplayerExecutionType.Client);
+		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "SpectateTargetLost", this, SingleplayerExecutionType.Client);
+		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerFlags", this, SingleplayerExecutionType.Client);
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "SetPlayerCount", this, SingleplayerExecutionType.Client);
 		GetRPCManager().AddRPC("RPC_MenuPlayerManager", "HandlePlayerModifiers", this, SingleplayerExecutionType.Client);
 		
@@ -192,6 +198,8 @@ class MenuPlayerManager extends AdminHudSubMenu
 		m_ActionClearInventory = ButtonWidget.Cast(M_SUB_WIDGET.FindAnyWidget( "ActionClearInventory"));
 		GetVPPUIManager().HookConfirmationDialog(m_ActionClearInventory, M_SUB_WIDGET, this, "ClearInventoryDiag", DIAGTYPE.DIAG_YESNO, "Clear Inventory", "Remove ALL items from the selected player(s)? This cannot be undone.");
 
+		m_ActionSeeFlags      = ButtonWidget.Cast(M_SUB_WIDGET.FindAnyWidget( "ActionSeeFlags"));
+
 		m_ActionScalePlayer   = ButtonWidget.Cast(M_SUB_WIDGET.FindAnyWidget( "ActionScalePlayer"));
 		GetVPPUIManager().HookConfirmationDialog(m_ActionScalePlayer, M_SUB_WIDGET, this, "PlayerScaleDiag", DIAGTYPE.DIAG_OK_CANCEL_INPUT, "Set Scale", "Insert value to change to, between 0.01 and 100.0 (Some specific values will result in the player to be frozen and uncontrollable. To avoid, use rounded numbers)");
 		//--------------
@@ -284,7 +292,9 @@ class MenuPlayerManager extends AdminHudSubMenu
 		m_ActionStopBleeding.Enable(pCount >= 1);
 		m_ActionSetPosition.Enable(pCount >= 1);
 		m_ActionClearInventory.Enable(pCount >= 1);
-		m_ActionSpectate.Enable(pCount == 1 & !g_Game.IsSpectateMode());
+		m_ActionSpectate.Enable(pCount == 1); //allowed while spectating -> switches target
+		if (m_ActionSeeFlags)
+			m_ActionSeeFlags.Enable(pCount == 1);
 		
 		//Sliders apply btns
 		m_BtnApplyHealth.Enable(pCount >= 1);
@@ -383,7 +393,12 @@ class MenuPlayerManager extends AdminHudSubMenu
 			case m_ActionSpectate:
 			SpectateTarget();
 			break;
-			
+
+			case m_ActionSeeFlags:
+			if (GetSelectedPlayersIDs().Count() == 1)
+				GetRPCManager().VSendRPC("RPC_PlayerManager", "GetPlayerFlags", new Param1<string>(GetSelectedPlayersIDs()[0]), true);
+			break;
+
 			case m_ActionTpToMe:
 			GetRPCManager().VSendRPC("RPC_PlayerManager","TeleportHandle",new Param2<VPPAT_TeleportType,ref array<string>>(VPPAT_TeleportType.BRING,GetSelectedPlayersIDs()),true);
 			break;
@@ -697,19 +712,93 @@ class MenuPlayerManager extends AdminHudSubMenu
 					GetGame().ObjectDelete(GetGame().GetPlayer());
 					GetGame().SelectPlayer(null, null);
 				}
-				
-				VPPSpectateCam cam = VPPSpectateCam.Cast(GetGame().CreateObject( "VPPSpectateCam", data.param1.GetPosition(),true ));
+
+				//Reuse the active camera when switching targets mid-spectate
+				VPPSpectateCam cam = VPPSpectateCam.ACTIVE_CAM;
+				if (!cam)
+					cam = VPPSpectateCam.Cast(GetGame().CreateObject( "VPPSpectateCam", data.param1.GetPosition(),true ));
+
 				cam.SetTargetObj(PlayerBase.Cast(data.param1));
+				cam.SetTargetUID(m_LastSpectateUID);
 				cam.SetActive(true);
 				g_Game.SetSpectateMode(true);
 			}
 		}
 	}
 
+	//Server says the spectated player left the server: stop spectating and go back to our body
+	//instead of leaving the admin stuck in a camera that can never re-attach.
+	void SpectateTargetLost(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type != CallType.Client)
+			return;
+
+		Param1<string> data;
+		if (!ctx.Read(data))
+			return;
+
+		if (!g_Game.IsSpectateMode())
+			return;
+
+		GetVPPUIManager().DisplayNotification("Spectated player left the server. Returning you to your character.", "V++ Admin Tools:", 6.0);
+
+		MissionGameplay mission = MissionGameplay.Cast(GetGame().GetMission());
+		if (mission)
+			mission.ExitSpectate();
+	}
+
+	//Server callback when re-attaching spectate to a dead/respawned/reconnected target
+	void ReInitSpectate(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		Param2<Object, vector> data;
+		if (!ctx.Read(data)) return;
+
+		if (type == CallType.Client)
+		{
+			VPPSpectateCam cam = VPPSpectateCam.ACTIVE_CAM;
+			if (!cam || !g_Game.IsSpectateMode())
+				return;
+
+			if (data.param1)
+			{
+				cam.SetTargetObj(PlayerBase.Cast(data.param1));
+				cam.SetActive(true);
+			}
+			else
+			{
+				//Target exists server-side but isn't streamed in on this client yet;
+				//move the camera to their position so the network bubble catches up, next retry attaches
+				cam.SetPosition(Vector(data.param2[0], data.param2[1] + 3.0, data.param2[2]));
+				GetGame().UpdateSpectatorPosition(cam.GetPosition());
+			}
+		}
+	}
+
+	//Server sends back the flag report for the selected player
+	void HandlePlayerFlags(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+	{
+		if (type != CallType.Client)
+			return;
+
+		Param2<string, string> data; //player name, report body
+		if (!ctx.Read(data))
+			return;
+
+		VPPDialogBox diag = GetVPPUIManager().CreateDialogBox(M_SUB_WIDGET);
+		if (diag)
+			diag.InitDiagBox(DIAGTYPE.DIAG_OK, string.Format("Flags: %1", data.param1), data.param2, this, "OnFlagsDialogClosed");
+	}
+
+	void OnFlagsDialogClosed(int result)
+	{
+		//nothing to do, dialog closes itself
+	}
+
 	void SpectateTarget()
 	{
 		GetVPPUIManager().DisplayNotification("#VSTR_NOTIFY_SPECTATE_REQ");
-		GetRPCManager().VSendRPC("RPC_PlayerManager", "SpectatePlayer", new Param1<string>(GetSelectedPlayersIDs()[0]), true);
+		m_LastSpectateUID = GetSelectedPlayersIDs()[0];
+		GetRPCManager().VSendRPC("RPC_PlayerManager", "SpectatePlayer", new Param1<string>(m_LastSpectateUID), true);
 	}
 	
 	void KillSelectedPlayers(int result)

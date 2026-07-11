@@ -52,6 +52,17 @@ modded class PluginAdminLog
 
 			if (player.GetIdentity() == null) return;
 
+			//FlagSystem: remember the last hit per victim for kill attribution (zone/weapon/distance)
+			if (GetFlagSystem() && GetFlagSystem().IsEnabled())
+			{
+				PlayerBase flagAtk = PlayerBase.Cast(source);
+				if (!flagAtk && source.GetHierarchyRootPlayer())
+					flagAtk = PlayerBase.Cast(source.GetHierarchyRootPlayer());
+
+				if (flagAtk && flagAtk != player)
+					GetFlagSystem().OnPlayerHit(player, flagAtk, dmgZone, ammo, source);
+			}
+
 			rpt.victimName = player.VPlayerGetName();
 			rpt.victimId   = player.VPlayerGetSteamId();
 
@@ -186,10 +197,14 @@ modded class PluginAdminLog
 		super.PlayerHitBy( damageResult, damageType, player, source, component, dmgZone, ammo );
 	}
 
-	override void PlayerKilled( PlayerBase player, Object source )  
+	override void PlayerKilled( PlayerBase player, Object source )
 	{
 		if ( player && source )
 		{
+			//FlagSystem: analyze the kill (hit zone, distance, headshot rate)
+			if (GetFlagSystem() && GetFlagSystem().IsEnabled())
+				GetFlagSystem().OnPlayerKilled(player, source);
+
 			string PlayerPrefix = VPPGetPlayerPrefix( player.GetPosition(), player );
 			string PlayerPrefix2 = "";
 			KillDeathMessage rpt = new KillDeathMessage();
