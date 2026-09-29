@@ -717,8 +717,8 @@ class VPPWebhookTemplate : Managed
 	static string EscapeJson(string value)
 	{
 		string escaped = value;
-		escaped.Replace("\\", "\\\\");
-		escaped.Replace("\"", "\\\"");
+		escaped.Replace("\\", "\\" + "\\");
+		escaped.Replace("\"", "\\" + "\"");
 		escaped.Replace("\n", "\\n");
 		int carriageCode = 13;
 		string carriage = carriageCode.AsciiToString();
