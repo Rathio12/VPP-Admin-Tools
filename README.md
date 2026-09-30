@@ -1,59 +1,73 @@
 <div align="center">
 
-<img src="https://i.imgur.com/3bu7aN9.png" alt="VPP Admin Tools" width="128" height="128">
+<img src="https://i.imgur.com/3bu7aN9.png" alt="VPP Admin Tools" width="120" height="120">
 
 # VPP Admin Tools
 
-**Administration toolkit for DayZ servers, by Vanilla++**
+*The complete administration suite for DayZ servers — by Vanilla++*
 
-[![License: SARL v1.0](https://img.shields.io/badge/license-Source--Available-orange)](LICENSE)
-[![Workshop](https://img.shields.io/badge/Steam-Workshop-1b2838?logo=steam&logoColor=white)](https://steamcommunity.com/sharedfiles/filedetails/?id=3798147467)
-[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.dayzvpp.com)
-[![Website](https://img.shields.io/badge/dayzvpp.com-visit-blue)](https://www.dayzvpp.com)
+[![License](https://img.shields.io/badge/LICENSE-SOURCE--AVAILABLE-orange?style=for-the-badge)](LICENSE)
+[![Steam Workshop](https://img.shields.io/badge/STEAM-WORKSHOP-1b2838?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/sharedfiles/filedetails/?id=3798147467)
+[![Discord](https://img.shields.io/badge/DISCORD-JOIN-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.dayzvpp.com)
+[![Website](https://img.shields.io/badge/WEBSITE-DAYZVPP.COM-2ea44f?style=for-the-badge)](https://www.dayzvpp.com)
+
+<sub>
+
+[![Stars](https://img.shields.io/github/stars/VanillaPlusPlus/VPP-Admin-Tools?style=flat-square&logo=github&label=stars&color=lightgrey)](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/stargazers)
+[![Forks](https://img.shields.io/github/forks/VanillaPlusPlus/VPP-Admin-Tools?style=flat-square&logo=github&label=forks&color=lightgrey)](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/network/members)
+[![Contributors](https://img.shields.io/github/contributors/VanillaPlusPlus/VPP-Admin-Tools?style=flat-square&logo=github&color=lightgrey)](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/graphs/contributors)
+[![Open Issues](https://img.shields.io/github/issues/VanillaPlusPlus/VPP-Admin-Tools?style=flat-square&logo=github&color=lightgrey)](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/VanillaPlusPlus/VPP-Admin-Tools?style=flat-square&logo=github&color=lightgrey)](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/commits)
+[![DayZ](https://img.shields.io/badge/dayz-1.29-lightgrey?style=flat-square)](#compatibility)
+
+</sub>
 
 </div>
 
-## Table of Contents
-- [About](#about)
-- [Features](#features)
-- [Compatibility](#compatibility)
-- [Installation & Configuration](#installation--configuration)
-- [License](#license)
-- [Support the Team](#support-the-team)
-
-## About
+<br>
 
 VPP Admin Tools is a feature-rich DayZ Workshop add-on that gives server
 administrators a full toolkit for managing their community, while keeping
 installation and configuration simple for new and advanced users alike.
 
-## Features
+<br>
 
-- **Player Manager** — search, view stats, teleport, heal/kill, strip, and manage any connected player
-- **Object Manager** — find, edit, teleport, and clean up world objects and base-building structures
-- **Item Manager** — spawn presets, inventory tools, and quick item actions
-- **ESP Tools** — player/vehicle/loot tracking overlay with distance, health, and admin highlighting, built for moderation
-- **Spectate** — follow any player's camera, with automatic re-attach on death/reconnect
-- **XML Editor** — browse and edit `types.xml`, events, and spawnables directly in-game, with backups
-- **WebHooks** — send templated Discord/webhook messages for server events (kills, joins, admin actions, and more)
-- **Chat Commands** — a configurable set of admin chat commands (teleport, spawn, heal, kill, and more)
-- **Permission Manager** — group-based permissions so you can delegate admin power safely
-- **Flag System** — automatically flags suspicious kills (range/headshot vs. playtime) for admin review, with optional Discord alerts
+## ✨ Features
 
-## Compatibility
+|  |  |  |
+|:---|---|:---|
+| 👤 | **Player Manager** | Search, view stats, teleport, heal/kill, strip, and manage any connected player |
+| 🏗️ | **Object Manager** | Find, edit, teleport, and clean up world objects and base-building structures |
+| 📦 | **Item Manager** | Spawn presets, inventory tools, and quick item actions |
+| 👁️ | **ESP Tools** | Player/vehicle/loot tracking overlay within a configurable radius |
+| 🎥 | **Spectate** | Follow any player's camera, with automatic re-attach on death/reconnect |
+| 📝 | **XML Editor** | Browse and edit `types.xml`, events, and spawnables in-game, with backups |
+| 🔔 | **WebHooks** | Templated Discord/webhook messages for kills, joins, admin actions, and more |
+| 💬 | **Chat Commands** | Configurable admin chat commands: teleport, spawn, heal, kill, and more |
+| 🔐 | **Permission Manager** | Group-based permissions so you can delegate admin power safely |
+
+<br>
+
+## ⚙️ Installation & Configuration
+
+| | |
+|---|---|
+| 🖥️ [Dedicated Server / Local](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki/Installation-&-Configuration) | Setup for self-hosted and rented dedicated boxes |
+| ☁️ [Game Service Provider](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki) | Setup notes for common GSP control panels |
+| 📖 [Full Wiki](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki) | Everything else: config reference, permissions, troubleshooting |
+
+<br>
+
+## 🎯 Compatibility
 
 The current release targets **DayZ 1.29**. Some code in this repository
 (webhooks rework, XML Editor, and related changes) was written against
 **DayZ 1.30** and is not yet part of a published release — it will ship
 once servers move to 1.30.
 
-## Installation & Configuration
+<br>
 
-- [Dedicated Server / Local](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki/Installation-&-Configuration)
-- [Game Service Provider](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki)
-- [Full Wiki](https://github.com/VanillaPlusPlus/VPP-Admin-Tools/wiki)
-
-## License
+## 📄 License
 
 VPP Admin Tools is **source-available, not open-source**: the repository
 is public for reference and for building independent, interoperable
@@ -61,10 +75,16 @@ addons, but repacking, redistributing, or copying any part of it into
 another project is not permitted. Read the full terms in [LICENSE](LICENSE)
 before reusing anything from this repository.
 
-## Support the Team
+<br>
 
-Development is funded by the community. If VPP Admin Tools helps your
-server, consider supporting the team: ❤️
+<div align="center">
 
-- [DaOne](https://www.dayzvpp.com/donate)
-- [GravityWolf](http://paypal.me/GravityWolf)
+### 💛 Support the Team
+
+Development is funded by the community — if VPP Admin Tools helps your server, consider chipping in.
+
+[**DaOne**](https://www.dayzvpp.com/donate) · [**GravityWolf**](http://paypal.me/GravityWolf)
+
+<sub>Made for the DayZ community by <a href="https://www.dayzvpp.com">Vanilla++</a></sub>
+
+</div>
