@@ -83,7 +83,8 @@ before reusing anything from this repository.
 
 Development is funded by the community — if VPP Admin Tools helps your server, consider chipping in.
 
-[**DaOne**](https://www.dayzvpp.com/donate) · [**GravityWolf**](http://paypal.me/GravityWolf)
+[![PayPal - DaOne](https://img.shields.io/badge/PayPal-DaOne-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/duhonez)
+[![PayPal - GravityWolf](https://img.shields.io/badge/PayPal-GravityWolf-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/GravityWolf)
 
 <sub>Made for the DayZ community by <a href="https://www.dayzvpp.com">Vanilla++</a></sub>
 
