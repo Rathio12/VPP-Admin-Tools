@@ -60,10 +60,10 @@ installation and configuration simple for new and advanced users alike.
 
 ## Compatibility
 
-The current release targets **DayZ 1.29**. Some code in this repository
-(webhooks rework, XML Editor, and related changes) was written against
-**DayZ 1.30** and is not yet part of a published release — it will ship
-once servers move to 1.30.
+The current release, published on the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1828439124),
+targets **DayZ 1.29**. Some code in this repository (webhooks rework, XML
+Editor, and related changes) was written against **DayZ 1.30** and is not
+yet part of that published release — it will ship once servers move to 1.30.
 
 <br>
 
