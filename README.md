@@ -7,7 +7,7 @@
 *The complete administration suite for DayZ servers — by Vanilla++*
 
 [![License](https://img.shields.io/badge/LICENSE-SOURCE--AVAILABLE-orange?style=for-the-badge)](LICENSE)
-[![Steam Workshop](https://img.shields.io/badge/STEAM-WORKSHOP-1b2838?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/sharedfiles/filedetails/?id=3798147467)
+[![Steam Workshop](https://img.shields.io/badge/STEAM-WORKSHOP-1b2838?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/sharedfiles/filedetails/?id=1828439124)
 [![Discord](https://img.shields.io/badge/DISCORD-JOIN-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.dayzvpp.com)
 [![Website](https://img.shields.io/badge/WEBSITE-DAYZVPP.COM-2ea44f?style=for-the-badge)](https://www.dayzvpp.com)
 
